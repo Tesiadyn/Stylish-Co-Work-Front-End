@@ -18,7 +18,6 @@ root.render(
         <Route path="checkout" element={<Checkout />} />
         <Route path="thankyou" element={<ThankYou />} />
         <Route path="profile" element={<Profile />} />
-        <Route path="luckyColor" element={<LuckyColor />}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>

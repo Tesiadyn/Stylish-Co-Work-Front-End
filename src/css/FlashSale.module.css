@@ -193,7 +193,7 @@
 }
 
 .buy:hover::after{
-    transform: scale(1.1, 1.5);
+    transform: scale(1.04, 1.5);
     opacity: 0;
 }
 
@@ -340,6 +340,9 @@
         letter-spacing: 4px;
         border: 1px solid #979797;
         margin-top: 26px;
+    }
+    .buy:hover::after{
+        transform: scale(1.1, 1.5);
     }
     .detail{
         width: 200px;

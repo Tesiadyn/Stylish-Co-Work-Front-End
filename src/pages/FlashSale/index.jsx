@@ -2,8 +2,18 @@ import flashsale from '../../css/FlashSale.module.css'
 import mainImage from './main.jpg'
 import image0 from './0.jpg'
 import image1 from './1.jpg'
+import { useState } from 'react'
 
 const FlashSale = () => {
+
+    const colors = ['a', 'b', 'c']
+    const sizes = ['S', 'M', 'L']
+    const [activeColor, setActiveColor] = useState('')
+
+    const handleColor = (color) => {
+        setActiveColor(color)
+    }
+
     return (
         <>
             <div className={flashsale.container}>
@@ -18,17 +28,17 @@ const FlashSale = () => {
                     <div className={flashsale.selectColors}>
                         <p>顏色</p>
                         <div className={flashsale.colors}>
-                            <div className={flashsale.active}><div></div></div>
-                            <div><div></div></div>
-                            <div><div></div></div>
+                            {colors.map(color => (
+                                <div onClick={() => handleColor(color)} key={color} className={color === activeColor ? flashsale.active : ''}><div></div></div>
+                            ))}
                         </div>
                     </div>
                     <div className={flashsale.selectSize}>
                         <p>尺寸</p>
                         <div className={flashsale.size}>
-                            <div>S</div>
-                            <div>M</div>
-                            <div>L</div>
+                            {sizes.map(size => (
+                                <div key={size}>{size}</div>
+                            ))}
                         </div>
                     </div>
                     <div className={flashsale.selectCount}>

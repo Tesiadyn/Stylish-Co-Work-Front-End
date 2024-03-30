@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Game.module.css";
 const Game = () => {
   const [chance, setChance] = useState(3);
@@ -23,6 +23,12 @@ const Game = () => {
     // const data= await response.json()
     // setcoupon(data)
   }
+  // useEffect(async function getData() {
+  //     const response= await fetch('xxxxxxxx')
+  // const data= await response.json()
+  // setcoupon(data)
+  // setchance()
+  // }, []);
   function handleButtonClick() {
     setChance((c) => c - 1);
     setCardClassName(thecard);

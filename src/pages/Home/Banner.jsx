@@ -5,13 +5,13 @@ import newApi from "../../utils/newApi";
 import api from "../../utils/api";
 const Banner = () => {
   const { modal, closedModal } = styles;
-  const [modalClassName, setModalClassName] = useState(closedModal);
+  const [modalClassName, setModalClassName] = useState(modal);
   useEffect(() => {
     // (async function getUserData(){
     //     const data=await newApi.getUserData()
     //     // if chance >0 ==> setModalClassName(modal)
     // })()
-    ////////////////test
+    //////////////test
     // (async function getCampaigns() {
     //   const { data } = await api.getCampaigns();
     //   if (data.length > 0) setModalClassName(modal);
@@ -35,7 +35,7 @@ const Banner = () => {
           <div className={styles.modalBody}>
             <p>玩遊戲抽優惠券！</p>
             <a href="/game">
-              <button>登入後進入遊戲</button>
+              <button>進入遊戲</button>
             </a>
           </div>
         </div>

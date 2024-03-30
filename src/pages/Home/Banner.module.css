@@ -28,8 +28,6 @@
     0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-/* Add Animation */
-
 /* The Close Button */
 .close {
   color: white;
@@ -64,15 +62,9 @@
 .modalBody button {
   margin: 10px auto;
   display: block;
-  /* width: 100px; */
   height: 44px;
   font-size: 16px;
   letter-spacing: 3.2px;
   color: white;
   background-color: #000;
-}
-.modalFooter {
-  padding: 2px 16px;
-  background-color: #5cb85c;
-  color: white;
 }

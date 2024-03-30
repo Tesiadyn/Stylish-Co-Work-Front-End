@@ -1,5 +1,17 @@
 import styled from "styled-components";
+import { useRef, useState } from "react";
 import exPic from "./images/zodiac.jpg";
+
+// import Swiper from "swiper";
+// import { SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
+import "./swiper.css";
+
+import { register } from "swiper/element/bundle";
+register();
 
 const Container = styled.div`
   width: 70%;
@@ -107,11 +119,17 @@ const MoreProductIntro = styled.h2`
   margin-bottom: 20px;
 `;
 const MoreProductContainer = styled.div`
-  width: 50%;
+  width: 60%;
   background-color: beige;
   height: 250px;
   display: flex;
   margin: 0 auto;
+  @media screen and (max-width: 1279px) {
+    width: 100%;
+  }
+`;
+const MoreProductAnchor = styled.a`
+  cursor: pointer;
 `;
 const MoreProductDiv = styled.div`
   height: 100%;
@@ -140,10 +158,10 @@ const MoreProductColor = styled.li`
 `;
 const MoreProductTitle = styled.h3`
   color: #fff;
-  margin-top: 10px;
+  margin: 10px 0 0 8px;
 `;
 const MoreProductPrice = styled.p`
-  margin-top: 10px;
+  margin: 10px 0 0 8px;
   color: #fff;
 `;
 /* -------------------------------- component ------------------------------- */
@@ -193,45 +211,117 @@ const Color = () => {
         <MoreProductDivider />
         <MoreProductIntro>更多相似色產品</MoreProductIntro>
         <MoreProductContainer>
-          <MoreProductDiv>
-            <MoreProductImgDiv>
-              <MoreProductImg />
-            </MoreProductImgDiv>
-            <MoreProductColors>
-              <MoreProductColor></MoreProductColor>
-              <MoreProductColor></MoreProductColor>
-              <MoreProductColor></MoreProductColor>
-            </MoreProductColors>
-            <MoreProductTitle>小扇紋細織上衣</MoreProductTitle>
+          <Swiper
+            slidesPerView={3}
+            spaceBetween={1}
+            pagination={{
+              clickable: true,
+            }}
+            modules={[Pagination]}
+            className="mySwiper"
+          >
+            <SwiperSlide>
+              <MoreProductAnchor>
+                <MoreProductDiv>
+                  <MoreProductImgDiv>
+                    <MoreProductImg />
+                  </MoreProductImgDiv>
+                  <MoreProductColors>
+                    <MoreProductColor></MoreProductColor>
+                    <MoreProductColor></MoreProductColor>
+                    <MoreProductColor></MoreProductColor>
+                  </MoreProductColors>
+                  <MoreProductTitle>小扇紋細織上衣</MoreProductTitle>
+                  <MoreProductPrice>NT. 1299</MoreProductPrice>
+                </MoreProductDiv>
+              </MoreProductAnchor>
+            </SwiperSlide>
 
-            <MoreProductPrice>NT. 1299</MoreProductPrice>
-          </MoreProductDiv>
-          <MoreProductDiv>
-            <MoreProductImgDiv>
-              <MoreProductImg />
-            </MoreProductImgDiv>
-            <MoreProductColors>
-              <MoreProductColor></MoreProductColor>
-              <MoreProductColor></MoreProductColor>
-              <MoreProductColor></MoreProductColor>
-            </MoreProductColors>
-            <MoreProductTitle>小扇紋細織上衣</MoreProductTitle>
+            <SwiperSlide>
+              <MoreProductAnchor>
+                <MoreProductDiv>
+                  <MoreProductImgDiv>
+                    <MoreProductImg />
+                  </MoreProductImgDiv>
+                  <MoreProductColors>
+                    <MoreProductColor></MoreProductColor>
+                    <MoreProductColor></MoreProductColor>
+                    <MoreProductColor></MoreProductColor>
+                  </MoreProductColors>
+                  <MoreProductTitle>小扇紋細織上衣</MoreProductTitle>
+                  <MoreProductPrice>NT. 1299</MoreProductPrice>
+                </MoreProductDiv>
+              </MoreProductAnchor>
+            </SwiperSlide>
 
-            <MoreProductPrice>NT. 1299</MoreProductPrice>
-          </MoreProductDiv>
-          <MoreProductDiv>
-            <MoreProductImgDiv>
-              <MoreProductImg />
-            </MoreProductImgDiv>
-            <MoreProductColors>
-              <MoreProductColor></MoreProductColor>
-              <MoreProductColor></MoreProductColor>
-              <MoreProductColor></MoreProductColor>
-            </MoreProductColors>
-            <MoreProductTitle>小扇紋細織上衣</MoreProductTitle>
+            <SwiperSlide>
+              <MoreProductAnchor>
+                <MoreProductDiv>
+                  <MoreProductImgDiv>
+                    <MoreProductImg />
+                  </MoreProductImgDiv>
+                  <MoreProductColors>
+                    <MoreProductColor></MoreProductColor>
+                    <MoreProductColor></MoreProductColor>
+                    <MoreProductColor></MoreProductColor>
+                  </MoreProductColors>
+                  <MoreProductTitle>小扇紋細織上衣</MoreProductTitle>
+                  <MoreProductPrice>NT. 1299</MoreProductPrice>
+                </MoreProductDiv>
+              </MoreProductAnchor>
+            </SwiperSlide>
 
-            <MoreProductPrice>NT. 1299</MoreProductPrice>
-          </MoreProductDiv>
+            <SwiperSlide>
+              <MoreProductAnchor>
+                <MoreProductDiv>
+                  <MoreProductImgDiv>
+                    <MoreProductImg />
+                  </MoreProductImgDiv>
+                  <MoreProductColors>
+                    <MoreProductColor></MoreProductColor>
+                    <MoreProductColor></MoreProductColor>
+                    <MoreProductColor></MoreProductColor>
+                  </MoreProductColors>
+                  <MoreProductTitle>小扇紋細織上衣</MoreProductTitle>
+                  <MoreProductPrice>NT. 1299</MoreProductPrice>
+                </MoreProductDiv>
+              </MoreProductAnchor>
+            </SwiperSlide>
+
+            <SwiperSlide>
+              <MoreProductAnchor>
+                <MoreProductDiv>
+                  <MoreProductImgDiv>
+                    <MoreProductImg />
+                  </MoreProductImgDiv>
+                  <MoreProductColors>
+                    <MoreProductColor></MoreProductColor>
+                    <MoreProductColor></MoreProductColor>
+                    <MoreProductColor></MoreProductColor>
+                  </MoreProductColors>
+                  <MoreProductTitle>小扇紋細織上衣</MoreProductTitle>
+                  <MoreProductPrice>NT. 1299</MoreProductPrice>
+                </MoreProductDiv>
+              </MoreProductAnchor>
+            </SwiperSlide>
+
+            <SwiperSlide>
+              <MoreProductAnchor>
+                <MoreProductDiv>
+                  <MoreProductImgDiv>
+                    <MoreProductImg />
+                  </MoreProductImgDiv>
+                  <MoreProductColors>
+                    <MoreProductColor></MoreProductColor>
+                    <MoreProductColor></MoreProductColor>
+                    <MoreProductColor></MoreProductColor>
+                  </MoreProductColors>
+                  <MoreProductTitle>小扇紋細織上衣</MoreProductTitle>
+                  <MoreProductPrice>NT. 1299</MoreProductPrice>
+                </MoreProductDiv>
+              </MoreProductAnchor>
+            </SwiperSlide>
+          </Swiper>
         </MoreProductContainer>
       </Container>
     </>

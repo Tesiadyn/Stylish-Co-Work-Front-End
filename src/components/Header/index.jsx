@@ -9,6 +9,7 @@ import logo from './logo.png';
 import profileMobile from './profile-mobile.png';
 import profile from './profile.png';
 import search from './search.png';
+import EntryPoint from './entry-leo.png';
 
 const Wrapper = styled.div`
   position: fixed;
@@ -224,6 +225,22 @@ const PageLinkText = styled.div`
     color: white;
   }
 `;
+const ZodiacEntryDiv = styled.div`
+  display: flex;
+  align-items: center;
+  background-color: #7b7676;
+  border-radius: 8px;
+  padding: 4px;
+`
+const ZodiacEntryImg = styled.img`
+`
+
+
+const ZodiacEntryText = styled.p`
+  margin-left: 8px;
+  color: #f7f7f7;
+`
+
 
 const categories = [
   {
@@ -272,6 +289,10 @@ function Header() {
           </CategoryLink>
         ))}
       </CategoryLinks>
+      <ZodiacEntryDiv>
+        <ZodiacEntryImg src={EntryPoint}/>
+          <ZodiacEntryText>星座幸運色單品</ZodiacEntryText>
+        </ZodiacEntryDiv>
       <SearchInput
         onKeyPress={(e) => {
           if (e.key === 'Enter') {

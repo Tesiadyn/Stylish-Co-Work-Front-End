@@ -33,9 +33,13 @@ const Banner = () => {
             <h2></h2>
           </div>
           <div className={styles.modalBody}>
-            <p>玩遊戲抽優惠券！</p>
+            <figure>
+              <img src="/src/assets/color_coupon.png" alt="colorCoupon" />
+            </figure>
+            <p>週年慶抽獎活動</p>
+            <p>天天抽會員專屬優惠券</p>
             <a href="/game">
-              <button>進入遊戲</button>
+              <button>立即領取</button>
             </a>
           </div>
         </div>

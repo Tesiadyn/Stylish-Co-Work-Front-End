@@ -10,6 +10,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "./swiper.css";
 
+
 import { register } from "swiper/element/bundle";
 register();
 
@@ -24,14 +25,20 @@ const DropDownMenu = styled.select`
   height: 35px;
   text-align: center;
   border-radius: 8px;
+  font-size: 20px;
   @media screen and (max-width: 1279px) {
     margin: 0 auto;
   }
 `;
 DropDownMenu.displayName = "DropDownMenu";
 
+const DropDownOptGroup = styled.optgroup`
+  color: #a5b3b4;
+`;
+
 const DropDownOption = styled.option`
   color: #000;
+  text-align: center;
 `;
 const InfoContainer = styled.div`
   width: 100%;
@@ -46,6 +53,7 @@ const InfoContainer = styled.div`
 const InfoImgDiv = styled.div`
   height: 100%;
   width: 50%;
+  overflow: hidden;
   background-color: beige;
   @media screen and (max-width: 1279px) {
     width: auto;
@@ -53,7 +61,7 @@ const InfoImgDiv = styled.div`
   }
 `;
 const InfoImg = styled.div`
-  max-width: 100%;
+  width: 960px;
   height: 100%;
   background-image: url(${exPic});
   background-size: 100% 100%;
@@ -164,24 +172,36 @@ const MoreProductPrice = styled.p`
   margin: 10px 0 0 8px;
   color: #fff;
 `;
+
+
+
+
 /* -------------------------------- component ------------------------------- */
 const Color = () => {
   return (
     <>
       <Container>
         <DropDownMenu>
-          <DropDownOption>1</DropDownOption>
-          <DropDownOption>2</DropDownOption>
-          <DropDownOption>3</DropDownOption>
-          <DropDownOption>4</DropDownOption>
-          <DropDownOption>5</DropDownOption>
-          <DropDownOption>6</DropDownOption>
-          <DropDownOption>7</DropDownOption>
-          <DropDownOption>8</DropDownOption>
-          <DropDownOption>9</DropDownOption>
-          <DropDownOption>10</DropDownOption>
-          <DropDownOption>11</DropDownOption>
-          <DropDownOption>12</DropDownOption>
+          <DropDownOptGroup label="fire">
+            <DropDownOption>1</DropDownOption>
+            <DropDownOption>2</DropDownOption>
+            <DropDownOption>3</DropDownOption>
+          </DropDownOptGroup>
+          <DropDownOptGroup label="earth">
+            <DropDownOption>4</DropDownOption>
+            <DropDownOption>5</DropDownOption>
+            <DropDownOption>6</DropDownOption>
+          </DropDownOptGroup>
+          <DropDownOptGroup label="water">
+            <DropDownOption>7</DropDownOption>
+            <DropDownOption>8</DropDownOption>
+            <DropDownOption>9</DropDownOption>
+          </DropDownOptGroup>
+          <DropDownOptGroup label="wind">
+            <DropDownOption>10</DropDownOption>
+            <DropDownOption>11</DropDownOption>
+            <DropDownOption>12</DropDownOption>
+          </DropDownOptGroup>
         </DropDownMenu>
         <InfoContainer>
           <InfoImgDiv>
@@ -323,6 +343,7 @@ const Color = () => {
             </SwiperSlide>
           </Swiper>
         </MoreProductContainer>
+        
       </Container>
     </>
   );

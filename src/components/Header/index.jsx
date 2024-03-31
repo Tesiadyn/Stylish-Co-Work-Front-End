@@ -10,6 +10,7 @@ import profileMobile from "./profile-mobile.png";
 import profile from "./profile.png";
 import search from "./search.png";
 import EntryPoint from "./entry-leo.png";
+import { TypeAnimation } from "react-type-animation";
 
 const Wrapper = styled.div`
   position: fixed;
@@ -156,6 +157,11 @@ const PageLink = styled(Link)`
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    &.header {
+      @media screen and (max-width: 1279px) {
+        width: auto;
+      }
+    }
   }
 
   & + & {
@@ -233,7 +239,8 @@ const ZodiacEntryDiv = styled.a`
   padding: 4px;
   cursor: pointer;
   margin-left: auto;
-  @media screen and (max-width: 1279px) {
+  box-shadow: 3px 4px 6px rgba(123, 118, 118, 0.5);
+  @media screen and (max-width: 1420px) {
     display: none;
   }
 `;
@@ -243,7 +250,7 @@ const ZodiacEntryText = styled.p`
   margin-left: 8px;
   color: #f7f7f7;
 `;
-const AnnounceDiv = styled.a`
+const AnnounceDiv = styled(Link)`
   background-color: #000;
   position: fixed;
   height: 20px;
@@ -251,14 +258,15 @@ const AnnounceDiv = styled.a`
   text-align: center;
   display: none;
   cursor: pointer;
-  @media screen and (max-width: 1279px) {
+  z-index: 99;
+  @media screen and (max-width: 1420px) {
     display: block;
   }
 `;
 const AnnounceText = styled.p`
   color: #fff;
   display: none;
-  @media screen and (max-width: 1279px) {
+  @media screen and (max-width: 1420px) {
     display: block;
   }
 `;
@@ -311,10 +319,12 @@ function Header() {
             </CategoryLink>
           ))}
         </CategoryLinks>
-        <ZodiacEntryDiv>
-          <ZodiacEntryImg src={EntryPoint} />
-          <ZodiacEntryText>星座幸運色單品</ZodiacEntryText>
-        </ZodiacEntryDiv>
+        <PageLink className="header" to="/color">
+          <ZodiacEntryDiv>
+            <ZodiacEntryImg src={EntryPoint} />
+            <ZodiacEntryText>星座幸運色單品</ZodiacEntryText>
+          </ZodiacEntryDiv>
+        </PageLink>
         <SearchInput
           onKeyPress={(e) => {
             if (e.key === "Enter") {
@@ -337,8 +347,47 @@ function Header() {
           </PageLink>
         </PageLinks>
       </Wrapper>
-      <AnnounceDiv>
-        <AnnounceText>星座幸運色推薦 | 找到你的專屬單品</AnnounceText>
+
+      <AnnounceDiv to="/color">
+        <AnnounceText>
+          <TypeAnimation
+            sequence={[
+              "牡羊",
+              1000,
+              "金牛",
+              1000,
+              "雙子",
+              1000,
+              "巨蟹",
+              1000,
+              "獅子",
+              1000,
+              "處女",
+              1000,
+              "天坪",
+              1000,
+              "天蠍",
+              1000,
+              "射手",
+              1000,
+              "摩羯",
+              1000,
+              "水瓶",
+              1000,
+              "雙魚",
+              1000,
+              () => {
+                console.log("Sequence completed");
+              },
+            ]}
+            wrapper="span"
+            cursor={true}
+            repeat={Infinity}
+            style={{ fontSize: "16+px", display: "inline-block" }}
+            speed={60}
+          />
+          座幸運色推薦 | 找到你的專屬單品
+        </AnnounceText>
       </AnnounceDiv>
     </>
   );

@@ -15,6 +15,8 @@
 
 /* Modal Content */
 .modalContent {
+  display: flex;
+  flex-direction: column;
   position: relative;
   background-color: #fefefe;
   margin: auto;
@@ -40,17 +42,36 @@
 .label {
   flex-wrap: wrap;
   display: flex;
-  /* width: calc(100% - 13px); */
+}
+.couponIcon {
+  width: 60px;
+  padding: 30px 0 0 10px;
+}
+.couponIconDisabled {
+  width: 60px;
+  padding: 30px 0 0 10px;
+  opacity: 0.1;
+}
+.figcaptionDisabled {
+  margin-left: 10px;
+  color: #ececec;
 }
 .figcaption {
   margin-left: 10px;
+  width: calc(100% - 80px);
 }
+.figcaptionDisabled p,
+.figcaptionDisabled h3,
 .figcaption p,
 .figcaption h3 {
   margin-bottom: 5px;
 }
-.figcaption p:last-child,
-.figcaption p:nth-child(4) {
+.figcaption span,
+.figcaptionDisabled span,
+.figcaptionDisabled p:last-child {
+  font-size: 12px;
+}
+.figcaption p:last-child {
   font-size: 12px;
   color: #979797;
 }
@@ -58,7 +79,7 @@
   display: none;
 }
 .buttons {
-  margin-left: calc(100% - 160px);
+  align-self: end;
   display: flex;
   gap: 5px;
 }
@@ -66,17 +87,28 @@
   display: inline-block;
   width: 80px;
   height: 30px;
-  font-size: 14px;
+  font-size: 12px;
   border: none;
   letter-spacing: 3.2px;
   cursor: pointer;
 }
-.buttons div:first-child {
+.buttons button:first-child {
   background-color: #ececec;
-  text-align: center;
-  padding-top: 5px;
 }
 .buttons button:last-child {
   color: white;
   background-color: #000;
+}
+
+@media (max-width: 480px) {
+  .modalContent {
+    padding: 10px;
+    font-size: 12px;
+  }
+  .buttons * {
+    width: 70px;
+  }
+  .figcaption {
+    width: 80px;
+  }
 }

@@ -299,7 +299,6 @@ const timeOptions = [
 
 function Checkout() {
   const [isCouponOpen, setIsCouponOpen] = useState(false);
-
   const [recipient, setRecipient] = useState({
     name: "",
     email: "",
@@ -400,14 +399,51 @@ function Checkout() {
       setLoading(false);
     }
   }
-  // const [couponData, setCouponData] = useState(null)
+
+  //-----------------coupon------------------------
+
+  const [couponDatas, setCouponDatas] = useState([
+    {
+      coupon_title: "會員首購優惠",
+      description: "加入會員即享滿$1000現折100優惠",
+      discount_amt: 100,
+      min_expense: 1000,
+      expire_time: "2024/6/29",
+    },
+    {
+      coupon_title: "會員首購優惠",
+      description: "加入會員即享滿$1000現折100優惠",
+      discount_amt: 200,
+      min_expense: 2000,
+      expire_time: "2024/6/29",
+    },
+  ]);
+  const [couponFormInput, setCouponFormInput] = useState();
+  const discount = couponDatas[couponFormInput]?.discount_amt || 0;
+
+  async function getCoupons() {
+    const response = await fetch(
+      "http://35.72.46.23/api/1.0/marketing/campaigns"
+    );
+    const data = await response.json();
+    console.log(data);
+    // set state
+  }
+
   function handleCouponDisplay() {
-    //fetch
+    getCoupons();
     setIsCouponOpen(true);
   }
   return (
     <Wrapper>
-      <Coupon isCouponOpen={isCouponOpen} setIsCouponOpen={setIsCouponOpen} />
+      <Coupon
+        isCouponOpen={isCouponOpen}
+        setIsCouponOpen={setIsCouponOpen}
+        couponDatas={couponDatas}
+        couponFormInput={couponFormInput}
+        setCouponFormInput={setCouponFormInput}
+        subtotal={subtotal}
+      />
       <Cart />
       <GrayBlock>
         <Label>優惠券</Label>
@@ -482,8 +518,8 @@ function Checkout() {
       </SubtotalPrice>
       <CouponPrice>
         <PriceName>優惠折抵</PriceName>
-        <Currency>NT.</Currency>
-        <PriceValue>{subtotal}</PriceValue>
+        <Currency> - NT.</Currency>
+        <PriceValue>{discount}</PriceValue>
       </CouponPrice>
       <ShippingPrice>
         <PriceName>運費</PriceName>
@@ -493,7 +529,7 @@ function Checkout() {
       <TotalPrice>
         <PriceName>應付金額</PriceName>
         <Currency>NT.</Currency>
-        <PriceValue>{subtotal + freight}</PriceValue>
+        <PriceValue>{subtotal + freight - discount}</PriceValue>
       </TotalPrice>
       <Button loading={loading} onClick={checkout}>
         確認付款

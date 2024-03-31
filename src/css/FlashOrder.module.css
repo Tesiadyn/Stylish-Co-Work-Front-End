@@ -1,0 +1,281 @@
+.highlightedBox {
+    width: 100%;
+    background-color: rgb(238, 177, 145);
+    color: white;
+    padding: 10px 20px;
+    position: fixed;
+    margin-top: 20px;
+}
+
+.warningLayout{
+    margin: 0 auto;
+    width: 1160px;
+    display: grid;
+    row-gap: 10px;
+}
+
+.warning{
+    color: red;
+}
+
+.container {
+    width: calc(100% - 48px);
+    margin: 138px auto 30px;
+}
+
+.title {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+}
+
+.hr {
+    width: 100%;
+    height: 1px;
+    background-color: #3F3A3A;
+    margin-top: 10px;
+}
+
+.form label:not([data-time]) {
+    display: block;
+    font-size: 14px;
+    line-height: 17px;
+    color: #3F3A3A;
+    margin-top: 20px;
+}
+
+.form input:not([type='radio']) {
+    width: 100%;
+    height: 32px;
+    border: 1px solid #979797;
+    border-radius: 8px;
+    margin-top: 10px;
+    padding-left: 8px;
+    font-size: 16px;
+}
+
+.remind {
+    height: 17px;
+    font-size: 14px;
+    line-height: 17px;
+    color: #8B572A;
+    white-space: nowrap;
+    margin-top: 6px;
+}
+
+.radioTitle {
+    height: 17px;
+    font-size: 14px;
+    line-height: 17px;
+    margin-top: 20px;
+    color: #3F3A3A;
+}
+
+.radioContainer {
+    display: flex;
+    column-gap: 26px;
+    margin: 10px 0 20px;
+}
+
+.radioContainer div {
+    display: flex;
+    align-items: center;
+}
+
+.form input[type='radio'] {
+    width: 16px;
+    height: 16px;
+    border: 1px solid #979797;
+    margin-right: 6px;
+}
+
+.form label[data-time] {
+    font-size: 14px;
+    line-height: 26px;
+    color: #3F3A3A;
+    white-space: nowrap;
+}
+
+.form input::placeholder {
+    height: 32px;
+    font-size: 16px;
+    line-height: 32px;
+    color: #D3D3D3;
+}
+
+.list {
+    width: 240px;
+    display: grid;
+    margin-left: auto;
+}
+
+.list div {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.list div:nth-child(1) {
+    margin-top: 24px;
+}
+
+.list div p {
+    font-size: 16px;
+    line-height: 19px;
+    color: #3F3A3A;
+}
+
+.list div p:nth-child(3) {
+    font-size: 30px;
+    line-height: 36px;
+    margin-left: 8px;
+}
+
+.listItem {
+    margin-right: auto;
+}
+
+.hr2 {
+    width: 100%;
+    height: 1px;
+    background-color: #3F3A3A;
+}
+
+.submit {
+    width: 100%;
+    height: 44px;
+    border-style: none;
+    color: #FFFFFF;
+    background-color: #000000;
+    font-size: 16px;
+    line-height: 30px;
+    letter-spacing: 3.2px;
+    margin: 36px 0 28px;
+    cursor: pointer;
+}
+
+/*special*/
+.specialInput {
+    width: 100%;
+    height: 32px;
+    border: 1px solid #979797;
+    border-radius: 8px;
+    margin-top: 10px;
+    padding-left: 8px;
+    font-size: 16px;
+}
+
+.specialLable {
+    font-size: 14px;
+    line-height: 17px;
+    color: #3F3A3A;
+    margin-top: 20px;
+}
+
+@media screen and (min-width : 1280px) {
+    .highlightedBox{
+        margin-top: 0;
+    }
+    .warningLayout{
+        font-size: 22px;
+        letter-spacing: 2px;
+    }
+    .container {
+        margin-top: 136px;
+        width: 1160px;
+    }
+
+    .title {
+        margin-top: 45px;
+    }
+
+    .hr {
+        margin-top: 16px;
+    }
+
+    .inputContainer {
+        display: grid;
+        grid-template-columns: 120px 576px;
+        align-items: center;
+        padding: 25px 0 5px;
+    }
+
+    .form label:not([data-time]) {
+        font-size: 16px;
+        line-height: 19px;
+        margin-top: 0;
+    }
+
+    .form input:not([type='radio']) {
+        margin-top: 0;
+    }
+
+    .remind {
+        height: 19px;
+        font-size: 16px;
+        line-height: 19px;
+        width: 696px;
+        margin: 0 0 5px;
+        text-align: end;
+    }
+
+    .radioTitle {
+        height: 19px;
+        font-size: 16px;
+        line-height: 19px;
+        margin-top: 0;
+    }
+
+    .radioContainer {
+        margin: 0;
+    }
+
+    .form input[type='radio'] {
+        margin-right: 8px;
+    }
+
+    .form label[data-time] {
+        font-size: 16px;
+        line-height: 26px;
+    }
+
+    .list {
+        margin-top: 35px;
+    }
+
+    .list div:nth-child(1) {
+        margin-top: 0;
+    }
+
+    .submitLayout {
+        width: 100%;
+        display: flex;
+        justify-content: end;
+    }
+
+    .submit {
+        width: 240px;
+        height: 64px;
+        font-size: 20px;
+        letter-spacing: 4px;
+        margin: 50px 0 148px;
+    }
+
+    /*special*/
+    .special {
+        display: grid;
+        grid-template-columns: 120px 576px;
+        align-items: center;
+        padding: 25px 0 5px;
+    }
+
+    .specialInput {
+        font-size: 16px;
+        line-height: 19px;
+        margin-top: 0;
+    }
+
+    .specialLable {
+        margin-top: 0;
+    }
+}

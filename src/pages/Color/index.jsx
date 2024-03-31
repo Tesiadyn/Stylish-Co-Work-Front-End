@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useRef, useState } from "react";
+import { useState, useEffect } from "react";
 import exPic from "./images/zodiac.jpg";
 
 // import Swiper from "swiper";
@@ -9,7 +9,6 @@ import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "./swiper.css";
-
 
 import { register } from "swiper/element/bundle";
 register();
@@ -60,11 +59,9 @@ const InfoImgDiv = styled.div`
     height: 180px;
   }
 `;
-const InfoImg = styled.div`
+const InfoImg = styled.img`
   width: 960px;
   height: 100%;
-  background-image: url(${exPic});
-  background-size: 100% 100%;
 `;
 const InfoDetailContainer = styled.div`
   width: 50%;
@@ -173,59 +170,123 @@ const MoreProductPrice = styled.p`
   color: #fff;
 `;
 
+/* -------------------------------- function -------------------------------- */
 
-
+// // check response code
 
 /* -------------------------------- component ------------------------------- */
 const Color = () => {
+  const [zodiacData, setZodiacData] = useState(null);
+  const [selectedZodiacId, setSelectedZodiacId] = useState(11);
+  const [selectedZodiacData, setSelectedZodiacData] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("https://zackawesome.net/api/1.0/zodiac")
+      .then((res) => res.json())
+      .then((data) => {
+        setZodiacData(data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error when fetching", err);
+        setIsLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (zodiacData) {
+      const zodiac = zodiacData.find(
+        (zodiac) => zodiac.zodiacId === selectedZodiacId
+      );
+      if (zodiac) {
+        setSelectedZodiacData({
+          name: zodiac.zodiacZh,
+          colorName: zodiac.colorName,
+          colorHex: zodiac.colorHex,
+          description: zodiac.description,
+          productImg: zodiac.product.mainImage,
+          productId: zodiac.product.id,
+          productTitle: zodiac.product.title,
+        });
+      }
+    }
+  }, [selectedZodiacId, zodiacData]);
+  // const selectedZodiac = zodiacData?.find(
+  //   (zodiac) => zodiac.zodiacId === selectedZodiacId
+  // );
+  // console.log(selectedZodiac);
+
+  // if (selectedZodiac) {
+  //   selectedZodiacData = {
+  //     name: selectedZodiac.zodiacZh,
+  //     colorName: selectedZodiac.colorName,
+  //     colorHex: selectedZodiac.colorHex,
+  //     description: selectedZodiac.description,
+  //     productTitle: selectedZodiac.product.title,
+  //     productImg: selectedZodiac.product.mainImage,
+  //     productStory: selectedZodiac.product.story,
+  //   };
+  // }
+  // console.log(selectedZodiacData);
+  const handleZodiacChange = (e) => {
+    const zodiacName = e.target.value;
+    const selectedZodiac = zodiacData.find(
+      (zodiac) => zodiac.zodiacZh === zodiacName
+    );
+    console.log(selectedZodiac);
+    if (selectedZodiac) {
+      setSelectedZodiacId(selectedZodiac.zodiacId);
+    }
+  };
+
   return (
     <>
       <Container>
-        <DropDownMenu>
-          <DropDownOptGroup label="fire">
-            <DropDownOption>1</DropDownOption>
-            <DropDownOption>2</DropDownOption>
-            <DropDownOption>3</DropDownOption>
-          </DropDownOptGroup>
-          <DropDownOptGroup label="earth">
-            <DropDownOption>4</DropDownOption>
-            <DropDownOption>5</DropDownOption>
-            <DropDownOption>6</DropDownOption>
-          </DropDownOptGroup>
-          <DropDownOptGroup label="water">
-            <DropDownOption>7</DropDownOption>
-            <DropDownOption>8</DropDownOption>
-            <DropDownOption>9</DropDownOption>
-          </DropDownOptGroup>
-          <DropDownOptGroup label="wind">
-            <DropDownOption>10</DropDownOption>
-            <DropDownOption>11</DropDownOption>
-            <DropDownOption>12</DropDownOption>
-          </DropDownOptGroup>
+        <DropDownMenu
+          onChange={(e) => {
+            handleZodiacChange(e);
+          }}
+        >
+          {isLoading ? (
+            <p>Loading..</p>
+          ) : zodiacData ? (
+            zodiacData.map((zodiac) => (
+              <DropDownOption key={zodiacData.zodiacId}>
+                {zodiac.zodiacZh}
+              </DropDownOption>
+            ))
+          ) : (
+            <p>NoData</p>
+          )}
         </DropDownMenu>
+
         <InfoContainer>
           <InfoImgDiv>
-            <InfoImg />
+            <InfoImg src={selectedZodiacData?.productImg} />
           </InfoImgDiv>
           <InfoDetailContainer>
-            <InfoDetailStarTitle>Leo</InfoDetailStarTitle>
+            <InfoDetailStarTitle>
+              {selectedZodiacData?.name}
+            </InfoDetailStarTitle>
             <InfoDetailStarDate>3/30</InfoDetailStarDate>
             <InfoDetailStarColorDiv>
-              <InfoDetailStarColorDot></InfoDetailStarColorDot>
-              <InfoDetailStarColorText>PINK</InfoDetailStarColorText>
+              <InfoDetailStarColorDot
+                style={{ backgroundColor: selectedZodiacData?.colorHex }}
+              ></InfoDetailStarColorDot>
+              <InfoDetailStarColorText>
+                {selectedZodiacData?.colorName}
+              </InfoDetailStarColorText>
             </InfoDetailStarColorDiv>
             <InfoDetailStarProductTitle>
-              Product Name
+              {selectedZodiacData?.productTitle}
             </InfoDetailStarProductTitle>
             <InfoDetailStarProductText>
-              Lorem ipsum dolor sit amet consectetur. Vulputate facilisi sit non
-              blandit sed in nunc. Neque et eget maecenas ac. Eu amet mauris non
-              proin tristique. In orci nisi eget tempor malesuada maecenas.
-              Lacus at sit non cursus maecenas laoreet sapien. A justo
-              pellentesque massa ut lacus. Ac lacus massa orci mauris tristique
-              tristique vulputate. Urna iaculis commodo suspendisse.
+              {selectedZodiacData?.description}
             </InfoDetailStarProductText>
-            <CTAButton>CTA</CTAButton>
+            <a href={`/products/${selectedZodiacData?.productId} `}>
+              <CTAButton>前往購買</CTAButton>
+            </a>
           </InfoDetailContainer>
         </InfoContainer>
         <MoreProductDivider />
@@ -343,7 +404,6 @@ const Color = () => {
             </SwiperSlide>
           </Swiper>
         </MoreProductContainer>
-        
       </Container>
     </>
   );

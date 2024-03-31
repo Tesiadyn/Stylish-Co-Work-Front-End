@@ -377,7 +377,7 @@ function Header() {
               "雙魚",
               1000,
               () => {
-                console.log("Sequence completed");
+          
               },
             ]}
             wrapper="span"

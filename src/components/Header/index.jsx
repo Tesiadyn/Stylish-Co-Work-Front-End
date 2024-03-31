@@ -46,7 +46,7 @@ const Logo = styled(Link)`
 `;
 
 const CategoryLinks = styled.div`
-  margin: 16px 0 0 57px;
+  margin-left: 16px;
 
   @media screen and (max-width: 1279px) {
     margin: 0;
@@ -63,8 +63,7 @@ const CategoryLinks = styled.div`
 const CategoryLink = styled.a`
   font-size: 20px;
   letter-spacing: 30px;
-  padding-left: 39px;
-  padding-right: 11px;
+  padding-left: 28px;
   position: relative;
   text-decoration: none;
   color: ${(props) => (props.$isActive ? "#8b572a" : "#3f3a3a")};
@@ -157,11 +156,6 @@ const PageLink = styled(Link)`
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    &.header {
-      @media screen and (max-width: 1279px) {
-        width: auto;
-      }
-    }
   }
 
   & + & {
@@ -240,7 +234,7 @@ const ZodiacEntryDiv = styled.a`
   cursor: pointer;
   margin-left: auto;
   box-shadow: 3px 4px 6px rgba(123, 118, 118, 0.5);
-  @media screen and (max-width: 1420px) {
+  @media screen and (max-width: 1279px) {
     display: none;
   }
 `;
@@ -259,14 +253,14 @@ const AnnounceDiv = styled(Link)`
   display: none;
   cursor: pointer;
   z-index: 99;
-  @media screen and (max-width: 1420px) {
+  @media screen and (max-width: 1279px) {
     display: block;
   }
 `;
 const AnnounceText = styled.p`
   color: #fff;
   display: none;
-  @media screen and (max-width: 1420px) {
+  @media screen and (max-width: 1279px) {
     display: block;
   }
 `;
@@ -319,10 +313,10 @@ function Header() {
             </CategoryLink>
           ))}
         </CategoryLinks>
-        <PageLink className="header" to="/color">
+        <PageLink to="/color">
           <ZodiacEntryDiv>
             <ZodiacEntryImg src={EntryPoint} />
-            <ZodiacEntryText>星座幸運色單品</ZodiacEntryText>
+            <ZodiacEntryText>星座單品</ZodiacEntryText>
           </ZodiacEntryDiv>
         </PageLink>
         <SearchInput
@@ -376,9 +370,7 @@ function Header() {
               1000,
               "雙魚",
               1000,
-              () => {
-          
-              },
+              () => {},
             ]}
             wrapper="span"
             cursor={true}

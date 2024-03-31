@@ -23,6 +23,7 @@ root.render(
         <Route path="checkout" element={<Checkout />} />
         <Route path="thankyou" element={<ThankYou />} />
         <Route path="profile" element={<Profile />} />
+        <Route path="game" element={<Game />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>

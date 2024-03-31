@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import { AuthContextProvider } from './context/authContext';
 import { CartContextProvider } from './context/cartContext';
+import { FlashContextProvider } from './context/flashContext';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -33,9 +34,11 @@ function App() {
       <GlobalStyle />
       <AuthContextProvider>
         <CartContextProvider>
-          <Header />
-          <Outlet />
-          <Footer />
+          <FlashContextProvider>
+            <Header />
+            <Outlet />
+            <Footer />
+          </FlashContextProvider>
         </CartContextProvider>
       </AuthContextProvider>
     </>

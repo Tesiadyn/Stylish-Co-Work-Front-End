@@ -4,6 +4,7 @@
     color: white;
     padding: 10px 20px;
     position: fixed;
+    margin-top: 20px;
 }
 
 .warningLayout{
@@ -172,6 +173,9 @@ form input::placeholder {
 }
 
 @media screen and (min-width : 1280px) {
+    .highlightedBox{
+        margin-top: 0;
+    }
     .warningLayout{
         font-size: 22px;
         letter-spacing: 2px;

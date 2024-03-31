@@ -5,8 +5,9 @@
     align-items: center;
     justify-content: center;
     position: fixed;
-    background-color: white;
+    background-color: rgb(254, 211, 211);
     margin-top: 20px;
+    z-index: 2;
 }
 
 .countdownLayout{

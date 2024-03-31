@@ -1,17 +1,28 @@
 import flashsale from '../../css/FlashSale.module.css'
 import mainImage from './main.jpg'
+import { FlashContext } from '../../context/flashContext'
 import image0 from './0.jpg'
 import image1 from './1.jpg'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const FlashSale = () => {
+    const navigate = useNavigate()
 
-    const colors = ['a', 'b', 'c']
-    const sizes = ['S', 'M', 'L']
-    const [activeColor, setActiveColor] = useState('')
+    // const colors = ['a', 'b', 'c']
+    // const sizes = ['S', 'M', 'L']
+    // const [activeColor, setActiveColor] = useState('')
+
+    const {colors, sizes, activeColor, setActiveColor} = useContext(FlashContext)
 
     const handleColor = (color) => {
         setActiveColor(color)
+    }
+
+    const handleToBuy = () => {
+        window.scrollTo(0, 0)
+        localStorage.setItem('flashtoken', '123456')
+        navigate('/flashorder')
     }
 
     return (
@@ -49,7 +60,7 @@ const FlashSale = () => {
                             <div>⚡</div>
                         </div>
                     </div>
-                    <div className={flashsale.buy}>
+                    <div onClick={handleToBuy} className={flashsale.buy}>
                         <p>立即購買</p>
                     </div>
                     <div className={flashsale.detail}>

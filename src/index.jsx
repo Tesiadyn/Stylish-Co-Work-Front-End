@@ -4,9 +4,12 @@ import App from './App';
 import Checkout from './pages/Checkout';
 import Home from './pages/Home';
 import Product from './pages/Product';
+import FlashSale from './pages/FlashSale';
+import FlashOrder from './pages/FlashOrder';
 import Profile from './pages/Profile';
 import ThankYou from './pages/ThankYou';
 import Color from './pages/Color'
+import Game from "./pages/Game";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -16,10 +19,13 @@ root.render(
       <Route path="/" element={<App />}>
         <Route index element={<Home />} />
         <Route path="products/:id" element={<Product />} />
+        <Route path="flashsale" element={<FlashSale />} />
+        <Route path="flashorder" element={<FlashOrder />} />
         <Route path="checkout" element={<Checkout />} />
         <Route path="thankyou" element={<ThankYou />} />
         <Route path="profile" element={<Profile />} />
         <Route path="Color" element={<Color />} />
+        <Route path="game" element={<Game />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>

@@ -10,6 +10,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "./swiper.css";
 
+
 import { register } from "swiper/element/bundle";
 register();
 
@@ -171,6 +172,10 @@ const MoreProductPrice = styled.p`
   margin: 10px 0 0 8px;
   color: #fff;
 `;
+
+
+
+
 /* -------------------------------- component ------------------------------- */
 const Color = () => {
   return (
@@ -338,6 +343,7 @@ const Color = () => {
             </SwiperSlide>
           </Swiper>
         </MoreProductContainer>
+        
       </Container>
     </>
   );

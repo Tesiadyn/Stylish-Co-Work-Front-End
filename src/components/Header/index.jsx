@@ -10,6 +10,7 @@ import profileMobile from "./profile-mobile.png";
 import profile from "./profile.png";
 import search from "./search.png";
 import EntryPoint from "./entry-leo.png";
+import { TypeAnimation } from "react-type-animation";
 
 const Wrapper = styled.div`
   position: fixed;
@@ -348,7 +349,45 @@ function Header() {
       </Wrapper>
 
       <AnnounceDiv to="/color">
-        <AnnounceText>星座幸運色推薦 | 找到你的專屬單品</AnnounceText>
+        <AnnounceText>
+          <TypeAnimation
+            sequence={[
+              "牡羊",
+              1000,
+              "金牛",
+              1000,
+              "雙子",
+              1000,
+              "巨蟹",
+              1000,
+              "獅子",
+              1000,
+              "處女",
+              1000,
+              "天坪",
+              1000,
+              "天蠍",
+              1000,
+              "射手",
+              1000,
+              "摩羯",
+              1000,
+              "水瓶",
+              1000,
+              "雙魚",
+              1000,
+              () => {
+                console.log("Sequence completed");
+              },
+            ]}
+            wrapper="span"
+            cursor={true}
+            repeat={Infinity}
+            style={{ fontSize: "16+px", display: "inline-block" }}
+            speed={60}
+          />
+          座幸運色推薦 | 找到你的專屬單品
+        </AnnounceText>
       </AnnounceDiv>
     </>
   );

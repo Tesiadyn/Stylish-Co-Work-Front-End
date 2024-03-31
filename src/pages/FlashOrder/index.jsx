@@ -223,7 +223,7 @@ const FlashOrder = () => {
                 </div>
             </div>
             <div className={flashorder.container}>
-                <form action="" onSubmit={handleSubmit}>
+                <form action="" onSubmit={handleSubmit} className={flashorder.form}>
                     <p className={flashorder.title}>訂購資料</p>
                     <div className={flashorder.hr}></div>
                     <div className={flashorder.inputContainer}>

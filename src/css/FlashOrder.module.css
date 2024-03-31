@@ -4,6 +4,7 @@
     color: white;
     padding: 10px 20px;
     position: fixed;
+    margin-top: 20px;
 }
 
 .warningLayout{
@@ -19,7 +20,7 @@
 
 .container {
     width: calc(100% - 48px);
-    margin: 118px auto 30px;
+    margin: 138px auto 30px;
 }
 
 .title {
@@ -35,7 +36,7 @@
     margin-top: 10px;
 }
 
-form label:not([data-time]) {
+.form label:not([data-time]) {
     display: block;
     font-size: 14px;
     line-height: 17px;
@@ -43,7 +44,7 @@ form label:not([data-time]) {
     margin-top: 20px;
 }
 
-form input:not([type='radio']) {
+.form input:not([type='radio']) {
     width: 100%;
     height: 32px;
     border: 1px solid #979797;
@@ -81,21 +82,21 @@ form input:not([type='radio']) {
     align-items: center;
 }
 
-form input[type='radio'] {
+.form input[type='radio'] {
     width: 16px;
     height: 16px;
     border: 1px solid #979797;
     margin-right: 6px;
 }
 
-form label[data-time] {
+.form label[data-time] {
     font-size: 14px;
     line-height: 26px;
     color: #3F3A3A;
     white-space: nowrap;
 }
 
-form input::placeholder {
+.form input::placeholder {
     height: 32px;
     font-size: 16px;
     line-height: 32px;
@@ -172,6 +173,9 @@ form input::placeholder {
 }
 
 @media screen and (min-width : 1280px) {
+    .highlightedBox{
+        margin-top: 0;
+    }
     .warningLayout{
         font-size: 22px;
         letter-spacing: 2px;
@@ -196,13 +200,13 @@ form input::placeholder {
         padding: 25px 0 5px;
     }
 
-    form label:not([data-time]) {
+    .form label:not([data-time]) {
         font-size: 16px;
         line-height: 19px;
         margin-top: 0;
     }
 
-    form input:not([type='radio']) {
+    .form input:not([type='radio']) {
         margin-top: 0;
     }
 
@@ -226,11 +230,11 @@ form input::placeholder {
         margin: 0;
     }
 
-    form input[type='radio'] {
+    .form input[type='radio'] {
         margin-right: 8px;
     }
 
-    form label[data-time] {
+    .form label[data-time] {
         font-size: 16px;
         line-height: 26px;
     }

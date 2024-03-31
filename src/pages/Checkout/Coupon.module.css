@@ -23,7 +23,7 @@
   margin-top: 100px;
   padding: 20px 20px 10px 20px;
   border: 1px solid #888;
-  width: 60%;
+  width: 450px;
   box-shadow:
     0 4px 8px 0 rgba(0, 0, 0, 0.2),
     0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -52,13 +52,14 @@
   padding: 30px 0 0 10px;
   opacity: 0.1;
 }
-.figcaptionDisabled {
-  margin-left: 10px;
-  color: #ececec;
-}
+
 .figcaption {
-  margin-left: 10px;
-  width: calc(100% - 80px);
+  margin-left: 30px;
+  width: 280px;
+}
+.figcaptionDisabled {
+  composes: figcaption;
+  color: #ececec;
 }
 .figcaptionDisabled p,
 .figcaptionDisabled h3,
@@ -104,11 +105,14 @@
   .modalContent {
     padding: 10px;
     font-size: 12px;
+    width: 300px;
   }
   .buttons * {
     width: 70px;
   }
-  .figcaption {
-    width: 80px;
+  .figcaption,
+  .figcaptionDisabled {
+    width: 170px;
+    margin-left: 15px;
   }
 }

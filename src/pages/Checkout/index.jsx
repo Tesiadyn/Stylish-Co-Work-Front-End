@@ -1,12 +1,13 @@
-import { useContext, useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import Button from '../../components/Button';
-import { AuthContext } from '../../context/authContext';
-import { CartContext } from '../../context/cartContext';
-import api from '../../utils/api';
-import tappay from '../../utils/tappay';
-import Cart from './Cart';
+import { useContext, useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import Button from "../../components/Button";
+import { AuthContext } from "../../context/authContext";
+import { CartContext } from "../../context/cartContext";
+import api from "../../utils/api";
+import tappay from "../../utils/tappay";
+import Cart from "./Cart";
+import Coupon from "./Coupon";
 
 const Wrapper = styled.div`
   margin: 0 auto;
@@ -26,6 +27,7 @@ const GrayBlock = styled.div`
   margin-top: 26px;
   background-color: #e8e8e8;
   display: flex;
+  justify-content: center;
   align-items: center;
   line-height: 19px;
   font-size: 16px;
@@ -36,6 +38,18 @@ const GrayBlock = styled.div`
     align-items: flex-start;
     font-size: 14px;
     line-height: 17px;
+  }
+`;
+
+const CouponLink = styled.div`
+  font-size: 12px;
+  color: #8b572a;
+  cursor: pointer;
+  margin-left: 30px;
+  margin-right: 50px;
+  @media (max-width: 1279px) {
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 `;
 
@@ -137,7 +151,7 @@ const FormControl = styled.input`
   width: 574px;
   height: 30px;
   border-radius: 8px;
-  border: solid 1px ${({ invalid }) => invalid ? '#CB4042' : '#979797'};
+  border: solid 1px ${({ invalid }) => (invalid ? "#CB4042" : "#979797")};
 
   @media screen and (max-width: 1279px) {
     margin-top: 10px;
@@ -206,7 +220,12 @@ const SubtotalPrice = styled(Price)`
     margin-top: 24px;
   }
 `;
-
+const CouponPrice = styled(Price)`
+  margin-top: 40px;
+  @media screen and (max-width: 1279px) {
+    margin-top: 24px;
+  }
+`;
 const ShippingPrice = styled(Price)`
   margin-top: 20px;
   padding-bottom: 20px;
@@ -254,37 +273,39 @@ const PriceValue = styled.div`
 
 const formInputs = [
   {
-    label: '收件人姓名',
-    key: 'name',
-    text: '務必填寫完整收件人姓名，避免包裹無法順利簽收',
+    label: "收件人姓名",
+    key: "name",
+    text: "務必填寫完整收件人姓名，避免包裹無法順利簽收",
   },
-  { label: 'Email', key: 'email' },
-  { label: '手機', key: 'phone' },
-  { label: '地址', key: 'address' },
+  { label: "Email", key: "email" },
+  { label: "手機", key: "phone" },
+  { label: "地址", key: "address" },
 ];
 
 const timeOptions = [
   {
-    label: '08:00-12:00',
-    value: 'morning',
+    label: "08:00-12:00",
+    value: "morning",
   },
   {
-    label: '14:00-18:00',
-    value: 'afternoon',
+    label: "14:00-18:00",
+    value: "afternoon",
   },
   {
-    label: '不指定',
-    value: 'anytime',
+    label: "不指定",
+    value: "anytime",
   },
 ];
 
 function Checkout() {
+  const [isCouponOpen, setIsCouponOpen] = useState(false);
+
   const [recipient, setRecipient] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    address: '',
-    time: '',
+    name: "",
+    email: "",
+    phone: "",
+    address: "",
+    time: "",
   });
   const [invalidFields, setInvalidFields] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -305,7 +326,7 @@ function Checkout() {
         cardExpirationDateRef.current,
         cardCCVRef.current
       );
-    }
+    };
     setupTappay();
   }, []);
 
@@ -318,47 +339,49 @@ function Checkout() {
 
   async function checkout() {
     try {
-      setLoading(true);      
+      setLoading(true);
 
       const token = isLogin ? jwtToken : await login();
 
       if (!token) {
-        window.alert('請登入會員');
+        window.alert("請登入會員");
         return;
       }
 
       if (cartItems.length === 0) {
-        window.alert('尚未選購商品');
+        window.alert("尚未選購商品");
         return;
       }
-  
+
       if (Object.values(recipient).some((value) => !value)) {
-        window.alert('請填寫完整訂購資料');
-        setInvalidFields(Object.keys(recipient).filter(key => !recipient[key]))
+        window.alert("請填寫完整訂購資料");
+        setInvalidFields(
+          Object.keys(recipient).filter((key) => !recipient[key])
+        );
         formRef.current.scrollIntoView({
           behavior: "smooth",
           block: "center",
         });
         return;
       }
-  
+
       if (!tappay.canGetPrime()) {
-        window.alert('付款資料輸入有誤');
+        window.alert("付款資料輸入有誤");
         return;
       }
-  
+
       const result = await tappay.getPrime();
       if (result.status !== 0) {
-        window.alert('付款資料輸入有誤');
+        window.alert("付款資料輸入有誤");
         return;
       }
-  
+
       const { data } = await api.checkout(
         {
           prime: result.card.prime,
           order: {
-            shipping: 'delivery',
-            payment: 'credit_card',
+            shipping: "delivery",
+            payment: "credit_card",
             subtotal,
             freight,
             total: subtotal + freight,
@@ -368,20 +391,27 @@ function Checkout() {
         },
         token
       );
-      window.alert('付款成功');
+      window.alert("付款成功");
       setCartItems([]);
-      navigate('/thankyou', { state: { orderNumber: data.number } });
+      navigate("/thankyou", { state: { orderNumber: data.number } });
     } catch (err) {
       console.log(err);
     } finally {
       setLoading(false);
     }
   }
-
+  // const [couponData, setCouponData] = useState(null)
+  function handleCouponDisplay() {
+    //fetch
+    setIsCouponOpen(true);
+  }
   return (
     <Wrapper>
+      <Coupon isCouponOpen={isCouponOpen} setIsCouponOpen={setIsCouponOpen} />
       <Cart />
       <GrayBlock>
+        <Label>優惠券</Label>
+        <CouponLink onClick={handleCouponDisplay}>選擇優惠券</CouponLink>
         <Label>配送國家</Label>
         <Select>
           <option>臺灣及離島</option>
@@ -450,6 +480,11 @@ function Checkout() {
         <Currency>NT.</Currency>
         <PriceValue>{subtotal}</PriceValue>
       </SubtotalPrice>
+      <CouponPrice>
+        <PriceName>優惠折抵</PriceName>
+        <Currency>NT.</Currency>
+        <PriceValue>{subtotal}</PriceValue>
+      </CouponPrice>
       <ShippingPrice>
         <PriceName>運費</PriceName>
         <Currency>NT.</Currency>
@@ -460,7 +495,9 @@ function Checkout() {
         <Currency>NT.</Currency>
         <PriceValue>{subtotal + freight}</PriceValue>
       </TotalPrice>
-      <Button loading={loading} onClick={checkout}>確認付款</Button>
+      <Button loading={loading} onClick={checkout}>
+        確認付款
+      </Button>
     </Wrapper>
   );
 }

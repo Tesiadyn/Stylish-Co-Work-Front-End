@@ -233,6 +233,7 @@ const ZodiacEntryDiv = styled.a`
   padding: 4px;
   cursor: pointer;
   margin-left: auto;
+  box-shadow: 3px 4px 6px rgba(123, 118, 118, 0.5);
   @media screen and (max-width: 1279px) {
     display: none;
   }
@@ -243,7 +244,7 @@ const ZodiacEntryText = styled.p`
   margin-left: 8px;
   color: #f7f7f7;
 `;
-const AnnounceDiv = styled.a`
+const AnnounceDiv = styled(Link)`
   background-color: #000;
   position: fixed;
   height: 20px;
@@ -251,6 +252,7 @@ const AnnounceDiv = styled.a`
   text-align: center;
   display: none;
   cursor: pointer;
+  z-index: 99;
   @media screen and (max-width: 1279px) {
     display: block;
   }
@@ -311,10 +313,12 @@ function Header() {
             </CategoryLink>
           ))}
         </CategoryLinks>
-        <ZodiacEntryDiv>
-          <ZodiacEntryImg src={EntryPoint} />
-          <ZodiacEntryText>星座幸運色單品</ZodiacEntryText>
-        </ZodiacEntryDiv>
+        <PageLink to="/color">
+          <ZodiacEntryDiv>
+            <ZodiacEntryImg src={EntryPoint} />
+            <ZodiacEntryText>星座幸運色單品</ZodiacEntryText>
+          </ZodiacEntryDiv>
+        </PageLink>
         <SearchInput
           onKeyPress={(e) => {
             if (e.key === "Enter") {
@@ -337,7 +341,8 @@ function Header() {
           </PageLink>
         </PageLinks>
       </Wrapper>
-      <AnnounceDiv>
+
+      <AnnounceDiv to="/color">
         <AnnounceText>星座幸運色推薦 | 找到你的專屬單品</AnnounceText>
       </AnnounceDiv>
     </>

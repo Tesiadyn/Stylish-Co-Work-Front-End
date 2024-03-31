@@ -24,6 +24,7 @@ const DropDownMenu = styled.select`
   height: 35px;
   text-align: center;
   border-radius: 8px;
+  font-size: 20px;
   @media screen and (max-width: 1279px) {
     margin: 0 auto;
   }
@@ -32,6 +33,7 @@ DropDownMenu.displayName = "DropDownMenu";
 
 const DropDownOption = styled.option`
   color: #000;
+  text-align: center;
 `;
 const InfoContainer = styled.div`
   width: 100%;
@@ -46,6 +48,7 @@ const InfoContainer = styled.div`
 const InfoImgDiv = styled.div`
   height: 100%;
   width: 50%;
+  overflow: hidden;
   background-color: beige;
   @media screen and (max-width: 1279px) {
     width: auto;
@@ -53,7 +56,7 @@ const InfoImgDiv = styled.div`
   }
 `;
 const InfoImg = styled.div`
-  max-width: 100%;
+  width: 960px;
   height: 100%;
   background-image: url(${exPic});
   background-size: 100% 100%;

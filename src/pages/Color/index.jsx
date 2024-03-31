@@ -31,6 +31,10 @@ const DropDownMenu = styled.select`
 `;
 DropDownMenu.displayName = "DropDownMenu";
 
+const DropDownOptGroup = styled.optgroup`
+  color: #a5b3b4;
+`;
+
 const DropDownOption = styled.option`
   color: #000;
   text-align: center;
@@ -173,18 +177,26 @@ const Color = () => {
     <>
       <Container>
         <DropDownMenu>
-          <DropDownOption>1</DropDownOption>
-          <DropDownOption>2</DropDownOption>
-          <DropDownOption>3</DropDownOption>
-          <DropDownOption>4</DropDownOption>
-          <DropDownOption>5</DropDownOption>
-          <DropDownOption>6</DropDownOption>
-          <DropDownOption>7</DropDownOption>
-          <DropDownOption>8</DropDownOption>
-          <DropDownOption>9</DropDownOption>
-          <DropDownOption>10</DropDownOption>
-          <DropDownOption>11</DropDownOption>
-          <DropDownOption>12</DropDownOption>
+          <DropDownOptGroup label="fire">
+            <DropDownOption>1</DropDownOption>
+            <DropDownOption>2</DropDownOption>
+            <DropDownOption>3</DropDownOption>
+          </DropDownOptGroup>
+          <DropDownOptGroup label="earth">
+            <DropDownOption>4</DropDownOption>
+            <DropDownOption>5</DropDownOption>
+            <DropDownOption>6</DropDownOption>
+          </DropDownOptGroup>
+          <DropDownOptGroup label="water">
+            <DropDownOption>7</DropDownOption>
+            <DropDownOption>8</DropDownOption>
+            <DropDownOption>9</DropDownOption>
+          </DropDownOptGroup>
+          <DropDownOptGroup label="wind">
+            <DropDownOption>10</DropDownOption>
+            <DropDownOption>11</DropDownOption>
+            <DropDownOption>12</DropDownOption>
+          </DropDownOptGroup>
         </DropDownMenu>
         <InfoContainer>
           <InfoImgDiv>

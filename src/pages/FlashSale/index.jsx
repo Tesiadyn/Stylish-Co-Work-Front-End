@@ -13,7 +13,7 @@ const FlashSale = () => {
     // const sizes = ['S', 'M', 'L']
     // const [activeColor, setActiveColor] = useState('')
 
-    const {colors, sizes, activeColor, setActiveColor} = useContext(FlashContext)
+    const { colors, sizes, activeColor, setActiveColor } = useContext(FlashContext)
 
     const handleColor = (color) => {
         setActiveColor(color)
@@ -27,6 +27,26 @@ const FlashSale = () => {
 
     return (
         <>
+            <div className={flashsale.countdown}>
+                <div className={flashsale.countdownLayout}>
+                    <h3>限時⚡特賣</h3>
+                    <p><i className="fa-regular fa-clock"></i>結束於</p>
+                    <div className={flashsale.countdownDisplay}>
+                        <div className={flashsale.hours}>
+                            <p>0</p>
+                            <p>0</p>
+                        </div>
+                        <div className={flashsale.minutes}>
+                            <p>0</p>
+                            <p>0</p>
+                        </div>
+                        <div className={flashsale.seconds}>
+                            <p>0</p>
+                            <p>0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div className={flashsale.container}>
                 <div className={flashsale.mainImage}>
                     <img src={mainImage} alt="main" />

@@ -56,12 +56,12 @@ const Game = () => {
       </div>
 
       <section className={styles.section}>
-        <p>剩餘遊戲次數：{chance}次</p>
+        <p>剩餘抽獎次數：{chance}次</p>
         <button
           onClick={handleButtonClick}
           disabled={chance === 0 ? true : false}
         >
-          開始遊戲
+          開始抽獎
         </button>
       </section>
     </>

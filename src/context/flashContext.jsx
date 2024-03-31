@@ -10,7 +10,7 @@ export const FlashContextProvider = ({ children }) => {
   useEffect(() => {
     (async () => {
       try {
-        const response = await fetch('http://52.69.193.136/api/1.0/flashSale/event')
+        const response = await fetch('https://zackawesome.net/api/1.0/flashSale/event')
         if (!response.ok) {
           throw new Error('Failed to fetch product data');
         }

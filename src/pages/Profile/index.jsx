@@ -1,65 +1,52 @@
-import { useContext } from 'react';
-import ReactLoading from 'react-loading';
-import styled from 'styled-components';
-import { AuthContext } from '../../context/authContext';
-
-const Wrapper = styled.div`
-  padding: 60px 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-`;
-
-const Title = styled.div`
-  padding-bottom: 16px;
-  border-bottom: 1px solid #979797;
-  font-size: 24px;
-  font-weight: bold;
-`;
-
-const Photo = styled.img`
-  margin-top: 24px;
-`;
-
-const Content = styled.div`
-  margin-top: 24px;
-`;
-
-const LogoutButton = styled.button`
-  margin-top: 24px;
-`;
-
-const Loading = styled(ReactLoading)`
-  margin-top: 50px;
-`;
-
 function Profile() {
-  const { user, isLogin, login, logout, loading } = useContext(AuthContext);
-
-  const renderContent = () => {
-    if (loading) return <Loading type="spinningBubbles" color="#313538" />;
-    if (isLogin) return (
-      <>
-        <Photo src={user.picture} />
-        <Content>{user.name}</Content>
-        <Content>{user.email}</Content>
-        <LogoutButton
-          onClick={logout}
-        >
-          登出
-        </LogoutButton>
-      </>
-    );
-    return (
-      <LogoutButton onClick={login}>登入</LogoutButton>
-    );
-  }
   return (
-    <Wrapper>
-      <Title>會員基本資訊</Title>
-      {renderContent()}
-    </Wrapper>
+    <>
+      <div id="root">
+        <div className="profile">
+          <form className="profile__form">
+            <div className="profile__label">Name:</div>
+            <input
+              type="text"
+              name="name"
+              className="profile__input"
+              required=""
+            />
+            <div className="profile__label">Email:</div>
+            <input
+              type="email"
+              name="email"
+              className="profile__input"
+              required=""
+            />
+            <div className="profile__label">Password:</div>
+            <input
+              type="password"
+              name="password"
+              className="profile__input"
+              required=""
+            />
+            <div className="profile__hint">已有帳號？ 前往登入 -&gt;</div>
+            <button type="submit" className="profile__button">
+              註冊
+            </button>
+            <button
+              type="button"
+              className="profile__button"
+              style={{ backgroundColor: "rgb(66, 103, 178)" }}
+            >
+              使用 Facebook
+            </button>
+          </form>
+        </div>
+      </div>
+      <div id="fb-root" className=" fb_reset">
+        <div
+          style={{ position: "absolute", top: "-10000px", width: 0, height: 0 }}
+        >
+          <div />
+        </div>
+      </div>
+    </>
   );
 }
 

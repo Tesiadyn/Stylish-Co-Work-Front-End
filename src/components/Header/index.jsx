@@ -156,6 +156,11 @@ const PageLink = styled(Link)`
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    &.header {
+      @media screen and (max-width: 1279px) {
+        width: auto;
+      }
+    }
   }
 
   & + & {
@@ -234,7 +239,7 @@ const ZodiacEntryDiv = styled.a`
   cursor: pointer;
   margin-left: auto;
   box-shadow: 3px 4px 6px rgba(123, 118, 118, 0.5);
-  @media screen and (max-width: 1279px) {
+  @media screen and (max-width: 1420px) {
     display: none;
   }
 `;
@@ -253,14 +258,14 @@ const AnnounceDiv = styled(Link)`
   display: none;
   cursor: pointer;
   z-index: 99;
-  @media screen and (max-width: 1279px) {
+  @media screen and (max-width: 1420px) {
     display: block;
   }
 `;
 const AnnounceText = styled.p`
   color: #fff;
   display: none;
-  @media screen and (max-width: 1279px) {
+  @media screen and (max-width: 1420px) {
     display: block;
   }
 `;
@@ -313,7 +318,7 @@ function Header() {
             </CategoryLink>
           ))}
         </CategoryLinks>
-        <PageLink to="/color">
+        <PageLink className="header" to="/color">
           <ZodiacEntryDiv>
             <ZodiacEntryImg src={EntryPoint} />
             <ZodiacEntryText>星座幸運色單品</ZodiacEntryText>

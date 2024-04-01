@@ -149,6 +149,11 @@ const PageLinks = styled.div`
 `;
 
 const PageLink = styled(Link)`
+  &&.colorLink {
+    @media screen and (max-width: 1279px) {
+      width: auto;
+    }
+  }
   @media screen and (max-width: 1279px) {
     width: 50%;
     position: relative;
@@ -313,7 +318,7 @@ function Header() {
             </CategoryLink>
           ))}
         </CategoryLinks>
-        <PageLink to="/color">
+        <PageLink className="colorLink" to="/color">
           <ZodiacEntryDiv>
             <ZodiacEntryImg src={EntryPoint} />
             <ZodiacEntryText>星座單品</ZodiacEntryText>

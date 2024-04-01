@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 const Game = () => {
   const navigate = useNavigate();
   // const [chance, setChance] = useState(1);
-  // const [isPlayingGame, setisPlayingGame] = useState(true);
+  const [isPlayingGame, setisPlayingGame] = useState(true);
   const { thecard, thecardHovered } = styles;
   const [cardClassName, setCardClassName] = useState(thecard);
   const [coupon, setcoupon] = useState({
@@ -18,9 +18,10 @@ const Game = () => {
   const { coupon_title, description, discount_amt, min_expense, expire_days } =
     coupon;
   function handleCardFlip() {
+    if (isPlayingGame === false) return;
     getCoupons();
-    // if (isPlayingGame === false) return;
     setCardClassName(thecardHovered);
+    setisPlayingGame(false);
   }
   async function getCoupons() {
     try {

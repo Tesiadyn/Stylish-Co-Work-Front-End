@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Game.module.css";
+import { useNavigate } from "react-router-dom";
 const Game = () => {
-  const [chance, setChance] = useState(1);
-  const [isPlayingGame, setisPlayingGame] = useState(true);
+  const navigate = useNavigate();
+  // const [chance, setChance] = useState(1);
+  // const [isPlayingGame, setisPlayingGame] = useState(true);
   const { thecard, thecardHovered } = styles;
   const [cardClassName, setCardClassName] = useState(thecard);
   const [coupon, setcoupon] = useState({
@@ -16,12 +18,17 @@ const Game = () => {
   const { coupon_title, description, discount_amt, min_expense, expire_days } =
     coupon;
   function handleCardFlip() {
-    if (isPlayingGame === false) return;
+    getCoupons();
+    // if (isPlayingGame === false) return;
     setCardClassName(thecardHovered);
   }
   async function getCoupons() {
     try {
       const token = localStorage.getItem("token");
+      if (!token) {
+        navigate("/signup");
+        return;
+      }
       const response = await fetch(
         "https://zackawesome.net/api/1.0/coupon/gamePage",
         {
@@ -53,39 +60,25 @@ const Game = () => {
   //   console.log("次數", chances);
   //   setChance(chances);
   // }
-  useEffect(() => {
-    // getCoupons();
-    // async function getFirstCoupon() {
-    //   const token = localStorage.getItem("token");
-    //   const response = await fetch(
-    //     "https://zackawesome.net/api/1.0/coupon/gamePage",
-    //     {
-    //       method: "GET",
-    //       headers: {
-    //         Authorization: `Bearer ${token}`,
-    //       },
-    //     }
-    //   );
-    //   const data = await response.json();
-    //   console.log("第一個優惠", data.coupon);
-    //   setcoupon(data.coupon);
-    // }
-    // getChances();
-  }, []);
-  function handleButtonClick() {
-    setChance((c) => c - 1);
-    setCardClassName(thecard);
-    setisPlayingGame(true);
-    // getCoupons();
-    // getChances();
-  }
+  // useEffect(() => {
+  //   getCoupons();
+  //   // getChances();
+  // }, []);
+  // function handleButtonClick() {
+  //   setChance((c) => c - 1);
+  //   setCardClassName(thecard);
+  //   setisPlayingGame(true);
+  //   // getCoupons();
+  //   // getChances();
+  // }
   return (
     <>
       <div className={styles.maincontainer}>
         <div className={cardClassName} onClick={handleCardFlip}>
           <div className={styles.thefront}>
-            <h1></h1>
-            <p>皇上請翻牌</p>
+            <h1>請翻牌</h1>
+            <p> </p>
+            <p>*尚未登入者請先登入或註冊 </p>
           </div>
           <div className={styles.theback}>
             <h1>恭喜獲得</h1>

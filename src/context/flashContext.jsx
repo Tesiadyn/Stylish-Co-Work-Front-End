@@ -25,7 +25,7 @@ export const FlashContextProvider = ({ children }) => {
   useEffect(() => {
     const fetchTime = async () => {
       try {
-        const response = await fetch('http://worldtimeapi.org/api/ip');
+        const response = await fetch('https://worldtimeapi.org/api/ip');
         if (!response.ok) {
           throw new Error('Failed to fetch time data');
         }

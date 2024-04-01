@@ -3,15 +3,14 @@ import styles from "./Banner.module.css";
 import { useState } from "react";
 import newApi from "../../utils/newApi";
 import api from "../../utils/api";
+import colorCoupon from "../../components/couponIcons/color_coupon.png";
 const Banner = () => {
   const { modal, closedModal } = styles;
   const [modalClassName, setModalClassName] = useState(modal);
 
   return (
     <>
-      {/* The Modal */}
       <div id="myModal" className={modalClassName}>
-        {/* Modal content */}
         <div className={styles.modalContent}>
           <div className={styles.modalHeader}>
             <span
@@ -24,7 +23,7 @@ const Banner = () => {
           </div>
           <div className={styles.modalBody}>
             <figure>
-              <img src="/src/assets/color_coupon.png" alt="colorCoupon" />
+              <img src={colorCoupon} alt="colorCoupon" />
             </figure>
             <p>週年慶抽獎活動</p>
             <p>天天抽會員專屬優惠券</p>

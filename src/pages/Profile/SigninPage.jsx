@@ -2,9 +2,12 @@ import { useState } from "react";
 
 function SigninPage() {
   const [formValue, setformValue] = useState({
-    name: "",
+    provider: "native",
     email: "",
     password: "",
+    access_token:
+      "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0NDRAZ21haWwuY29tIiwidXNlclJvbGVzIjpbInVzZXIiXSwiaWF0IjoxNzExODkwNjcwLCJleHAiOjE3MTU0OTA2NzB9.Nz9FqFd1J8widTwOKuiLZ9SsOfOuVZAM0P80M8PiZBI",
+    //123123@gmail.com 123123
   });
   const options = {
     method: "POST", // 設置請求方法為 POST
@@ -13,39 +16,27 @@ function SigninPage() {
     },
     body: JSON.stringify(formValue), // 將資料轉換為 JSON 格式並設置為請求體
   };
-  async function signUp() {
+
+  async function signIn() {
     const res = await fetch(
-      "https://zackawesome.net/api/1.0/user/signup",
+      "https://zackawesome.net/api/1.0/user/signin",
       options
     );
     const { data } = await res.json();
-    console.log(data);
     const token = data.access_token;
-    console.log(token);
+    console.log("登入後", token);
     localStorage.setItem("token", token);
   }
-  const { name, email, password } = formValue;
+  const { email, password } = formValue;
   function handleFormSubmit(e) {
     e.preventDefault();
-    console.log(formValue);
-    signUp();
+    signIn();
   }
   return (
     <>
       <div id="root">
         <div className="profile">
           <form className="profile__form" onSubmit={(e) => handleFormSubmit(e)}>
-            <div className="profile__label">Name:</div>
-            <input
-              type="text"
-              name="name"
-              className="profile__input"
-              required=""
-              onChange={(e) => {
-                setformValue({ ...formValue, name: e.target.value });
-              }}
-              value={name}
-            />
             <div className="profile__label">Email:</div>
             <input
               type="email"
@@ -68,9 +59,11 @@ function SigninPage() {
               }
               value={password}
             />
-            <div className="profile__hint">已有帳號？ 前往登入 -&gt;</div>
+            <a href="/signup">
+              <div className="profile__hint">尚未有帳號？ 立即註冊 -&gt;</div>
+            </a>
             <button type="submit" className="profile__button">
-              註冊
+              登入
             </button>
             <button
               type="button"

@@ -298,6 +298,7 @@ const timeOptions = [
 ];
 
 function Checkout() {
+  // const [is, setis] = useState(second)
   const [recipient, setRecipient] = useState({
     name: "",
     email: "",
@@ -439,6 +440,7 @@ function Checkout() {
     getCoupons();
     setIsCouponOpen(true);
   }
+  function handleCheckout() {}
   return (
     <Wrapper>
       <Coupon
@@ -539,6 +541,7 @@ function Checkout() {
       <a href="/thankyou">
         <Button
           loading={loading}
+          onClick={handleCheckout}
           // onClick={checkout}
         >
           確認付款

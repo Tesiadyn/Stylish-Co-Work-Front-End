@@ -419,7 +419,6 @@ function Checkout() {
     const response = await fetch(
       "https://zackawesome.net/api/1.0/coupon/profilePage",
       {
-        method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -531,9 +530,14 @@ function Checkout() {
         <Currency>NT.</Currency>
         <PriceValue>{subtotal + freight - discount}</PriceValue>
       </TotalPrice>
-      <Button loading={loading} onClick={checkout}>
-        確認付款
-      </Button>
+      <a href="/thankyou">
+        <Button
+          loading={loading}
+          // onClick={checkout}
+        >
+          確認付款
+        </Button>
+      </a>
     </Wrapper>
   );
 }

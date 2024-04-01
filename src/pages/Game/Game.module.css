@@ -4,7 +4,7 @@
   width: 250px;
   height: 320px;
   background: none;
-  top: 35%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -86,7 +86,7 @@
 .section {
   text-align: center;
   width: 200px;
-  margin: 450px auto 0;
+  margin: 400px auto 0;
 }
 .section button {
   margin: 10px auto;

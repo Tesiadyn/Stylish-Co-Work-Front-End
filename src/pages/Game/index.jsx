@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Game.module.css";
 const Game = () => {
-  const [chance, setChance] = useState(3);
-  const [isPlayingGame, setisPlayingGame] = useState(false);
+  const [chance, setChance] = useState(1);
+  const [isPlayingGame, setisPlayingGame] = useState(true);
   const { thecard, thecardHovered } = styles;
   const [cardClassName, setCardClassName] = useState(thecard);
   const [coupon, setcoupon] = useState({
@@ -20,37 +20,41 @@ const Game = () => {
     setCardClassName(thecardHovered);
   }
   async function getCoupons() {
-    const token = localStorage.getItem("token");
-    const response = await fetch(
-      "https://zackawesome.net/api/1.0/coupon/gamePage",
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    const data = await response.json();
-    console.log("後來的優惠", data.coupon);
-    setcoupon(data.coupon);
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(
+        "https://zackawesome.net/api/1.0/coupon/gamePage",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const data = await response.json();
+      console.log("優惠", data.coupon);
+      setcoupon(data.coupon);
+    } catch (error) {
+      console.log(error);
+    }
   }
-  async function getChances() {
-    const token = localStorage.getItem("token");
-    const response = await fetch(
-      "https://zackawesome.net/api/1.0/coupon/startGame",
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    const { chances } = await response.json();
-    console.log("次數", chances);
-    setChance(chances);
-  }
+  // async function getChances() {
+  //   const token = localStorage.getItem("token");
+  //   const response = await fetch(
+  //     "https://zackawesome.net/api/1.0/coupon/startGame",
+  //     {
+  //       method: "GET",
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     }
+  //   );
+  //   const { chances } = await response.json();
+  //   console.log("次數", chances);
+  //   setChance(chances);
+  // }
   useEffect(() => {
-    getCoupons();
+    // getCoupons();
     // async function getFirstCoupon() {
     //   const token = localStorage.getItem("token");
     //   const response = await fetch(
@@ -66,15 +70,14 @@ const Game = () => {
     //   console.log("第一個優惠", data.coupon);
     //   setcoupon(data.coupon);
     // }
-
-    getChances();
+    // getChances();
   }, []);
   function handleButtonClick() {
     setChance((c) => c - 1);
     setCardClassName(thecard);
     setisPlayingGame(true);
-    getCoupons();
-    getChances();
+    // getCoupons();
+    // getChances();
   }
   return (
     <>
@@ -82,7 +85,7 @@ const Game = () => {
         <div className={cardClassName} onClick={handleCardFlip}>
           <div className={styles.thefront}>
             <h1></h1>
-            <p>按START後點我領優惠券</p>
+            <p>皇上請翻牌</p>
           </div>
           <div className={styles.theback}>
             <h1>恭喜獲得</h1>
@@ -96,13 +99,13 @@ const Game = () => {
       </div>
 
       <section className={styles.section}>
-        <p>剩餘抽獎次數：{chance}次</p>
-        <button
+        {/* <p>剩餘抽獎次數：{chance}次</p> */}
+        {/* <button
           onClick={handleButtonClick}
           disabled={chance === 0 ? true : false}
         >
           START
-        </button>
+        </button> */}
       </section>
     </>
   );

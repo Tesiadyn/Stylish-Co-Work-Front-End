@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function SignupPage() {
+  const navigate = useNavigate();
   const [formValue, setformValue] = useState({
     name: "",
     email: "",
@@ -25,10 +27,12 @@ function SignupPage() {
     localStorage.setItem("token", token);
   }
   const { name, email, password } = formValue;
-  function handleFormSubmit(e) {
+  async function handleFormSubmit(e) {
     e.preventDefault();
     console.log(formValue);
-    signUp();
+    await signUp();
+    alert("註冊成功");
+    navigate("/");
   }
   return (
     <>

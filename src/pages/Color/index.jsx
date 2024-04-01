@@ -54,6 +54,7 @@ const InfoImgDiv = styled.div`
   width: 50%;
   overflow: hidden;
   background-color: beige;
+  border-radius: 8px;
   @media screen and (max-width: 1279px) {
     width: auto;
     height: 180px;
@@ -110,6 +111,8 @@ const CTAButton = styled.button`
   height: 30px;
   background-color: #948181;
   color: #fff;
+  border-radius: 8px;
+  box-shadow: 5px 5px 5px rgba(185, 183, 189, 0.4);
   @media screen and (max-width: 1279px) {
     margin: 5% 0 10%;
   }
@@ -175,7 +178,7 @@ const MoreProductPrice = styled.p`
 /* -------------------------------- component ------------------------------- */
 const Color = () => {
   const [zodiacData, setZodiacData] = useState(null);
-  const [selectedZodiacId, setSelectedZodiacId] = useState(11);
+  const [selectedZodiacId, setSelectedZodiacId] = useState(null);
   const [selectedZodiacData, setSelectedZodiacData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
@@ -185,6 +188,7 @@ const Color = () => {
       .then((data) => {
         setZodiacData(data);
         setIsLoading(false);
+        setSelectedZodiacId(data[0].zodiacId);
       })
       .catch((err) => {
         console.error("Error when fetching", err);

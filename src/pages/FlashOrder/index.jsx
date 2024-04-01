@@ -6,7 +6,6 @@ import { FlashContext } from '../../context/flashContext';
 
 const FlashOrder = () => {
     const navigate = useNavigate()
-    const [total, setTotal] = useState(0)
     const [leftMinute, setLeftMinute] = useState(10)
     const [leftSecond, setLeftSecond] = useState(0)
 
@@ -14,8 +13,8 @@ const FlashOrder = () => {
 
   useEffect(() => {
     window.TPDirect.setupSDK(
-      `${import.meta.env.VITE_TAPPAY_ID}`,
-      `${import.meta.env.VITE_TAPPAY_KEY}`,
+      `12348`,
+      `app_pa1pQcKoY22IlnSXq5m5WP5jFKzoRG58VEXpT7wU62ud7mMbDOGzCYIlzzLF`,
       "sandbox"
     );
     window.TPDirect.card.setup({
@@ -120,8 +119,10 @@ const FlashOrder = () => {
       }
       // console.log('get prime 成功，prime: ' + result.card.prime)
       const prime = result.card.prime;
+      navigate('/thankyou')
+      return
       const authorization = localStorage.getItem("awsToken");
-      fetch(`${import.meta.env.VITE_API_URL}/order/checkout`, {
+      fetch(`https://api.appworks-school.tw/api/1.0/order/checkout`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${authorization}`,
@@ -132,9 +133,9 @@ const FlashOrder = () => {
           order: {
             shipping: "delivery",
             payment: "credit_card",
-            subtotal: total,
+            subtotal: flashProduct.product.price,
             freight: 30,
-            total: total + 30,
+            total: flashProduct.product.price + 30,
             recipient: {
               name: name,
               phone: phone,

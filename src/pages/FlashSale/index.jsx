@@ -30,7 +30,7 @@ const FlashSale = () => {
         if (flashProduct && currentTime) {
             const currentDate = new Date(currentTime)
             currentDate.setMilliseconds(0)
-            const startDate = new Date(flashProduct.start_time)
+            const startDate = new Date("2024-04-01T05:30:00.000+08:00")
             const endDate = new Date(flashProduct.end_time)
             startDate.setMilliseconds(0)
             endDate.setMilliseconds(0)

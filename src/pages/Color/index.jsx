@@ -263,26 +263,50 @@ const Color = () => {
 
     return `rgba(${r}, ${g}, ${b}, ${opacity})`;
   }
-  
+
+  const elementOrder = ["火象星座", "土象星座", "風象星座", "水象星座"];
+  const groupedData = zodiacData?.reduce((acc, zodiac) => {
+    const element = zodiac.zodiacElement;
+    if (!acc[element]) {
+      acc[element] = [];
+    }
+    acc[element].push(zodiac);
+    return acc;
+  }, {});
+
+  if (isLoading) {
+    return <div>Loading</div>;
+  }
+
   return (
     <Container
-    style={{ backgroundColor: hexToRGBA(selectedZodiacData?.colorHex ?? '', 0.08) }}
+      style={{
+        backgroundColor: hexToRGBA(selectedZodiacData?.colorHex ?? "", 0.08),
+      }}
     >
       <Wrapper>
-        <DropDownMenu  style={{ backgroundColor: hexToRGBA(selectedZodiacData?.colorHex ?? '', 0.08) }}
+        <DropDownMenu
+          style={{
+            backgroundColor: hexToRGBA(
+              selectedZodiacData?.colorHex ?? "",
+              0.08
+            ),
+          }}
           onChange={(e) => {
             handleZodiacChange(e);
           }}
         >
-          {isLoading
-            ? console.log("loading...")
-            : zodiacData
-            ? zodiacData.map((zodiac) => (
-                <DropDownOption key={zodiacData.zodiacId}>
-                  {zodiac.zodiacZh}
-                </DropDownOption>
-              ))
-            : console.log("no data")}
+          {elementOrder.map((element) =>
+            groupedData[element] ? (
+              <DropDownOptGroup label={element} key={element}>
+                {groupedData[element].map((zodiac) => (
+                  <DropDownOption value={zodiac.zodiacZh} key={zodiac.zodiacId}>
+                    {zodiac.zodiacZh}
+                  </DropDownOption>
+                ))}
+              </DropDownOptGroup>
+            ) : null
+          )}
         </DropDownMenu>
 
         <MotionInfoContainer

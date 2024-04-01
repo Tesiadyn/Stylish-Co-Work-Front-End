@@ -69,7 +69,7 @@ const FlashSale = () => {
                             </div>
                         </div>
                     </div>
-                    <div className={flashsale.watching}>目前瀏覽人數突破<b className={flashsale.people}>135791234</b>人</div>
+                    {/* <div className={flashsale.watching}>目前瀏覽人數突破<b className={flashsale.people}>135791234</b>人</div> */}
                 </div>
             }
             {flashProduct &&

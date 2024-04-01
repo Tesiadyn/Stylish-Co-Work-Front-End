@@ -90,7 +90,7 @@ const InfoDetailStarDate = styled.h3`
   margin-bottom: 10px;
 `;
 const InfoDetailStarColorDiv = styled.div`
-  margin: 15px auto 30px;
+  margin: 15px auto 20px;
   width: 150px;
   display: flex;
   justify-content: center;
@@ -105,17 +105,20 @@ const InfoDetailStarColorText = styled.p`
   font-size: 18px;
   margin-left: 4px;
 `;
+const InfoDetailStarColorStory = styled.p`
+  font-size: 14px;
+`;
 const InfoDetailStarProductTitle = styled.h2`
-  font-size: 20px;
-  margin-top: 60px;
+  font-size: 36px;
+  margin-top: 90px;
 `;
 const InfoDetailStarProductText = styled.p`
-  font-size: 12px;
+  font-size: 14px;
   margin-top: 20px;
   padding: 0 30px;
 `;
 const CTAButton = styled.button`
-  margin-top: 30%;
+  margin-top: 20%;
   width: 80%;
   height: 35px;
   background-color: #2c2c2c;
@@ -233,6 +236,7 @@ const Color = () => {
           productImg: zodiac.product.main_image,
           productId: zodiac.product.id,
           productTitle: zodiac.product.title,
+          productStory: zodiac.product.story,
         });
         setBgColor(`#${zodiac.colorHex}`);
       }
@@ -330,11 +334,14 @@ const Color = () => {
                 {selectedZodiacData?.colorName}
               </InfoDetailStarColorText>
             </InfoDetailStarColorDiv>
+            <InfoDetailStarColorStory>
+              {selectedZodiacData?.description}
+            </InfoDetailStarColorStory>
             <InfoDetailStarProductTitle>
               {selectedZodiacData?.productTitle}
             </InfoDetailStarProductTitle>
             <InfoDetailStarProductText>
-              {selectedZodiacData?.description}
+              {selectedZodiacData?.productStory}
             </InfoDetailStarProductText>
             <a href={`/products/${selectedZodiacData?.productId} `}>
               <MotionCtaButton

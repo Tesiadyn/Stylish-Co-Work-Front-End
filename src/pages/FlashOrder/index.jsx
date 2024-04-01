@@ -119,6 +119,7 @@ const FlashOrder = () => {
       }
       // console.log('get prime 成功，prime: ' + result.card.prime)
       const prime = result.card.prime;
+      fetch(`https://zackawesome.net/api/1.0/flashSale/checkout?flashSaleId=${flashProduct.id}`)
       navigate('/thankyou')
       return
       const authorization = localStorage.getItem("awsToken");

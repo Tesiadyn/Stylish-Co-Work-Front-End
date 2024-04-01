@@ -111,24 +111,32 @@ const FlashSale = () => {
                         </div>
                         <div className={flashsale.selectCount}>
                             <p>數量</p>
-                            <span className={flashsale.remindCount}>
-                                <div className={flashsale.svgLayout}>
-                                    <i className="fa-solid fa-fire"></i>
-                                    <div className={flashsale.bar}></div>
-                                    <div className={flashsale.animateBar}></div>
-                                    <div className={flashsale.barContent}>剩下{flashProduct.stock}件</div>
-                                </div>
-                                
-                            </span>
+                            {flashProduct.stock > 0 &&
+                                <span className={flashsale.remindCount}>
+                                    <div className={flashsale.svgLayout}>
+                                        <i className="fa-solid fa-fire"></i>
+                                        <div className={flashsale.bar}></div>
+                                        <div className={flashsale.animateBar}></div>
+                                        <div className={flashsale.barContent}>剩下{flashProduct.stock}件</div>
+                                    </div>
+                                </span>
+                            }
                             <div className={flashsale.count}>
                                 <div>⚡</div>
                                 <div>限購1次</div>
                                 <div>⚡</div>
                             </div>
                         </div>
-                        <div onClick={handleToBuy} className={flashTime ? flashsale.buy : flashsale.message}>
-                            <p>{flashTime ? '立即購買' : `即將開放搶購(倒數${leftHours.toString().padStart(2, '0')}:${leftMinute.toString().padStart(2, '0')}:${leftSecond.toString().padStart(2, '0')})`}</p>
-                        </div>
+                        {flashProduct.stock < 1 ?
+                            <div onClick={handleToBuy} className={flashsale.message}>
+                                <p>今日已售完</p>
+                            </div>
+                            :
+                            <div onClick={handleToBuy} className={flashTime ? flashsale.buy : flashsale.message}>
+                                <p>{flashTime ? '立即購買' : `即將開放搶購(倒數${leftHours.toString().padStart(2, '0')}:${leftMinute.toString().padStart(2, '0')}:${leftSecond.toString().padStart(2, '0')})`}</p>
+                            </div>
+                        }
+
                         <div className={flashsale.detail}>
                             <p>
                                 {flashProduct.product.note}<br />

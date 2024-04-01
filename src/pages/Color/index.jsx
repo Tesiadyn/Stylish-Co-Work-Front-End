@@ -11,8 +11,16 @@ import { register } from "swiper/element/bundle";
 register();
 
 const Container = styled.div`
+  &:after {
+    content: "";
+    width: 100%;
+    height: 100%;
+  }
+`;
+const Wrapper = styled.div`
   width: 70%;
-  margin: 50px auto;
+  margin: 0 auto 50px;
+  padding-top: 50px;
 `;
 
 const DropDownMenu = styled.select`
@@ -65,6 +73,7 @@ const InfoImg = styled.img`
   }
 `;
 const InfoDetailContainer = styled.div`
+  color: #565656;
   width: 60%;
   text-align: center;
   padding-top: 50px;
@@ -73,7 +82,6 @@ const InfoDetailContainer = styled.div`
   }
 `;
 const InfoDetailStarTitle = styled.h2`
-  color: #000;
   font-size: 32px;
   margin: 10px 0;
 `;
@@ -82,7 +90,7 @@ const InfoDetailStarDate = styled.h3`
   margin-bottom: 10px;
 `;
 const InfoDetailStarColorDiv = styled.div`
-  margin: 15px auto 30px;
+  margin: 15px auto 20px;
   width: 150px;
   display: flex;
   justify-content: center;
@@ -97,20 +105,23 @@ const InfoDetailStarColorText = styled.p`
   font-size: 18px;
   margin-left: 4px;
 `;
+const InfoDetailStarColorStory = styled.p`
+  font-size: 14px;
+`;
 const InfoDetailStarProductTitle = styled.h2`
-  font-size: 20px;
-  margin-top: 60px;
+  font-size: 36px;
+  margin-top: 90px;
 `;
 const InfoDetailStarProductText = styled.p`
-  font-size: 12px;
+  font-size: 14px;
   margin-top: 20px;
   padding: 0 30px;
 `;
 const CTAButton = styled.button`
-  margin-top: 30%;
+  margin-top: 20%;
   width: 80%;
   height: 35px;
-  background-color: #948181;
+  background-color: #2c2c2c;
   color: #f7f7f7;
   font-size: 20px;
   font-weight: 600;
@@ -194,6 +205,7 @@ const Color = () => {
   const [selectedZodiacId, setSelectedZodiacId] = useState(null);
   const [selectedZodiacData, setSelectedZodiacData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [bgColor, setBgColor] = useState(null);
 
   useEffect(() => {
     fetch("https://zackawesome.net/api/1.0/zodiac")
@@ -202,6 +214,7 @@ const Color = () => {
         setZodiacData(data);
         setIsLoading(false);
         setSelectedZodiacId(data[0].zodiacId);
+        setBgColor(`#${data[0].colorHex}`);
       })
       .catch((err) => {
         console.error("Error when fetching", err);
@@ -223,12 +236,12 @@ const Color = () => {
           productImg: zodiac.product.main_image,
           productId: zodiac.product.id,
           productTitle: zodiac.product.title,
+          productStory: zodiac.product.story,
         });
+        setBgColor(`#${zodiac.colorHex}`);
       }
     }
   }, [selectedZodiacId, zodiacData]);
-
-  console.log(selectedZodiacData);
 
   const today = new Date();
   const dayString = today.toLocaleDateString("zh-CN", {
@@ -247,23 +260,57 @@ const Color = () => {
     }
   };
 
+  function hexToRGBA(hex, opacity) {
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+
+    return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+  }
+
+  const elementOrder = ["火象星座", "土象星座", "風象星座", "水象星座"];
+  const groupedData = zodiacData?.reduce((acc, zodiac) => {
+    const element = zodiac.zodiacElement;
+    if (!acc[element]) {
+      acc[element] = [];
+    }
+    acc[element].push(zodiac);
+    return acc;
+  }, {});
+
+  if (isLoading) {
+    return <div>Loading</div>;
+  }
+
   return (
-    <>
-      <Container>
+    <Container
+      style={{
+        backgroundColor: hexToRGBA(selectedZodiacData?.colorHex ?? "", 0.08),
+      }}
+    >
+      <Wrapper>
         <DropDownMenu
+          style={{
+            backgroundColor: hexToRGBA(
+              selectedZodiacData?.colorHex ?? "",
+              0.08
+            ),
+          }}
           onChange={(e) => {
             handleZodiacChange(e);
           }}
         >
-          {isLoading
-            ? console.log("loading...")
-            : zodiacData
-            ? zodiacData.map((zodiac) => (
-                <DropDownOption key={zodiacData.zodiacId}>
-                  {zodiac.zodiacZh}
-                </DropDownOption>
-              ))
-            : console.log("no data")}
+          {elementOrder.map((element) =>
+            groupedData[element] ? (
+              <DropDownOptGroup label={element} key={element}>
+                {groupedData[element].map((zodiac) => (
+                  <DropDownOption value={zodiac.zodiacZh} key={zodiac.zodiacId}>
+                    {zodiac.zodiacZh}
+                  </DropDownOption>
+                ))}
+              </DropDownOptGroup>
+            ) : null
+          )}
         </DropDownMenu>
 
         <MotionInfoContainer
@@ -287,11 +334,14 @@ const Color = () => {
                 {selectedZodiacData?.colorName}
               </InfoDetailStarColorText>
             </InfoDetailStarColorDiv>
+            <InfoDetailStarColorStory>
+              {selectedZodiacData?.description}
+            </InfoDetailStarColorStory>
             <InfoDetailStarProductTitle>
               {selectedZodiacData?.productTitle}
             </InfoDetailStarProductTitle>
             <InfoDetailStarProductText>
-              {selectedZodiacData?.description}
+              {selectedZodiacData?.productStory}
             </InfoDetailStarProductText>
             <a href={`/products/${selectedZodiacData?.productId} `}>
               <MotionCtaButton
@@ -389,8 +439,8 @@ const Color = () => {
             </SwiperSlide>
           </Swiper>
         </MoreProductContainer>
-      </Container>
-    </>
+      </Wrapper>
+    </Container>
   );
 };
 

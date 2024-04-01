@@ -7,8 +7,23 @@ export const FlashContextProvider = ({ children }) => {
   const [flashProduct, setFlashProduct] = useState(null)
   const [currentTime, setCurrentTime] = useState(null)
 
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const response = await fetch('https://zackawesome.net/api/1.0/flashSale/event')
+  //       if (!response.ok) {
+  //         throw new Error('Failed to fetch product data');
+  //       }
+  //       const data = await response.json()
+  //       setFlashProduct(data)
+  //     } catch (error) {
+  //       console.log(error)
+  //     }
+  //   })()
+  // }, [])
+
   useEffect(() => {
-    (async () => {
+    const fetchFlash = async () => {
       try {
         const response = await fetch('https://zackawesome.net/api/1.0/flashSale/event')
         if (!response.ok) {
@@ -19,7 +34,32 @@ export const FlashContextProvider = ({ children }) => {
       } catch (error) {
         console.log(error)
       }
-    })()
+    }
+    fetchFlash()
+
+    const interval = setInterval(fetchFlash, 3000)
+
+    return () => clearInterval(interval)
+  }, [])
+
+  useEffect(() => {
+    const fetchFlash = async () => {
+      try {
+        const response = await fetch('https://zackawesome.net/api/1.0/flashSale/event')
+        if (!response.ok) {
+          throw new Error('Failed to fetch product data');
+        }
+        const data = await response.json()
+        setFlashProduct(data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    const interval = setInterval(fetchFlash, 5000)
+    fetchFlash() // 初次调用
+
+    return () => clearInterval(interval)
   }, [])
 
   useEffect(() => {

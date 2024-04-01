@@ -211,13 +211,15 @@ const Color = () => {
           colorName: zodiac.colorName,
           colorHex: zodiac.colorHex,
           description: zodiac.description,
-          productImg: zodiac.product.mainImage,
+          productImg: zodiac.product.main_image,
           productId: zodiac.product.id,
           productTitle: zodiac.product.title,
         });
       }
     }
   }, [selectedZodiacId, zodiacData]);
+
+  console.log(selectedZodiacData);
 
   const today = new Date();
   const dayString = today.toLocaleDateString("zh-CN", {
@@ -245,7 +247,7 @@ const Color = () => {
           }}
         >
           {isLoading ? (
-            <p>Loading..</p>
+            console.log('loading...')
           ) : zodiacData ? (
             zodiacData.map((zodiac) => (
               <DropDownOption key={zodiacData.zodiacId}>
@@ -253,7 +255,7 @@ const Color = () => {
               </DropDownOption>
             ))
           ) : (
-            <p>NoData</p>
+            console.log('no data')
           )}
         </DropDownMenu>
 
@@ -268,7 +270,7 @@ const Color = () => {
             <InfoDetailStarDate>{dayString}</InfoDetailStarDate>
             <InfoDetailStarColorDiv>
               <InfoDetailStarColorDot
-                style={{ backgroundColor: selectedZodiacData?.colorHex }}
+                style={{ backgroundColor: `#${selectedZodiacData?.colorHex}` }}
               ></InfoDetailStarColorDot>
               <InfoDetailStarColorText>
                 {selectedZodiacData?.colorName}

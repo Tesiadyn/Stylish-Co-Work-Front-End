@@ -1,5 +1,5 @@
 import flashorder from '../../css/FlashOrder.module.css'
-import cart from '../../css/Cart.module.css'
+import flashstore from '../../css/Flashstore.module.css'
 import { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FlashContext } from '../../context/flashContext';
@@ -226,44 +226,44 @@ const FlashOrder = () => {
                 </div>
             </div>
             {flashProduct &&
-                <div className={cart.container}>
-                    <div className={cart.productsListTitle}>
+                <div className={flashstore.container}>
+                    <div className={flashstore.productsListTitle}>
                         <p>您的搶購商品</p>
                         <p>數量</p>
                         <p>單價</p>
                         <p>小計</p>
                     </div>
-                    <div className={cart.products}>
-                        <div className={cart.hr}></div>
-                        <div className={cart.product}>
-                            <div className={cart.productIntroduction}>
-                                <div className={cart.productImg}>
+                    <div className={flashstore.products}>
+                        <div className={flashstore.hr}></div>
+                        <div className={flashstore.product}>
+                            <div className={flashstore.productIntroduction}>
+                                <div className={flashstore.productImg}>
                                     <img src={flashProduct.product.main_image} alt="main" />
                                 </div>
-                                <div className={cart.productDetail}>
-                                    <div className={cart.productTitle}>{flashProduct.product.title}</div>
-                                    <div className={cart.productId}>{flashProduct.product.id}</div>
-                                    <div className={cart.productColor}>
+                                <div className={flashstore.productDetail}>
+                                    <div className={flashstore.productTitle}>{flashProduct.product.title}</div>
+                                    <div className={flashstore.productId}>{flashProduct.product.id}</div>
+                                    <div className={flashstore.productColor}>
                                         <p>顏色&nbsp;</p>
                                         <p>{flashProduct.product.colors[0].name}</p>
                                     </div>
-                                    <div className={cart.productSize}>
+                                    <div className={flashstore.productSize}>
                                         <p>尺寸&nbsp;</p>
                                         <p>{flashProduct.product.sizes[0]}</p>
                                     </div>
                                 </div>
                             </div>
-                            <div className={cart.selectCount}>
+                            <div className={flashstore.selectCount}>
                                 <p>數量</p>
                                 <select name="count">
                                     <option value="1">1</option>
                                 </select>
                             </div>
-                            <div className={cart.productPrice}>
+                            <div className={flashstore.productPrice}>
                                 <p>單價</p>
                                 <p>TWD.{flashProduct.product.price}</p>
                             </div>
-                            <div className={cart.productTotalPrice}>
+                            <div className={flashstore.productTotalPrice}>
                                 <p>小計</p>
                                 <p>TWD.{flashProduct.product.price}</p>
                             </div>

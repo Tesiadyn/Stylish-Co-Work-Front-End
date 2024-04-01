@@ -15,8 +15,6 @@ const Container = styled.div`
   margin: 50px auto;
 `;
 
-const MotionContainer = motion(Container);
-
 const DropDownMenu = styled.select`
   width: 100%;
   height: 35px;
@@ -27,7 +25,6 @@ const DropDownMenu = styled.select`
     margin: 0 auto;
   }
 `;
-
 
 const DropDownOptGroup = styled.optgroup`
   color: #a5b3b4;
@@ -47,6 +44,8 @@ const InfoContainer = styled.div`
     justify-content: center;
   }
 `;
+const MotionInfoContainer = motion(InfoContainer);
+
 const InfoImgDiv = styled.div`
   height: 100%;
   width: 40%;
@@ -110,15 +109,19 @@ const InfoDetailStarProductText = styled.p`
 const CTAButton = styled.button`
   margin-top: 30%;
   width: 80%;
-  height: 30px;
+  height: 35px;
   background-color: #948181;
-  color: #fff;
+  color: #f7f7f7;
+  font-size: 20px;
+  font-weight: 600;
   border-radius: 8px;
   box-shadow: 5px 5px 5px rgba(185, 183, 189, 0.4);
   @media screen and (max-width: 1279px) {
     margin: 5% 0 10%;
   }
 `;
+const MotionCtaButton = motion(CTAButton);
+
 const MoreProductDivider = styled.div`
   height: 1px;
   background-color: #cfcfcf;
@@ -263,7 +266,11 @@ const Color = () => {
             : console.log("no data")}
         </DropDownMenu>
 
-        <InfoContainer>
+        <MotionInfoContainer
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+        >
           <InfoImgDiv>
             <InfoImg src={selectedZodiacData?.productImg} />
           </InfoImgDiv>
@@ -287,23 +294,32 @@ const Color = () => {
               {selectedZodiacData?.description}
             </InfoDetailStarProductText>
             <a href={`/products/${selectedZodiacData?.productId} `}>
-              <CTAButton>
+              <MotionCtaButton
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.9 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              >
                 前往購買
-              </CTAButton>
+              </MotionCtaButton>
             </a>
           </InfoDetailContainer>
-        </InfoContainer>
+        </MotionInfoContainer>
         <MoreProductDivider />
         <MoreProductIntro>更多相似色產品</MoreProductIntro>
         <MoreProductContainer>
-          <Swiper>
+          <Swiper
+            slidesPerView={3}
+            pagination={{ clickable: true }}
+            modules={[Pagination]}
+            className="mySwiper"
+          >
             <SwiperSlide>
               <MoreProductAnchor>
                 <MoreProductDiv>
                   <MoreProductImgDiv>
                     <MoreProductImg />
                   </MoreProductImgDiv>
-                  <MoreProductTitle>小扇紋細織上衣</MoreProductTitle>
+                  <MoreProductTitle>小扇紋細織上衣1</MoreProductTitle>
                   <MoreProductId>123775888</MoreProductId>
                   <MoreProductPrice>NT. 1299</MoreProductPrice>
                 </MoreProductDiv>
@@ -316,7 +332,7 @@ const Color = () => {
                   <MoreProductImgDiv>
                     <MoreProductImg />
                   </MoreProductImgDiv>
-                  <MoreProductTitle>小扇紋細織上衣</MoreProductTitle>
+                  <MoreProductTitle>小扇紋細織上衣2</MoreProductTitle>
                   <MoreProductId>123775888</MoreProductId>
                   <MoreProductPrice>NT. 1299</MoreProductPrice>
                 </MoreProductDiv>
@@ -329,7 +345,43 @@ const Color = () => {
                   <MoreProductImgDiv>
                     <MoreProductImg />
                   </MoreProductImgDiv>
-                  <MoreProductTitle>小扇紋細織上衣</MoreProductTitle>
+                  <MoreProductTitle>小扇紋細織上衣3</MoreProductTitle>
+                  <MoreProductId>123775888</MoreProductId>
+                  <MoreProductPrice>NT. 1299</MoreProductPrice>
+                </MoreProductDiv>
+              </MoreProductAnchor>
+            </SwiperSlide>
+            <SwiperSlide>
+              <MoreProductAnchor>
+                <MoreProductDiv>
+                  <MoreProductImgDiv>
+                    <MoreProductImg />
+                  </MoreProductImgDiv>
+                  <MoreProductTitle>小扇紋細織上衣4</MoreProductTitle>
+                  <MoreProductId>123775888</MoreProductId>
+                  <MoreProductPrice>NT. 1299</MoreProductPrice>
+                </MoreProductDiv>
+              </MoreProductAnchor>
+            </SwiperSlide>
+            <SwiperSlide>
+              <MoreProductAnchor>
+                <MoreProductDiv>
+                  <MoreProductImgDiv>
+                    <MoreProductImg />
+                  </MoreProductImgDiv>
+                  <MoreProductTitle>小扇紋細織上衣5</MoreProductTitle>
+                  <MoreProductId>123775888</MoreProductId>
+                  <MoreProductPrice>NT. 1299</MoreProductPrice>
+                </MoreProductDiv>
+              </MoreProductAnchor>
+            </SwiperSlide>
+            <SwiperSlide>
+              <MoreProductAnchor>
+                <MoreProductDiv>
+                  <MoreProductImgDiv>
+                    <MoreProductImg />
+                  </MoreProductImgDiv>
+                  <MoreProductTitle>小扇紋細織上衣6</MoreProductTitle>
                   <MoreProductId>123775888</MoreProductId>
                   <MoreProductPrice>NT. 1299</MoreProductPrice>
                 </MoreProductDiv>
@@ -338,7 +390,6 @@ const Color = () => {
           </Swiper>
         </MoreProductContainer>
       </Container>
-
     </>
   );
 };

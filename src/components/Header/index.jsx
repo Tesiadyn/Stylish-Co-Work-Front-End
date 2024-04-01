@@ -11,6 +11,7 @@ import profile from "./profile.png";
 import search from "./search.png";
 import EntryPoint from "./entry-leo.png";
 import { TypeAnimation } from "react-type-animation";
+import { motion } from 'framer-motion';
 
 const Wrapper = styled.div`
   position: fixed;
@@ -136,6 +137,7 @@ const SearchInput = styled.input`
 const PageLinks = styled.div`
   margin-left: 42px;
   display: flex;
+ 
 
   @media screen and (max-width: 1279px) {
     width: 100%;
@@ -149,6 +151,7 @@ const PageLinks = styled.div`
 `;
 
 const PageLink = styled(Link)`
+ text-decoration: none;
   &&.colorLink {
     @media screen and (max-width: 1279px) {
       width: auto;
@@ -243,12 +246,14 @@ const ZodiacEntryDiv = styled.a`
     display: none;
   }
 `;
+const MotionEntry = motion(ZodiacEntryDiv);
 const ZodiacEntryImg = styled.img``;
 
 const ZodiacEntryText = styled.p`
   margin-left: 8px;
   color: #f7f7f7;
 `;
+
 const AnnounceDiv = styled(Link)`
   background-color: #000;
   position: fixed;
@@ -319,10 +324,12 @@ function Header() {
           ))}
         </CategoryLinks>
         <PageLink className="colorLink" to="/color">
-          <ZodiacEntryDiv>
+          <MotionEntry
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}>
             <ZodiacEntryImg src={EntryPoint} />
             <ZodiacEntryText>星座單品</ZodiacEntryText>
-          </ZodiacEntryDiv>
+          </MotionEntry>
         </PageLink>
         <SearchInput
           onKeyPress={(e) => {

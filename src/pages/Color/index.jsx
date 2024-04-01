@@ -51,7 +51,7 @@ const InfoContainer = styled.div`
 `;
 const InfoImgDiv = styled.div`
   height: 100%;
-  width: 50%;
+  width: 40%;
   overflow: hidden;
   background-color: beige;
   border-radius: 8px;
@@ -61,11 +61,14 @@ const InfoImgDiv = styled.div`
   }
 `;
 const InfoImg = styled.img`
-  width: 960px;
+  width: 100%;
   height: 100%;
+  @media screen and (max-width: 1279px) {
+    height: 600px;
+  }
 `;
 const InfoDetailContainer = styled.div`
-  width: 50%;
+  width: 60%;
   text-align: center;
   padding-top: 50px;
   @media screen and (max-width: 1279px) {
@@ -83,14 +86,15 @@ const InfoDetailStarDate = styled.h3`
 `;
 const InfoDetailStarColorDiv = styled.div`
   margin: 15px auto 30px;
-  width: 85px;
+  width: 150px;
   display: flex;
+  justify-content: center;
 `;
 const InfoDetailStarColorDot = styled.div`
   width: 20px;
   height: 20px;
   border-radius: 8px;
-  background-color: #dc8bcf;
+  box-shadow: 1px 1px 5px rgba(160, 160, 160, 0.9);
 `;
 const InfoDetailStarColorText = styled.p`
   font-size: 18px;

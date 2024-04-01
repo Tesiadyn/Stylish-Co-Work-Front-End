@@ -28,7 +28,6 @@ const DropDownMenu = styled.select`
   }
 `;
 
-
 const DropDownOptGroup = styled.optgroup`
   color: #a5b3b4;
 `;
@@ -287,23 +286,26 @@ const Color = () => {
               {selectedZodiacData?.description}
             </InfoDetailStarProductText>
             <a href={`/products/${selectedZodiacData?.productId} `}>
-              <CTAButton>
-                前往購買
-              </CTAButton>
+              <CTAButton>前往購買</CTAButton>
             </a>
           </InfoDetailContainer>
         </InfoContainer>
         <MoreProductDivider />
         <MoreProductIntro>更多相似色產品</MoreProductIntro>
         <MoreProductContainer>
-          <Swiper>
+          <Swiper
+            slidesPerView={3}
+            pagination={{ clickable: true }}
+            modules={[Pagination]}
+            className="mySwiper"
+          >
             <SwiperSlide>
               <MoreProductAnchor>
                 <MoreProductDiv>
                   <MoreProductImgDiv>
                     <MoreProductImg />
                   </MoreProductImgDiv>
-                  <MoreProductTitle>小扇紋細織上衣</MoreProductTitle>
+                  <MoreProductTitle>小扇紋細織上衣1</MoreProductTitle>
                   <MoreProductId>123775888</MoreProductId>
                   <MoreProductPrice>NT. 1299</MoreProductPrice>
                 </MoreProductDiv>
@@ -316,7 +318,7 @@ const Color = () => {
                   <MoreProductImgDiv>
                     <MoreProductImg />
                   </MoreProductImgDiv>
-                  <MoreProductTitle>小扇紋細織上衣</MoreProductTitle>
+                  <MoreProductTitle>小扇紋細織上衣2</MoreProductTitle>
                   <MoreProductId>123775888</MoreProductId>
                   <MoreProductPrice>NT. 1299</MoreProductPrice>
                 </MoreProductDiv>
@@ -329,7 +331,43 @@ const Color = () => {
                   <MoreProductImgDiv>
                     <MoreProductImg />
                   </MoreProductImgDiv>
-                  <MoreProductTitle>小扇紋細織上衣</MoreProductTitle>
+                  <MoreProductTitle>小扇紋細織上衣3</MoreProductTitle>
+                  <MoreProductId>123775888</MoreProductId>
+                  <MoreProductPrice>NT. 1299</MoreProductPrice>
+                </MoreProductDiv>
+              </MoreProductAnchor>
+            </SwiperSlide>
+            <SwiperSlide>
+              <MoreProductAnchor>
+                <MoreProductDiv>
+                  <MoreProductImgDiv>
+                    <MoreProductImg />
+                  </MoreProductImgDiv>
+                  <MoreProductTitle>小扇紋細織上衣4</MoreProductTitle>
+                  <MoreProductId>123775888</MoreProductId>
+                  <MoreProductPrice>NT. 1299</MoreProductPrice>
+                </MoreProductDiv>
+              </MoreProductAnchor>
+            </SwiperSlide>
+            <SwiperSlide>
+              <MoreProductAnchor>
+                <MoreProductDiv>
+                  <MoreProductImgDiv>
+                    <MoreProductImg />
+                  </MoreProductImgDiv>
+                  <MoreProductTitle>小扇紋細織上衣5</MoreProductTitle>
+                  <MoreProductId>123775888</MoreProductId>
+                  <MoreProductPrice>NT. 1299</MoreProductPrice>
+                </MoreProductDiv>
+              </MoreProductAnchor>
+            </SwiperSlide>
+            <SwiperSlide>
+              <MoreProductAnchor>
+                <MoreProductDiv>
+                  <MoreProductImgDiv>
+                    <MoreProductImg />
+                  </MoreProductImgDiv>
+                  <MoreProductTitle>小扇紋細織上衣6</MoreProductTitle>
                   <MoreProductId>123775888</MoreProductId>
                   <MoreProductPrice>NT. 1299</MoreProductPrice>
                 </MoreProductDiv>
@@ -338,7 +376,6 @@ const Color = () => {
           </Swiper>
         </MoreProductContainer>
       </Container>
-
     </>
   );
 };

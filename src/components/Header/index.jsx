@@ -11,7 +11,7 @@ import profile from "./profile.png";
 import search from "./search.png";
 import EntryPoint from "./entry-leo.png";
 import { TypeAnimation } from "react-type-animation";
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
 const Wrapper = styled.div`
   position: fixed;
@@ -137,7 +137,6 @@ const SearchInput = styled.input`
 const PageLinks = styled.div`
   margin-left: 42px;
   display: flex;
- 
 
   @media screen and (max-width: 1279px) {
     width: 100%;
@@ -151,7 +150,7 @@ const PageLinks = styled.div`
 `;
 
 const PageLink = styled(Link)`
- text-decoration: none;
+  text-decoration: none;
   &&.colorLink {
     @media screen and (max-width: 1279px) {
       width: auto;
@@ -324,9 +323,7 @@ function Header() {
           ))}
         </CategoryLinks>
         <PageLink className="colorLink" to="/color">
-          <MotionEntry
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}>
+          <MotionEntry whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
             <ZodiacEntryImg src={EntryPoint} />
             <ZodiacEntryText>星座單品</ZodiacEntryText>
           </MotionEntry>
@@ -370,7 +367,7 @@ function Header() {
               1000,
               "處女",
               1000,
-              "天坪",
+              "天秤",
               1000,
               "天蠍",
               1000,

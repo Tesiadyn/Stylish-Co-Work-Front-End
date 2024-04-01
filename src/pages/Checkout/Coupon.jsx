@@ -18,7 +18,7 @@ const Coupon = ({
         }}
       >
         <h2>選擇優惠券</h2>
-        <article>
+        <article className={styles.coupons}>
           {couponDatas.map((item, index) => {
             const gap = item.min_expense - subtotal;
             return (
@@ -47,7 +47,7 @@ const Coupon = ({
                         還差{gap}元可使用
                       </span>
                     ) : null}
-                    <p>使用期限 {item.expire_time}</p>
+                    <p>使用期限 {item.expire_time.slice(0, 10)}</p>
                   </figcaption>
                 </label>
                 <input

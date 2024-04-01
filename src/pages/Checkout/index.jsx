@@ -404,30 +404,29 @@ function Checkout() {
 
   const [couponDatas, setCouponDatas] = useState([
     {
-      coupon_title: "會員首購優惠",
-      description: "加入會員即享滿$1000現折100優惠",
-      discount_amt: 100,
-      min_expense: 1000,
-      expire_time: "2024/6/29",
-    },
-    {
-      coupon_title: "會員首購優惠",
-      description: "加入會員即享滿$1000現折100優惠",
-      discount_amt: 200,
-      min_expense: 2000,
-      expire_time: "2024/6/29",
+      coupon_title: "",
+      description: "",
+      discount_amt: "",
+      min_expense: "",
+      expire_time: "",
     },
   ]);
   const [couponFormInput, setCouponFormInput] = useState();
   const discount = couponDatas[couponFormInput]?.discount_amt || 0;
 
   async function getCoupons() {
+    const token = localStorage.getItem("token");
     const response = await fetch(
-      "http://35.72.46.23/api/1.0/marketing/campaigns"
+      "https://zackawesome.net/api/1.0/coupon/profilePage",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
     const data = await response.json();
-    console.log(data);
-    // set state
+    console.log("所有的優惠", data.coupons);
+    setCouponDatas(data.coupons);
   }
 
   function handleCouponDisplay() {
@@ -531,9 +530,14 @@ function Checkout() {
         <Currency>NT.</Currency>
         <PriceValue>{subtotal + freight - discount}</PriceValue>
       </TotalPrice>
-      <Button loading={loading} onClick={checkout}>
-        確認付款
-      </Button>
+      <a href="/thankyou">
+        <Button
+          loading={loading}
+          // onClick={checkout}
+        >
+          確認付款
+        </Button>
+      </a>
     </Wrapper>
   );
 }

@@ -35,13 +35,13 @@ export const FlashContextProvider = ({ children }) => {
         console.log(error);
       }
     };
-  
+
     // 首次執行 fetchTime
     fetchTime();
-  
+
     // 設定定時器，每隔一秒重新取得時間
     const interval = setInterval(fetchTime, 1000);
-  
+
     // 在組件解除掛載時清除定時器
     return () => clearInterval(interval);
   }, []);

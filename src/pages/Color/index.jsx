@@ -1,15 +1,11 @@
 import styled from "styled-components";
-import { useRef, useState } from "react";
-import exPic from "./images/zodiac.jpg";
-
-// import Swiper from "swiper";
-// import { SwiperSlide } from 'swiper/react';
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "./swiper.css";
-
 
 import { register } from "swiper/element/bundle";
 register();
@@ -18,7 +14,8 @@ const Container = styled.div`
   width: 70%;
   margin: 50px auto;
 `;
-Container.displayName = "Container";
+
+const MotionContainer = motion(Container);
 
 const DropDownMenu = styled.select`
   width: 100%;
@@ -30,7 +27,7 @@ const DropDownMenu = styled.select`
     margin: 0 auto;
   }
 `;
-DropDownMenu.displayName = "DropDownMenu";
+
 
 const DropDownOptGroup = styled.optgroup`
   color: #a5b3b4;
@@ -52,22 +49,24 @@ const InfoContainer = styled.div`
 `;
 const InfoImgDiv = styled.div`
   height: 100%;
-  width: 50%;
+  width: 40%;
   overflow: hidden;
   background-color: beige;
+  border-radius: 8px;
   @media screen and (max-width: 1279px) {
     width: auto;
     height: 180px;
   }
 `;
-const InfoImg = styled.div`
-  width: 960px;
+const InfoImg = styled.img`
+  width: 100%;
   height: 100%;
-  background-image: url(${exPic});
-  background-size: 100% 100%;
+  @media screen and (max-width: 1279px) {
+    height: 600px;
+  }
 `;
 const InfoDetailContainer = styled.div`
-  width: 50%;
+  width: 60%;
   text-align: center;
   padding-top: 50px;
   @media screen and (max-width: 1279px) {
@@ -85,14 +84,15 @@ const InfoDetailStarDate = styled.h3`
 `;
 const InfoDetailStarColorDiv = styled.div`
   margin: 15px auto 30px;
-  width: 85px;
+  width: 150px;
   display: flex;
+  justify-content: center;
 `;
 const InfoDetailStarColorDot = styled.div`
   width: 20px;
   height: 20px;
   border-radius: 8px;
-  background-color: #dc8bcf;
+  box-shadow: 1px 1px 5px rgba(160, 160, 160, 0.9);
 `;
 const InfoDetailStarColorText = styled.p`
   font-size: 18px;
@@ -113,18 +113,21 @@ const CTAButton = styled.button`
   height: 30px;
   background-color: #948181;
   color: #fff;
+  border-radius: 8px;
+  box-shadow: 5px 5px 5px rgba(185, 183, 189, 0.4);
   @media screen and (max-width: 1279px) {
     margin: 5% 0 10%;
   }
 `;
 const MoreProductDivider = styled.div`
   height: 1px;
-  background-color: #3f3a3a;
+  background-color: #cfcfcf;
   margin: 50px 0 15px;
 `;
 const MoreProductIntro = styled.h2`
   color: #8b572a;
-  margin-bottom: 20px;
+  margin: 30px 0;
+  text-align: center;
 `;
 const MoreProductContainer = styled.div`
   width: 60%;
@@ -164,94 +167,144 @@ const MoreProductColor = styled.li`
   border-radius: 50%;
   background-color: darkblue;
 `;
+const MoreProductId = styled.p`
+  color: #f1f1f1;
+  margin: 10px 0 0 8px;
+  font-size: 12px;
+`;
 const MoreProductTitle = styled.h3`
   color: #fff;
   margin: 10px 0 0 8px;
+  font-size: 20px;
 `;
 const MoreProductPrice = styled.p`
   margin: 10px 0 0 8px;
   color: #fff;
+  font-weight: 600;
 `;
 
-
-
+/* -------------------------------- function -------------------------------- */
 
 /* -------------------------------- component ------------------------------- */
 const Color = () => {
+  const [zodiacData, setZodiacData] = useState(null);
+  const [selectedZodiacId, setSelectedZodiacId] = useState(null);
+  const [selectedZodiacData, setSelectedZodiacData] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("https://zackawesome.net/api/1.0/zodiac")
+      .then((res) => res.json())
+      .then((data) => {
+        setZodiacData(data);
+        setIsLoading(false);
+        setSelectedZodiacId(data[0].zodiacId);
+      })
+      .catch((err) => {
+        console.error("Error when fetching", err);
+        setIsLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (zodiacData) {
+      const zodiac = zodiacData.find(
+        (zodiac) => zodiac.zodiacId === selectedZodiacId
+      );
+      if (zodiac) {
+        setSelectedZodiacData({
+          name: zodiac.zodiacZh,
+          colorName: zodiac.colorName,
+          colorHex: zodiac.colorHex,
+          description: zodiac.description,
+          productImg: zodiac.product.main_image,
+          productId: zodiac.product.id,
+          productTitle: zodiac.product.title,
+        });
+      }
+    }
+  }, [selectedZodiacId, zodiacData]);
+
+  console.log(selectedZodiacData);
+
+  const today = new Date();
+  const dayString = today.toLocaleDateString("zh-CN", {
+    month: "long",
+    day: "numeric",
+  });
+
+  const handleZodiacChange = (e) => {
+    const zodiacName = e.target.value;
+    const selectedZodiac = zodiacData.find(
+      (zodiac) => zodiac.zodiacZh === zodiacName
+    );
+    console.log(selectedZodiac);
+    if (selectedZodiac) {
+      setSelectedZodiacId(selectedZodiac.zodiacId);
+    }
+  };
+
   return (
     <>
       <Container>
-        <DropDownMenu>
-          <DropDownOptGroup label="fire">
-            <DropDownOption>1</DropDownOption>
-            <DropDownOption>2</DropDownOption>
-            <DropDownOption>3</DropDownOption>
-          </DropDownOptGroup>
-          <DropDownOptGroup label="earth">
-            <DropDownOption>4</DropDownOption>
-            <DropDownOption>5</DropDownOption>
-            <DropDownOption>6</DropDownOption>
-          </DropDownOptGroup>
-          <DropDownOptGroup label="water">
-            <DropDownOption>7</DropDownOption>
-            <DropDownOption>8</DropDownOption>
-            <DropDownOption>9</DropDownOption>
-          </DropDownOptGroup>
-          <DropDownOptGroup label="wind">
-            <DropDownOption>10</DropDownOption>
-            <DropDownOption>11</DropDownOption>
-            <DropDownOption>12</DropDownOption>
-          </DropDownOptGroup>
+        <DropDownMenu
+          onChange={(e) => {
+            handleZodiacChange(e);
+          }}
+        >
+          {isLoading
+            ? console.log("loading...")
+            : zodiacData
+            ? zodiacData.map((zodiac) => (
+                <DropDownOption key={zodiacData.zodiacId}>
+                  {zodiac.zodiacZh}
+                </DropDownOption>
+              ))
+            : console.log("no data")}
         </DropDownMenu>
+
         <InfoContainer>
           <InfoImgDiv>
-            <InfoImg />
+            <InfoImg src={selectedZodiacData?.productImg} />
           </InfoImgDiv>
           <InfoDetailContainer>
-            <InfoDetailStarTitle>Leo</InfoDetailStarTitle>
-            <InfoDetailStarDate>3/30</InfoDetailStarDate>
+            <InfoDetailStarTitle>
+              {selectedZodiacData?.name}
+            </InfoDetailStarTitle>
+            <InfoDetailStarDate>{dayString}</InfoDetailStarDate>
             <InfoDetailStarColorDiv>
-              <InfoDetailStarColorDot></InfoDetailStarColorDot>
-              <InfoDetailStarColorText>PINK</InfoDetailStarColorText>
+              <InfoDetailStarColorDot
+                style={{ backgroundColor: `#${selectedZodiacData?.colorHex}` }}
+              ></InfoDetailStarColorDot>
+              <InfoDetailStarColorText>
+                {selectedZodiacData?.colorName}
+              </InfoDetailStarColorText>
             </InfoDetailStarColorDiv>
             <InfoDetailStarProductTitle>
-              Product Name
+              {selectedZodiacData?.productTitle}
             </InfoDetailStarProductTitle>
             <InfoDetailStarProductText>
-              Lorem ipsum dolor sit amet consectetur. Vulputate facilisi sit non
-              blandit sed in nunc. Neque et eget maecenas ac. Eu amet mauris non
-              proin tristique. In orci nisi eget tempor malesuada maecenas.
-              Lacus at sit non cursus maecenas laoreet sapien. A justo
-              pellentesque massa ut lacus. Ac lacus massa orci mauris tristique
-              tristique vulputate. Urna iaculis commodo suspendisse.
+              {selectedZodiacData?.description}
             </InfoDetailStarProductText>
-            <CTAButton>CTA</CTAButton>
+            <a href={`/products/${selectedZodiacData?.productId} `}>
+              <CTAButton>
+                前往購買
+              </CTAButton>
+            </a>
           </InfoDetailContainer>
         </InfoContainer>
         <MoreProductDivider />
         <MoreProductIntro>更多相似色產品</MoreProductIntro>
         <MoreProductContainer>
-          <Swiper
-            slidesPerView={3}
-            spaceBetween={1}
-            pagination={{
-              clickable: true,
-            }}
-            modules={[Pagination]}
-            className="mySwiper"
-          >
+          <Swiper>
             <SwiperSlide>
               <MoreProductAnchor>
                 <MoreProductDiv>
                   <MoreProductImgDiv>
                     <MoreProductImg />
                   </MoreProductImgDiv>
-                  <MoreProductColors>
-                    <MoreProductColor></MoreProductColor>
-                    <MoreProductColor></MoreProductColor>
-                    <MoreProductColor></MoreProductColor>
-                  </MoreProductColors>
                   <MoreProductTitle>小扇紋細織上衣</MoreProductTitle>
+                  <MoreProductId>123775888</MoreProductId>
                   <MoreProductPrice>NT. 1299</MoreProductPrice>
                 </MoreProductDiv>
               </MoreProductAnchor>
@@ -263,12 +316,8 @@ const Color = () => {
                   <MoreProductImgDiv>
                     <MoreProductImg />
                   </MoreProductImgDiv>
-                  <MoreProductColors>
-                    <MoreProductColor></MoreProductColor>
-                    <MoreProductColor></MoreProductColor>
-                    <MoreProductColor></MoreProductColor>
-                  </MoreProductColors>
                   <MoreProductTitle>小扇紋細織上衣</MoreProductTitle>
+                  <MoreProductId>123775888</MoreProductId>
                   <MoreProductPrice>NT. 1299</MoreProductPrice>
                 </MoreProductDiv>
               </MoreProductAnchor>
@@ -280,71 +329,16 @@ const Color = () => {
                   <MoreProductImgDiv>
                     <MoreProductImg />
                   </MoreProductImgDiv>
-                  <MoreProductColors>
-                    <MoreProductColor></MoreProductColor>
-                    <MoreProductColor></MoreProductColor>
-                    <MoreProductColor></MoreProductColor>
-                  </MoreProductColors>
                   <MoreProductTitle>小扇紋細織上衣</MoreProductTitle>
-                  <MoreProductPrice>NT. 1299</MoreProductPrice>
-                </MoreProductDiv>
-              </MoreProductAnchor>
-            </SwiperSlide>
-
-            <SwiperSlide>
-              <MoreProductAnchor>
-                <MoreProductDiv>
-                  <MoreProductImgDiv>
-                    <MoreProductImg />
-                  </MoreProductImgDiv>
-                  <MoreProductColors>
-                    <MoreProductColor></MoreProductColor>
-                    <MoreProductColor></MoreProductColor>
-                    <MoreProductColor></MoreProductColor>
-                  </MoreProductColors>
-                  <MoreProductTitle>小扇紋細織上衣</MoreProductTitle>
-                  <MoreProductPrice>NT. 1299</MoreProductPrice>
-                </MoreProductDiv>
-              </MoreProductAnchor>
-            </SwiperSlide>
-
-            <SwiperSlide>
-              <MoreProductAnchor>
-                <MoreProductDiv>
-                  <MoreProductImgDiv>
-                    <MoreProductImg />
-                  </MoreProductImgDiv>
-                  <MoreProductColors>
-                    <MoreProductColor></MoreProductColor>
-                    <MoreProductColor></MoreProductColor>
-                    <MoreProductColor></MoreProductColor>
-                  </MoreProductColors>
-                  <MoreProductTitle>小扇紋細織上衣</MoreProductTitle>
-                  <MoreProductPrice>NT. 1299</MoreProductPrice>
-                </MoreProductDiv>
-              </MoreProductAnchor>
-            </SwiperSlide>
-
-            <SwiperSlide>
-              <MoreProductAnchor>
-                <MoreProductDiv>
-                  <MoreProductImgDiv>
-                    <MoreProductImg />
-                  </MoreProductImgDiv>
-                  <MoreProductColors>
-                    <MoreProductColor></MoreProductColor>
-                    <MoreProductColor></MoreProductColor>
-                    <MoreProductColor></MoreProductColor>
-                  </MoreProductColors>
-                  <MoreProductTitle>小扇紋細織上衣</MoreProductTitle>
+                  <MoreProductId>123775888</MoreProductId>
                   <MoreProductPrice>NT. 1299</MoreProductPrice>
                 </MoreProductDiv>
               </MoreProductAnchor>
             </SwiperSlide>
           </Swiper>
         </MoreProductContainer>
-        
       </Container>
+
     </>
   );
 };

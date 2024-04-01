@@ -1,218 +1,220 @@
 import flashorder from '../../css/FlashOrder.module.css'
-import cart from '../../css/Cart.module.css'
+import flashstore from '../../css/Flashstore.module.css'
 import { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FlashContext } from '../../context/flashContext';
 
 const FlashOrder = () => {
     const navigate = useNavigate()
-    const [total, setTotal] = useState(0)
     const [leftMinute, setLeftMinute] = useState(10)
     const [leftSecond, setLeftSecond] = useState(0)
 
     const { flashProduct } = useContext(FlashContext)
 
-    useEffect(() => {
-        window.TPDirect.setupSDK(`${import.meta.env.VITE_TAPPAY_ID}`, `${import.meta.env.VITE_TAPPAY_KEY}`, 'sandbox')
-        window.TPDirect.card.setup({
-            // Display ccv field
-            fields: {
-                number: {
-                    // css selector
-                    element: '#card-number',
-                    placeholder: '**** **** **** ****'
-                },
-                expirationDate: {
-                    // DOM object
-                    element: document.getElementById('card-expiration-date'),
-                    placeholder: 'MM / YY'
-                },
-                ccv: {
-                    element: '#card-ccv',
-                    placeholder: 'ccv'
-                }
-            },
-            styles: {
-                // Style all elements
-                'input': {
-                    'color': 'gray'
-                },
-                // Styling ccv field
-                'input.ccv': {
-                    // 'font-size': '16px'
-                },
-                // Styling expiration-date field
-                'input.expiration-date': {
-                    // 'font-size': '16px'
-                },
-                // Styling card-number field
-                'input.card-number': {
-                    // 'font-size': '16px'
-                },
-                // style focus state
-                ':focus': {
-                    // 'color': 'black'
-                },
-                // style valid state
-                '.valid': {
-                    'color': 'green'
-                },
-                // style invalid state
-                '.invalid': {
-                    'color': 'red'
-                },
-                // Media queries
-                // Note that these apply to the iframe, not the root window.
-                '@media screen and (max-width: 400px)': {
-                    'input': {
-                        'color': 'orange'
-                    }
-                }
-            },
-            isMaskCreditCardNumber: true,
-            maskCreditCardNumberRange: {
-                beginIndex: 6,
-                endIndex: 11
-            }
-        })
-    }, [])
+  useEffect(() => {
+    window.TPDirect.setupSDK(
+      `12348`,
+      `app_pa1pQcKoY22IlnSXq5m5WP5jFKzoRG58VEXpT7wU62ud7mMbDOGzCYIlzzLF`,
+      "sandbox"
+    );
+    window.TPDirect.card.setup({
+      // Display ccv field
+      fields: {
+        number: {
+          // css selector
+          element: "#card-number",
+          placeholder: "**** **** **** ****",
+        },
+        expirationDate: {
+          // DOM object
+          element: document.getElementById("card-expiration-date"),
+          placeholder: "MM / YY",
+        },
+        ccv: {
+          element: "#card-ccv",
+          placeholder: "ccv",
+        },
+      },
+      styles: {
+        // Style all elements
+        input: {
+          color: "gray",
+        },
+        // Styling ccv field
+        "input.ccv": {
+          // 'font-size': '16px'
+        },
+        // Styling expiration-date field
+        "input.expiration-date": {
+          // 'font-size': '16px'
+        },
+        // Styling card-number field
+        "input.card-number": {
+          // 'font-size': '16px'
+        },
+        // style focus state
+        ":focus": {
+          // 'color': 'black'
+        },
+        // style valid state
+        ".valid": {
+          color: "green",
+        },
+        // style invalid state
+        ".invalid": {
+          color: "red",
+        },
+        // Media queries
+        // Note that these apply to the iframe, not the root window.
+        "@media screen and (max-width: 400px)": {
+          input: {
+            color: "orange",
+          },
+        },
+      },
+      isMaskCreditCardNumber: true,
+      maskCreditCardNumberRange: {
+        beginIndex: 6,
+        endIndex: 11,
+      },
+    });
+  }, []);
 
-    // useEffect(() => {
-    //     const sum = storage.reduce((acc, store) => acc + (store.price * store.quantity), 0)
-    //     setTotal(sum)
-    // }, [storage])
+  // useEffect(() => {
+  //     const sum = storage.reduce((acc, store) => acc + (store.price * store.quantity), 0)
+  //     setTotal(sum)
+  // }, [storage])
 
-    const [name, setName] = useState('')
-    const [phone, setPhone] = useState('')
-    const [address, setAddress] = useState('')
-    const [email, setEmail] = useState('')
-    const [selectedTime, setSelectedTime] = useState('')
-    // const [creditCard, setCreditCard] = useState('');
-    // const [expiryDate, setExpiryDate] = useState('')
-    // const [cvv, setCvv] = useState('')
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+  const [email, setEmail] = useState("");
+  const [selectedTime, setSelectedTime] = useState("");
+  // const [creditCard, setCreditCard] = useState('');
+  // const [expiryDate, setExpiryDate] = useState('')
+  // const [cvv, setCvv] = useState('')
 
-    const handleSelectedTime = (e) => {
-        setSelectedTime(e.target.value)
+  const handleSelectedTime = (e) => {
+    setSelectedTime(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // get status of TapPay Fields
+    const tappayStatus = window.TPDirect.card.getTappayFieldsStatus();
+    console.log(tappayStatus);
+
+    // ensure getPrime or not
+    if (tappayStatus.canGetPrime === false) {
+      alert("can not get prime");
+      return;
     }
 
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-
-        // get status of TapPay Fields  
-        const tappayStatus = window.TPDirect.card.getTappayFieldsStatus()
-        console.log(tappayStatus)
-
-        // ensure getPrime or not
-        if (tappayStatus.canGetPrime === false) {
-            alert('can not get prime')
-            return
-        }
-
-        // Get prime
-        window.TPDirect.card.getPrime((result) => {
-            if (result.status !== 0) {
-                alert('get prime error ' + result.msg)
-                return
-            }
-            // console.log('get prime 成功，prime: ' + result.card.prime)
-            const prime = result.card.prime
-            const authorization = localStorage.getItem('awsToken');
-            fetch(`${import.meta.env.VITE_API_URL}/order/checkout`, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${authorization}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(
-                    {
-                        "prime": prime,
-                        "order": {
-                            "shipping": "delivery",
-                            "payment": "credit_card",
-                            "subtotal": total,
-                            "freight": 30,
-                            "total": total + 30,
-                            "recipient": {
-                                "name": name,
-                                "phone": phone,
-                                "email": email,
-                                "address": address,
-                                "time": selectedTime
-                            },
-                            // "list": [
-                            //     storage.map(store => {
-                            //         return {
-                            //             "id": store.id,
-                            //             "name": store.name,
-                            //             "price": store.price,
-                            //             "color": {
-                            //                 "name": store.name,
-                            //                 "color": store.color
-                            //             },
-                            //             "size": store.sizes,
-                            //             "qty": store.quantity
-                            //         }
-                            //     },)
-                            // ]
-                        }
-                    }
-                )
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('網路錯誤，請稍後再試');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    // handle data from back-end
-                    const SR = data.data.number
-                    localStorage.setItem('SR', SR)
-                    navigate('/thank')
-                })
-                .catch(error => {
-                    // handle error
-                    console.error('發生錯誤:', error);
-                });
-            // send prime to your server, to pay with Pay by Prime API .
-            // Pay By Prime Docs: https://docs.tappaysdk.com/tutorial/zh/back.html#pay-by-prime-api
+    // Get prime
+    window.TPDirect.card.getPrime((result) => {
+      if (result.status !== 0) {
+        alert("get prime error " + result.msg);
+        return;
+      }
+      // console.log('get prime 成功，prime: ' + result.card.prime)
+      const prime = result.card.prime;
+      navigate('/thankyou')
+      return
+      const authorization = localStorage.getItem("awsToken");
+      fetch(`https://api.appworks-school.tw/api/1.0/order/checkout`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${authorization}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          prime: prime,
+          order: {
+            shipping: "delivery",
+            payment: "credit_card",
+            subtotal: flashProduct.product.price,
+            freight: 30,
+            total: flashProduct.product.price + 30,
+            recipient: {
+              name: name,
+              phone: phone,
+              email: email,
+              address: address,
+              time: selectedTime,
+            },
+            // "list": [
+            //     storage.map(store => {
+            //         return {
+            //             "id": store.id,
+            //             "name": store.name,
+            //             "price": store.price,
+            //             "color": {
+            //                 "name": store.name,
+            //                 "color": store.color
+            //             },
+            //             "size": store.sizes,
+            //             "qty": store.quantity
+            //         }
+            //     },)
+            // ]
+          },
+        }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("網路錯誤，請稍後再試");
+          }
+          return response.json();
         })
+        .then((data) => {
+          // handle data from back-end
+          const SR = data.data.number;
+          localStorage.setItem("SR", SR);
+          navigate("/thank");
+        })
+        .catch((error) => {
+          // handle error
+          console.error("發生錯誤:", error);
+        });
+      // send prime to your server, to pay with Pay by Prime API .
+      // Pay By Prime Docs: https://docs.tappaysdk.com/tutorial/zh/back.html#pay-by-prime-api
+    });
+  };
+
+  useEffect(() => {
+    if (!localStorage.getItem("flashtoken")) {
+      navigate("/flashsale");
     }
+    if (leftMinute == 0 && leftSecond == 0) {
+      localStorage.removeItem("flashtoken");
+      navigate("/flashsale");
+      return;
+    }
+    const countdown = setInterval(() => {
+      setLeftSecond((prevSecond) => prevSecond - 1);
+      if (leftSecond == 0) {
+        setLeftMinute((prevMinute) => prevMinute - 1);
+        setLeftSecond(59);
+      }
+    }, 1000);
+    return () => {
+      clearInterval(countdown);
+    };
+  }, [leftSecond]);
 
-    useEffect(() => {
-        if (!localStorage.getItem('flashtoken')) {
-            navigate('/flashsale')
-        }
-        if (leftMinute == 0 && leftSecond == 0) {
-            localStorage.removeItem('flashtoken')
-            navigate('/flashsale')
-            return
-        }
-        const countdown = setInterval(() => {
-            setLeftSecond(prevSecond => prevSecond - 1)
-            if (leftSecond == 0) {
-                setLeftMinute(prevMinute => prevMinute - 1)
-                setLeftSecond(59)
-            }
-        }, 1000)
-        return () => {
-            clearInterval(countdown)
-        }
-    }, [leftSecond])
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      localStorage.removeItem("flashtoken");
+    };
 
-    useEffect(() => {
-        const handleBeforeUnload = (event) => {
-            localStorage.removeItem('flashtoken')
-        };
+    window.addEventListener("beforeunload", handleBeforeUnload);
 
-        window.addEventListener('beforeunload', handleBeforeUnload);
-
-        return () => {
-            // 清除事件監聽器
-            window.removeEventListener('beforeunload', handleBeforeUnload);
-        };
-    }, []);
+    return () => {
+      // 清除事件監聽器
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
 
     return (
         <>
@@ -224,44 +226,44 @@ const FlashOrder = () => {
                 </div>
             </div>
             {flashProduct &&
-                <div className={cart.container}>
-                    <div className={cart.productsListTitle}>
+                <div className={flashstore.container}>
+                    <div className={flashstore.productsListTitle}>
                         <p>您的搶購商品</p>
                         <p>數量</p>
                         <p>單價</p>
                         <p>小計</p>
                     </div>
-                    <div className={cart.products}>
-                        <div className={cart.hr}></div>
-                        <div className={cart.product}>
-                            <div className={cart.productIntroduction}>
-                                <div className={cart.productImg}>
+                    <div className={flashstore.products}>
+                        <div className={flashstore.hr}></div>
+                        <div className={flashstore.product}>
+                            <div className={flashstore.productIntroduction}>
+                                <div className={flashstore.productImg}>
                                     <img src={flashProduct.product.main_image} alt="main" />
                                 </div>
-                                <div className={cart.productDetail}>
-                                    <div className={cart.productTitle}>{flashProduct.product.title}</div>
-                                    <div className={cart.productId}>{flashProduct.product.id}</div>
-                                    <div className={cart.productColor}>
+                                <div className={flashstore.productDetail}>
+                                    <div className={flashstore.productTitle}>{flashProduct.product.title}</div>
+                                    <div className={flashstore.productId}>{flashProduct.product.id}</div>
+                                    <div className={flashstore.productColor}>
                                         <p>顏色&nbsp;</p>
                                         <p>{flashProduct.product.colors[0].name}</p>
                                     </div>
-                                    <div className={cart.productSize}>
+                                    <div className={flashstore.productSize}>
                                         <p>尺寸&nbsp;</p>
                                         <p>{flashProduct.product.sizes[0]}</p>
                                     </div>
                                 </div>
                             </div>
-                            <div className={cart.selectCount}>
+                            <div className={flashstore.selectCount}>
                                 <p>數量</p>
                                 <select name="count">
                                     <option value="1">1</option>
                                 </select>
                             </div>
-                            <div className={cart.productPrice}>
+                            <div className={flashstore.productPrice}>
                                 <p>單價</p>
                                 <p>TWD.{flashProduct.product.price}</p>
                             </div>
-                            <div className={cart.productTotalPrice}>
+                            <div className={flashstore.productTotalPrice}>
                                 <p>小計</p>
                                 <p>TWD.{flashProduct.product.price}</p>
                             </div>
@@ -362,4 +364,4 @@ const FlashOrder = () => {
     )
 }
 
-export default FlashOrder
+export default FlashOrder;

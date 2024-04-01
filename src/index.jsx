@@ -1,17 +1,19 @@
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import App from './App';
-import Checkout from './pages/Checkout';
-import Home from './pages/Home';
-import Product from './pages/Product';
-import FlashSale from './pages/FlashSale';
-import FlashOrder from './pages/FlashOrder';
-import Profile from './pages/Profile';
-import ThankYou from './pages/ThankYou';
-import Color from './pages/Color'
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import App from "./App";
+import Checkout from "./pages/Checkout";
+import Home from "./pages/Home";
+import Product from "./pages/Product";
+import FlashSale from "./pages/FlashSale";
+import FlashOrder from "./pages/FlashOrder";
+import Profile from "./pages/Profile";
+import SignupPage from "./pages/Profile/SignupPage";
+import SigninPage from "./pages/Profile/SigninPage";
+import ThankYou from "./pages/ThankYou";
+import Color from "./pages/Color";
 import Game from "./pages/Game";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <BrowserRouter>
@@ -24,6 +26,8 @@ root.render(
         <Route path="checkout" element={<Checkout />} />
         <Route path="thankyou" element={<ThankYou />} />
         <Route path="profile" element={<Profile />} />
+        <Route path="signup" element={<SignupPage />} />
+        <Route path="signin" element={<SigninPage />} />
         <Route path="Color" element={<Color />} />
         <Route path="game" element={<Game />} />
         <Route path="*" element={<Navigate to="/" replace />} />

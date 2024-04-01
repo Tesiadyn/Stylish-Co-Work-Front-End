@@ -123,12 +123,13 @@ const CTAButton = styled.button`
 `;
 const MoreProductDivider = styled.div`
   height: 1px;
-  background-color: #3f3a3a;
+  background-color: #cfcfcf;
   margin: 50px 0 15px;
 `;
 const MoreProductIntro = styled.h2`
   color: #8b572a;
-  margin-bottom: 20px;
+  margin: 30px 0;
+  text-align: center;
 `;
 const MoreProductContainer = styled.div`
   width: 60%;
@@ -168,13 +169,20 @@ const MoreProductColor = styled.li`
   border-radius: 50%;
   background-color: darkblue;
 `;
+const MoreProductId = styled.p`
+  color: #f1f1f1;
+  margin: 10px 0 0 8px;
+  font-size: 12px;
+`;
 const MoreProductTitle = styled.h3`
   color: #fff;
   margin: 10px 0 0 8px;
+  font-size: 20px;
 `;
 const MoreProductPrice = styled.p`
   margin: 10px 0 0 8px;
   color: #fff;
+  font-weight: 600;
 `;
 
 /* -------------------------------- function -------------------------------- */
@@ -246,17 +254,15 @@ const Color = () => {
             handleZodiacChange(e);
           }}
         >
-          {isLoading ? (
-            console.log('loading...')
-          ) : zodiacData ? (
-            zodiacData.map((zodiac) => (
-              <DropDownOption key={zodiacData.zodiacId}>
-                {zodiac.zodiacZh}
-              </DropDownOption>
-            ))
-          ) : (
-            console.log('no data')
-          )}
+          {isLoading
+            ? console.log("loading...")
+            : zodiacData
+            ? zodiacData.map((zodiac) => (
+                <DropDownOption key={zodiacData.zodiacId}>
+                  {zodiac.zodiacZh}
+                </DropDownOption>
+              ))
+            : console.log("no data")}
         </DropDownMenu>
 
         <InfoContainer>
@@ -305,12 +311,8 @@ const Color = () => {
                   <MoreProductImgDiv>
                     <MoreProductImg />
                   </MoreProductImgDiv>
-                  <MoreProductColors>
-                    <MoreProductColor></MoreProductColor>
-                    <MoreProductColor></MoreProductColor>
-                    <MoreProductColor></MoreProductColor>
-                  </MoreProductColors>
                   <MoreProductTitle>小扇紋細織上衣</MoreProductTitle>
+                  <MoreProductId>123775888</MoreProductId>
                   <MoreProductPrice>NT. 1299</MoreProductPrice>
                 </MoreProductDiv>
               </MoreProductAnchor>
@@ -322,12 +324,8 @@ const Color = () => {
                   <MoreProductImgDiv>
                     <MoreProductImg />
                   </MoreProductImgDiv>
-                  <MoreProductColors>
-                    <MoreProductColor></MoreProductColor>
-                    <MoreProductColor></MoreProductColor>
-                    <MoreProductColor></MoreProductColor>
-                  </MoreProductColors>
                   <MoreProductTitle>小扇紋細織上衣</MoreProductTitle>
+                  <MoreProductId>123775888</MoreProductId>
                   <MoreProductPrice>NT. 1299</MoreProductPrice>
                 </MoreProductDiv>
               </MoreProductAnchor>
@@ -339,63 +337,8 @@ const Color = () => {
                   <MoreProductImgDiv>
                     <MoreProductImg />
                   </MoreProductImgDiv>
-                  <MoreProductColors>
-                    <MoreProductColor></MoreProductColor>
-                    <MoreProductColor></MoreProductColor>
-                    <MoreProductColor></MoreProductColor>
-                  </MoreProductColors>
                   <MoreProductTitle>小扇紋細織上衣</MoreProductTitle>
-                  <MoreProductPrice>NT. 1299</MoreProductPrice>
-                </MoreProductDiv>
-              </MoreProductAnchor>
-            </SwiperSlide>
-
-            <SwiperSlide>
-              <MoreProductAnchor>
-                <MoreProductDiv>
-                  <MoreProductImgDiv>
-                    <MoreProductImg />
-                  </MoreProductImgDiv>
-                  <MoreProductColors>
-                    <MoreProductColor></MoreProductColor>
-                    <MoreProductColor></MoreProductColor>
-                    <MoreProductColor></MoreProductColor>
-                  </MoreProductColors>
-                  <MoreProductTitle>小扇紋細織上衣</MoreProductTitle>
-                  <MoreProductPrice>NT. 1299</MoreProductPrice>
-                </MoreProductDiv>
-              </MoreProductAnchor>
-            </SwiperSlide>
-
-            <SwiperSlide>
-              <MoreProductAnchor>
-                <MoreProductDiv>
-                  <MoreProductImgDiv>
-                    <MoreProductImg />
-                  </MoreProductImgDiv>
-                  <MoreProductColors>
-                    <MoreProductColor></MoreProductColor>
-                    <MoreProductColor></MoreProductColor>
-                    <MoreProductColor></MoreProductColor>
-                  </MoreProductColors>
-                  <MoreProductTitle>小扇紋細織上衣</MoreProductTitle>
-                  <MoreProductPrice>NT. 1299</MoreProductPrice>
-                </MoreProductDiv>
-              </MoreProductAnchor>
-            </SwiperSlide>
-
-            <SwiperSlide>
-              <MoreProductAnchor>
-                <MoreProductDiv>
-                  <MoreProductImgDiv>
-                    <MoreProductImg />
-                  </MoreProductImgDiv>
-                  <MoreProductColors>
-                    <MoreProductColor></MoreProductColor>
-                    <MoreProductColor></MoreProductColor>
-                    <MoreProductColor></MoreProductColor>
-                  </MoreProductColors>
-                  <MoreProductTitle>小扇紋細織上衣</MoreProductTitle>
+                  <MoreProductId>123775888</MoreProductId>
                   <MoreProductPrice>NT. 1299</MoreProductPrice>
                 </MoreProductDiv>
               </MoreProductAnchor>

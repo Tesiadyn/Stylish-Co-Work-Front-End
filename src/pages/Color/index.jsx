@@ -172,8 +172,6 @@ const MoreProductPrice = styled.p`
 
 /* -------------------------------- function -------------------------------- */
 
-// // check response code
-
 /* -------------------------------- component ------------------------------- */
 const Color = () => {
   const [zodiacData, setZodiacData] = useState(null);
@@ -212,23 +210,13 @@ const Color = () => {
       }
     }
   }, [selectedZodiacId, zodiacData]);
-  // const selectedZodiac = zodiacData?.find(
-  //   (zodiac) => zodiac.zodiacId === selectedZodiacId
-  // );
-  // console.log(selectedZodiac);
 
-  // if (selectedZodiac) {
-  //   selectedZodiacData = {
-  //     name: selectedZodiac.zodiacZh,
-  //     colorName: selectedZodiac.colorName,
-  //     colorHex: selectedZodiac.colorHex,
-  //     description: selectedZodiac.description,
-  //     productTitle: selectedZodiac.product.title,
-  //     productImg: selectedZodiac.product.mainImage,
-  //     productStory: selectedZodiac.product.story,
-  //   };
-  // }
-  // console.log(selectedZodiacData);
+  const today = new Date();
+  const dayString = today.toLocaleDateString("zh-CN", {
+    month: "long",
+    day: "numeric",
+  });
+
   const handleZodiacChange = (e) => {
     const zodiacName = e.target.value;
     const selectedZodiac = zodiacData.find(
@@ -269,7 +257,7 @@ const Color = () => {
             <InfoDetailStarTitle>
               {selectedZodiacData?.name}
             </InfoDetailStarTitle>
-            <InfoDetailStarDate>3/30</InfoDetailStarDate>
+            <InfoDetailStarDate>{dayString}</InfoDetailStarDate>
             <InfoDetailStarColorDiv>
               <InfoDetailStarColorDot
                 style={{ backgroundColor: selectedZodiacData?.colorHex }}

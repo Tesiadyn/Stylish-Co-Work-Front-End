@@ -47,12 +47,15 @@ export const FlashContextProvider = ({ children }) => {
   }, []);
 
   const [activeColor, setActiveColor] = useState('')
+  const [activeSize, setActiveSize] = useState('')
 
   return (
     <FlashContext.Provider
       value={{
         activeColor,
         setActiveColor,
+        activeSize,
+        setActiveSize,
         flashProduct,
         currentTime
       }}

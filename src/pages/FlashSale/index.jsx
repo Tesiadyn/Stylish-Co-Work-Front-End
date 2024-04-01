@@ -1,15 +1,12 @@
 import flashsale from '../../css/FlashSale.module.css'
-import mainImage from './main.jpg'
 import { FlashContext } from '../../context/flashContext'
-import image0 from './0.jpg'
-import image1 from './1.jpg'
 import { useState, useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const FlashSale = () => {
     const navigate = useNavigate()
 
-    const { activeColor, setActiveColor, flashProduct, currentTime } = useContext(FlashContext)
+    const { activeColor, setActiveColor, activeSize, setActiveSize, flashProduct, currentTime } = useContext(FlashContext)
     const [flashTime, setFlashTime] = useState(false)
     const [leftHours, setLeftHours] = useState(0)
     const [leftMinute, setLeftMinute] = useState(0)
@@ -17,6 +14,10 @@ const FlashSale = () => {
 
     const handleColor = (color) => {
         setActiveColor(color)
+    }
+
+    const handleSize = (size) => {
+        setActiveSize(size)
     }
 
     const handleToBuy = () => {
@@ -83,21 +84,33 @@ const FlashSale = () => {
                         <div className={flashsale.selectColors}>
                             <p>顏色</p>
                             <div className={flashsale.colors}>
-                                {flashProduct.product.colors.map(color => (
-                                    <div onClick={() => handleColor(color.code)} key={color.code} className={color.code === activeColor ? flashsale.active : ''}><div style={{ backgroundColor: `#${color.code}` }}></div></div>
+                                {flashProduct.product.colors.map((color, index) => (
+                                    <div onClick={() => handleColor(color.code)}
+                                         key={color.code}
+                                         className={!activeColor && index === 0 ?
+                                                    flashsale.active : activeColor === color.code ?
+                                                    flashsale.active : ''}><div style={{ backgroundColor: `#${color.code}` }}></div>
+                                    </div>
                                 ))}
                             </div>
                         </div>
                         <div className={flashsale.selectSize}>
                             <p>尺寸</p>
                             <div className={flashsale.size}>
-                                {flashProduct.product.sizes.map(size => (
-                                    <div key={size}>{size}</div>
+                                {flashProduct.product.sizes.map((size, index) => (
+                                    <div onClick={() => handleSize(size)}
+                                         key={size}
+                                         style={activeSize === size ? { backgroundColor: 'black', color: 'white' } : null}
+                                         className={!activeSize && index === 0 && flashProduct.stock ?
+                                                    flashsale.sizeSelected : flashProduct.stock ?
+                                                    flashsale.sizeAvailableNotSelected : flashsale.sizeOutOfStock}>{size}
+                                    </div>
                                 ))}
                             </div>
                         </div>
                         <div className={flashsale.selectCount}>
                             <p>數量</p>
+                            <span className={flashsale.remindCount}>餘{flashProduct.stock}</span>
                             <div className={flashsale.count}>
                                 <div>⚡</div>
                                 <div>限購1次</div>

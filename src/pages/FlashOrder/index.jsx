@@ -1,4 +1,5 @@
 import flashorder from '../../css/FlashOrder.module.css'
+import cart from '../../css/Cart.module.css'
 import { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FlashContext } from '../../context/flashContext';
@@ -9,7 +10,7 @@ const FlashOrder = () => {
     const [leftMinute, setLeftMinute] = useState(10)
     const [leftSecond, setLeftSecond] = useState(0)
 
-    const { activeColor } = useContext(FlashContext)
+    const { flashProduct } = useContext(FlashContext)
 
     useEffect(() => {
         window.TPDirect.setupSDK(`${import.meta.env.VITE_TAPPAY_ID}`, `${import.meta.env.VITE_TAPPAY_KEY}`, 'sandbox')
@@ -219,9 +220,55 @@ const FlashOrder = () => {
                 <div className={flashorder.warningLayout}>
                     <p>恭喜您獲取購買資格！請在10分鐘內結帳</p>
                     <p><b className={flashorder.warning}>{`${leftMinute.toString().padStart(2, '0')}:${leftSecond.toString().padStart(2, '0')}`}</b>後，購買資格將釋出</p>
-                    <p className={flashorder.warning}>結帳頁面請勿重整，會導致購賣資格消失</p>
+                    <p className={flashorder.warning}>結帳頁面請勿重載，會導致購賣資格消失</p>
                 </div>
             </div>
+            {flashProduct &&
+                <div className={cart.container}>
+                    <div className={cart.productsListTitle}>
+                        <p>您的搶購商品</p>
+                        <p>數量</p>
+                        <p>單價</p>
+                        <p>小計</p>
+                    </div>
+                    <div className={cart.products}>
+                        <div className={cart.hr}></div>
+                        <div className={cart.product}>
+                            <div className={cart.productIntroduction}>
+                                <div className={cart.productImg}>
+                                    <img src={flashProduct.product.main_image} alt="main" />
+                                </div>
+                                <div className={cart.productDetail}>
+                                    <div className={cart.productTitle}>{flashProduct.product.title}</div>
+                                    <div className={cart.productId}>{flashProduct.product.id}</div>
+                                    <div className={cart.productColor}>
+                                        <p>顏色&nbsp;</p>
+                                        <p>{flashProduct.product.colors[0].name}</p>
+                                    </div>
+                                    <div className={cart.productSize}>
+                                        <p>尺寸&nbsp;</p>
+                                        <p>{flashProduct.product.sizes[0]}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={cart.selectCount}>
+                                <p>數量</p>
+                                <select name="count">
+                                    <option value="1">1</option>
+                                </select>
+                            </div>
+                            <div className={cart.productPrice}>
+                                <p>單價</p>
+                                <p>TWD.{flashProduct.product.price}</p>
+                            </div>
+                            <div className={cart.productTotalPrice}>
+                                <p>小計</p>
+                                <p>TWD.{flashProduct.product.price}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
             <div className={flashorder.container}>
                 <form action="" onSubmit={handleSubmit} className={flashorder.form}>
                     <p className={flashorder.title}>訂購資料</p>
@@ -291,7 +338,7 @@ const FlashOrder = () => {
                             <div>
                                 <p className={flashorder.listItem}>總金額</p>
                                 <p>NT.</p>
-                                <p>{total}</p>
+                                <p>{flashProduct && flashProduct.product.price}</p>
                             </div>
                             <div>
                                 <p className={flashorder.listItem}>運費</p>
@@ -302,7 +349,7 @@ const FlashOrder = () => {
                             <div>
                                 <p className={flashorder.listItem}>應付金額</p>
                                 <p>NT.</p>
-                                <p>{total + 30}</p>
+                                <p>{flashProduct && flashProduct.product.price + 30}</p>
                             </div>
                         </div>
                     </div>

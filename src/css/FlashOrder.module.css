@@ -5,6 +5,7 @@
     padding: 10px 20px;
     position: fixed;
     margin-top: 20px;
+    z-index: 2;
 }
 
 .warningLayout{
@@ -20,7 +21,7 @@
 
 .container {
     width: calc(100% - 48px);
-    margin: 138px auto 30px;
+    margin: 0 auto;
 }
 
 .title {
@@ -181,7 +182,6 @@
         letter-spacing: 2px;
     }
     .container {
-        margin-top: 136px;
         width: 1160px;
     }
 

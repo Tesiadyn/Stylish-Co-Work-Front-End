@@ -137,6 +137,7 @@ const SearchInput = styled.input`
 const PageLinks = styled.div`
   margin-left: 42px;
   display: flex;
+ 
 
   @media screen and (max-width: 1279px) {
     width: 100%;
@@ -150,6 +151,7 @@ const PageLinks = styled.div`
 `;
 
 const PageLink = styled(Link)`
+ text-decoration: none;
   &&.colorLink {
     @media screen and (max-width: 1279px) {
       width: auto;

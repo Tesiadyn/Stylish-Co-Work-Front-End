@@ -30,7 +30,7 @@ const FlashSale = () => {
         if (flashProduct && currentTime) {
             const currentDate = new Date(currentTime)
             currentDate.setMilliseconds(0)
-            const startDate = new Date(flashProduct.start_time)
+            const startDate = new Date("2024-04-01T05:30:00.000+08:00")
             const endDate = new Date(flashProduct.end_time)
             startDate.setMilliseconds(0)
             endDate.setMilliseconds(0)
@@ -69,6 +69,7 @@ const FlashSale = () => {
                             </div>
                         </div>
                     </div>
+                    <div className={flashsale.watching}>目前瀏覽人數突破<b className={flashsale.people}>135791234</b>人</div>
                 </div>
             }
             {flashProduct &&
@@ -86,10 +87,10 @@ const FlashSale = () => {
                             <div className={flashsale.colors}>
                                 {flashProduct.product.colors.map((color, index) => (
                                     <div onClick={() => handleColor(color.code)}
-                                         key={color.code}
-                                         className={!activeColor && index === 0 ?
-                                                    flashsale.active : activeColor === color.code ?
-                                                    flashsale.active : ''}><div style={{ backgroundColor: `#${color.code}` }}></div>
+                                        key={color.code}
+                                        className={!activeColor && index === 0 ?
+                                            flashsale.active : activeColor === color.code ?
+                                                flashsale.active : ''}><div style={{ backgroundColor: `#${color.code}` }}></div>
                                     </div>
                                 ))}
                             </div>
@@ -99,18 +100,26 @@ const FlashSale = () => {
                             <div className={flashsale.size}>
                                 {flashProduct.product.sizes.map((size, index) => (
                                     <div onClick={() => handleSize(size)}
-                                         key={size}
-                                         style={activeSize === size ? { backgroundColor: 'black', color: 'white' } : null}
-                                         className={!activeSize && index === 0 && flashProduct.stock ?
-                                                    flashsale.sizeSelected : flashProduct.stock ?
-                                                    flashsale.sizeAvailableNotSelected : flashsale.sizeOutOfStock}>{size}
+                                        key={size}
+                                        style={activeSize === size ? { backgroundColor: 'black', color: 'white' } : null}
+                                        className={!activeSize && index === 0 && flashProduct.stock ?
+                                            flashsale.sizeSelected : flashProduct.stock ?
+                                                flashsale.sizeAvailableNotSelected : flashsale.sizeOutOfStock}>{size}
                                     </div>
                                 ))}
                             </div>
                         </div>
                         <div className={flashsale.selectCount}>
                             <p>數量</p>
-                            <span className={flashsale.remindCount}>餘{flashProduct.stock}</span>
+                            <span className={flashsale.remindCount}>
+                                <div className={flashsale.svgLayout}>
+                                    <i className="fa-solid fa-fire"></i>
+                                    <div className={flashsale.bar}></div>
+                                    <div className={flashsale.animateBar}></div>
+                                    <div className={flashsale.barContent}>剩下{flashProduct.stock}件</div>
+                                </div>
+                                
+                            </span>
                             <div className={flashsale.count}>
                                 <div>⚡</div>
                                 <div>限購1次</div>

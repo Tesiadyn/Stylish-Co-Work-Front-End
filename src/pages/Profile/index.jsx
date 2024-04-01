@@ -1,6 +1,30 @@
 import React, { useEffect, useState } from "react";
 import newApi from "../../utils/newApi";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+
+const LoggedInMessage = styled.h1`
+  margin: 100px auto;
+  text-align: center;
+  font-size: 42px;
+`;
+const ExitAnchor = styled.a`
+  text-decoration: none;
+`;
+const ExitButtonDiv = styled.div`
+  width: 100%;
+`;
+const ExitButton = styled.button`
+  margin: 0 auto;
+  display: block;
+  background-color: #2c2c2c;
+  box-shadow: 3px 3px 5px rgba(63, 63, 63, 0.4);
+  color: #f7f7f7;
+  font-weight: 600;
+  font-size: 24px;
+  padding: 8px 40px;
+`;
+
 const Profile = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setisLoggedIn] = useState();
@@ -30,10 +54,12 @@ const Profile = () => {
   if (isLoggedIn)
     return (
       <>
-        <h1 style={{ margin: "100px 0 10px 100px" }}>您已登入</h1>
-        <a href="/">
-          <button style={{ marginLeft: "100px" }}>前往購物</button>
-        </a>
+        <LoggedInMessage>您已登入</LoggedInMessage>
+        <ExitAnchor href="/">
+          <ExitButtonDiv>
+            <ExitButton>前往購物</ExitButton>
+          </ExitButtonDiv>
+        </ExitAnchor>
       </>
     );
 };

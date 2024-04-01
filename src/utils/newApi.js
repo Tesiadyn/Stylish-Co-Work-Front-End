@@ -1,8 +1,12 @@
 const newApi = {
-  hostname: "xxxxx",
-  async getUserData() {
-    const response = await fetch(`${this.hostname}/xxxxxxx`);
-    return await response.json();
+  hostname: "https://zackawesome.net/api/1.0/",
+  async shouldBeMember(token) {
+    const response = await fetch(`${this.hostname}/user/profile`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return await response;
   },
 };
 

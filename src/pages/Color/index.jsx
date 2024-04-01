@@ -1,9 +1,6 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import exPic from "./images/zodiac.jpg";
-
-// import Swiper from "swiper";
-// import { SwiperSlide } from 'swiper/react';
+import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import "swiper/css";
@@ -17,7 +14,8 @@ const Container = styled.div`
   width: 70%;
   margin: 50px auto;
 `;
-Container.displayName = "Container";
+
+const MotionContainer = motion(Container);
 
 const DropDownMenu = styled.select`
   width: 100%;
@@ -29,7 +27,7 @@ const DropDownMenu = styled.select`
     margin: 0 auto;
   }
 `;
-DropDownMenu.displayName = "DropDownMenu";
+
 
 const DropDownOptGroup = styled.optgroup`
   color: #a5b3b4;
@@ -289,22 +287,16 @@ const Color = () => {
               {selectedZodiacData?.description}
             </InfoDetailStarProductText>
             <a href={`/products/${selectedZodiacData?.productId} `}>
-              <CTAButton>前往購買</CTAButton>
+              <CTAButton>
+                前往購買
+              </CTAButton>
             </a>
           </InfoDetailContainer>
         </InfoContainer>
         <MoreProductDivider />
         <MoreProductIntro>更多相似色產品</MoreProductIntro>
         <MoreProductContainer>
-          <Swiper
-            slidesPerView={3}
-            spaceBetween={1}
-            pagination={{
-              clickable: true,
-            }}
-            modules={[Pagination]}
-            className="mySwiper"
-          >
+          <Swiper>
             <SwiperSlide>
               <MoreProductAnchor>
                 <MoreProductDiv>
@@ -346,6 +338,7 @@ const Color = () => {
           </Swiper>
         </MoreProductContainer>
       </Container>
+
     </>
   );
 };

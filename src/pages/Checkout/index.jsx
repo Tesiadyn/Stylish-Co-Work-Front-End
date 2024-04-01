@@ -298,7 +298,7 @@ const timeOptions = [
 ];
 
 function Checkout() {
-  const [isCouponOpen, setIsCouponOpen] = useState(false);
+  // const [is, setis] = useState(second)
   const [recipient, setRecipient] = useState({
     name: "",
     email: "",
@@ -401,6 +401,7 @@ function Checkout() {
   }
 
   //-----------------coupon------------------------
+  const [isCouponOpen, setIsCouponOpen] = useState(false);
 
   const [couponDatas, setCouponDatas] = useState([
     {
@@ -412,27 +413,34 @@ function Checkout() {
     },
   ]);
   const [couponFormInput, setCouponFormInput] = useState();
+
   const discount = couponDatas[couponFormInput]?.discount_amt || 0;
 
   async function getCoupons() {
-    const token = localStorage.getItem("token");
-    const response = await fetch(
-      "https://zackawesome.net/api/1.0/coupon/profilePage",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    const data = await response.json();
-    console.log("所有的優惠", data.coupons);
-    setCouponDatas(data.coupons);
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(
+        "https://zackawesome.net/api/1.0/coupon/profilePage",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const data = await response.json();
+      console.log("所有的優惠", data?.coupons);
+
+      data?.coupons && setCouponDatas(data?.coupons);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   function handleCouponDisplay() {
     getCoupons();
     setIsCouponOpen(true);
   }
+  function handleCheckout() {}
   return (
     <Wrapper>
       <Coupon
@@ -533,6 +541,7 @@ function Checkout() {
       <a href="/thankyou">
         <Button
           loading={loading}
+          onClick={handleCheckout}
           // onClick={checkout}
         >
           確認付款

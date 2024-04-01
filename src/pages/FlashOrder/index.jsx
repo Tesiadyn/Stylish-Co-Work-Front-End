@@ -1,15 +1,16 @@
-// import flashorder from '../../css/FlashOrder.module.css'
-import { useEffect, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { FlashContext } from "../../context/flashContext";
+import flashorder from '../../css/FlashOrder.module.css'
+import cart from '../../css/Cart.module.css'
+import { useEffect, useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { FlashContext } from '../../context/flashContext';
 
 const FlashOrder = () => {
-  const navigate = useNavigate();
-  const [total, setTotal] = useState(0);
-  const [leftMinute, setLeftMinute] = useState(10);
-  const [leftSecond, setLeftSecond] = useState(0);
+    const navigate = useNavigate()
+    const [total, setTotal] = useState(0)
+    const [leftMinute, setLeftMinute] = useState(10)
+    const [leftSecond, setLeftSecond] = useState(0)
 
-  const { activeColor } = useContext(FlashContext);
+    const { flashProduct } = useContext(FlashContext)
 
   useEffect(() => {
     window.TPDirect.setupSDK(
@@ -214,118 +215,102 @@ const FlashOrder = () => {
     };
   }, []);
 
-  return (
-    <>
-      <div className={flashorder.highlightedBox}>
-        <div className={flashorder.warningLayout}>
-          <p>恭喜您獲取購買資格！請在10分鐘內結帳</p>
-          <p>
-            <b
-              className={flashorder.warning}
-            >{`${leftMinute.toString().padStart(2, "0")}:${leftSecond.toString().padStart(2, "0")}`}</b>
-            後，購買資格將釋出
-          </p>
-          <p className={flashorder.warning}>
-            結帳頁面請勿重整，會導致購賣資格消失
-          </p>
-        </div>
-      </div>
-      <div className={flashorder.container}>
-        <form action="" onSubmit={handleSubmit} className={flashorder.form}>
-          <p className={flashorder.title}>訂購資料</p>
-          <div className={flashorder.hr}></div>
-          <div className={flashorder.inputContainer}>
-            <label htmlFor="name">收件人姓名</label>
-            <input
-              type="text"
-              id="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-          </div>
-          <p className={flashorder.remind}>
-            務必填寫完整收件人姓名，避免包裹無法順利簽收
-          </p>
-          <div className={flashorder.inputContainer}>
-            <label htmlFor="phone">手機</label>
-            <input
-              type="tel"
-              id="phone"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              pattern="^\d{10}$"
-              title="請輸入手機號碼"
-              required
-            />
-          </div>
-          <div className={flashorder.inputContainer}>
-            <label htmlFor="address">地址</label>
-            <input
-              type="text"
-              id="address"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-              required
-            />
-          </div>
-          <div className={flashorder.inputContainer}>
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div className={flashorder.inputContainer}>
-            <p className={flashorder.radioTitle}>配送時間</p>
-            <div className={flashorder.radioContainer}>
-              <div>
-                <input
-                  type="radio"
-                  id="morning"
-                  name="time"
-                  value="morning"
-                  onChange={handleSelectedTime}
-                  required
-                />
-                <label data-time htmlFor="morning">
-                  08:00-12:00
-                </label>
-              </div>
-              <div>
-                <input
-                  type="radio"
-                  id="afternoon"
-                  name="time"
-                  value="afternoon"
-                  onChange={handleSelectedTime}
-                  required
-                />
-                <label data-time htmlFor="afternoon">
-                  14:00-18:00
-                </label>
-              </div>
-              <div>
-                <input
-                  type="radio"
-                  id="anytime"
-                  name="time"
-                  value="anytime"
-                  onChange={handleSelectedTime}
-                  required
-                />
-                <label data-time htmlFor="anytime">
-                  不指定
-                </label>
-              </div>
+    return (
+        <>
+            <div className={flashorder.highlightedBox}>
+                <div className={flashorder.warningLayout}>
+                    <p>恭喜您獲取購買資格！請在10分鐘內結帳</p>
+                    <p><b className={flashorder.warning}>{`${leftMinute.toString().padStart(2, '0')}:${leftSecond.toString().padStart(2, '0')}`}</b>後，購買資格將釋出</p>
+                    <p className={flashorder.warning}>結帳頁面請勿重載，會導致購賣資格消失</p>
+                </div>
             </div>
-          </div>
-          <p className={flashorder.title}>付款資料</p>
-          <div className={flashorder.hr}></div>
-          {/* <div className={order.inputContainer}>
+            {flashProduct &&
+                <div className={cart.container}>
+                    <div className={cart.productsListTitle}>
+                        <p>您的搶購商品</p>
+                        <p>數量</p>
+                        <p>單價</p>
+                        <p>小計</p>
+                    </div>
+                    <div className={cart.products}>
+                        <div className={cart.hr}></div>
+                        <div className={cart.product}>
+                            <div className={cart.productIntroduction}>
+                                <div className={cart.productImg}>
+                                    <img src={flashProduct.product.main_image} alt="main" />
+                                </div>
+                                <div className={cart.productDetail}>
+                                    <div className={cart.productTitle}>{flashProduct.product.title}</div>
+                                    <div className={cart.productId}>{flashProduct.product.id}</div>
+                                    <div className={cart.productColor}>
+                                        <p>顏色&nbsp;</p>
+                                        <p>{flashProduct.product.colors[0].name}</p>
+                                    </div>
+                                    <div className={cart.productSize}>
+                                        <p>尺寸&nbsp;</p>
+                                        <p>{flashProduct.product.sizes[0]}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={cart.selectCount}>
+                                <p>數量</p>
+                                <select name="count">
+                                    <option value="1">1</option>
+                                </select>
+                            </div>
+                            <div className={cart.productPrice}>
+                                <p>單價</p>
+                                <p>TWD.{flashProduct.product.price}</p>
+                            </div>
+                            <div className={cart.productTotalPrice}>
+                                <p>小計</p>
+                                <p>TWD.{flashProduct.product.price}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div className={flashorder.container}>
+                <form action="" onSubmit={handleSubmit} className={flashorder.form}>
+                    <p className={flashorder.title}>訂購資料</p>
+                    <div className={flashorder.hr}></div>
+                    <div className={flashorder.inputContainer}>
+                        <label htmlFor="name">收件人姓名</label>
+                        <input type="text" id='name' value={name} onChange={(e) => setName(e.target.value)} required />
+                    </div>
+                    <p className={flashorder.remind}>務必填寫完整收件人姓名，避免包裹無法順利簽收</p>
+                    <div className={flashorder.inputContainer}>
+                        <label htmlFor="phone">手機</label>
+                        <input type="tel" id='phone' value={phone} onChange={(e) => setPhone(e.target.value)} pattern='^\d{10}$' title='請輸入手機號碼' required />
+                    </div>
+                    <div className={flashorder.inputContainer}>
+                        <label htmlFor="address">地址</label>
+                        <input type="text" id='address' value={address} onChange={(e) => setAddress(e.target.value)} required />
+                    </div>
+                    <div className={flashorder.inputContainer}>
+                        <label htmlFor="email">Email</label>
+                        <input type="email" id='email' value={email} onChange={(e) => setEmail(e.target.value)} required />
+                    </div>
+                    <div className={flashorder.inputContainer}>
+                        <p className={flashorder.radioTitle}>配送時間</p>
+                        <div className={flashorder.radioContainer}>
+                            <div>
+                                <input type="radio" id="morning" name="time" value="morning" onChange={handleSelectedTime} required />
+                                <label data-time htmlFor="morning">08:00-12:00</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="afternoon" name="time" value="afternoon" onChange={handleSelectedTime} required />
+                                <label data-time htmlFor="afternoon">14:00-18:00</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="anytime" name="time" value="anytime" onChange={handleSelectedTime} required />
+                                <label data-time htmlFor="anytime">不指定</label>
+                            </div>
+                        </div>
+                    </div>
+                    <p className={flashorder.title}>付款資料</p>
+                    <div className={flashorder.hr}></div>
+                    {/* <div className={order.inputContainer}>
                     <label htmlFor="card-number">信用卡號碼</label>
                     <input type="text" id='card-number' placeholder='**** **** **** ****' value={creditCard} onChange={handleChange} pattern='^[\d ]{19}$' title='請輸入16位數的信用卡號碼' required />
                 </div>
@@ -337,50 +322,45 @@ const FlashOrder = () => {
                     <label htmlFor="card-ccv">後三碼</label>
                     <input type="text" id='card-ccv' placeholder='後三碼' value={cvv} onChange={(e) => setCvv(e.target.value)} pattern='^\d{3}$' required />
                 </div> */}
-          <div className={flashorder.special}>
-            <p className={flashorder.specialLable}>信用卡號碼</p>
-            <div className={flashorder.specialInput} id="card-number"></div>
-          </div>
-          <div className={flashorder.special}>
-            <p className={flashorder.specialLable}>有效期限</p>
-            <div
-              className={flashorder.specialInput}
-              id="card-expiration-date"
-            ></div>
-          </div>
-          <div className={flashorder.special}>
-            <p className={flashorder.specialLable}>後三碼</p>
-            <div className={flashorder.specialInput} id="card-ccv"></div>
-          </div>
-          <div>
-            <div className={flashorder.list}>
-              <div>
-                <p className={flashorder.listItem}>總金額</p>
-                <p>NT.</p>
-                <p>{total}</p>
-              </div>
-              <div>
-                <p className={flashorder.listItem}>運費</p>
-                <p>NT.</p>
-                <p>30</p>
-              </div>
-              <div className={flashorder.hr2}></div>
-              <div>
-                <p className={flashorder.listItem}>應付金額</p>
-                <p>NT.</p>
-                <p>{total + 30}</p>
-              </div>
+                    <div className={flashorder.special}>
+                        <p className={flashorder.specialLable}>信用卡號碼</p>
+                        <div className={flashorder.specialInput} id="card-number"></div>
+                    </div>
+                    <div className={flashorder.special}>
+                        <p className={flashorder.specialLable}>有效期限</p>
+                        <div className={flashorder.specialInput} id="card-expiration-date"></div>
+                    </div>
+                    <div className={flashorder.special}>
+                        <p className={flashorder.specialLable}>後三碼</p>
+                        <div className={flashorder.specialInput} id="card-ccv"></div>
+                    </div>
+                    <div>
+                        <div className={flashorder.list}>
+                            <div>
+                                <p className={flashorder.listItem}>總金額</p>
+                                <p>NT.</p>
+                                <p>{flashProduct && flashProduct.product.price}</p>
+                            </div>
+                            <div>
+                                <p className={flashorder.listItem}>運費</p>
+                                <p>NT.</p>
+                                <p>30</p>
+                            </div>
+                            <div className={flashorder.hr2}></div>
+                            <div>
+                                <p className={flashorder.listItem}>應付金額</p>
+                                <p>NT.</p>
+                                <p>{flashProduct && flashProduct.product.price + 30}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={flashorder.submitLayout}>
+                        <button className={flashorder.submit} type='submit'>確認付款</button>
+                    </div>
+                </form>
             </div>
-          </div>
-          <div className={flashorder.submitLayout}>
-            <button className={flashorder.submit} type="submit">
-              確認付款
-            </button>
-          </div>
-        </form>
-      </div>
-    </>
-  );
-};
+        </>
+    )
+}
 
 export default FlashOrder;

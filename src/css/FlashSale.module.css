@@ -2,6 +2,7 @@
     width: 100%;
     height: 60px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     position: fixed;
@@ -65,6 +66,17 @@
     transform: translateX(30px);
     border-bottom: 1px solid rgba(0, 0, 0, .6);
     width: 20px;
+}
+
+.watching{
+    display: flex;
+    align-items: center;
+}
+
+.people{
+    font-family: "Bungee Spice", sans-serif;
+    font-size: 24px;
+    margin-left: 2px;
 }
 
 /*old thing*/

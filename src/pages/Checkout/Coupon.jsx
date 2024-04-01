@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "./Coupon.module.css";
+import couponImg from "../../components/couponIcons/coupon.png";
 const Coupon = ({
   isCouponOpen,
   setIsCouponOpen,
@@ -26,7 +27,7 @@ const Coupon = ({
                 <label htmlFor={index} className={styles.label}>
                   <figure>
                     <img
-                      src="/src/assets/coupon.png"
+                      src={couponImg}
                       alt="coupon"
                       className={
                         gap > 0 ? styles.couponIconDisabled : styles.couponIcon

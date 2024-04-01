@@ -68,7 +68,9 @@ function SignupPage() {
               }
               value={password}
             />
-            <div className="profile__hint">已有帳號？ 前往登入 -&gt;</div>
+            <a href="/signin">
+              <div className="profile__hint">已有帳號？ 前往登入 -&gt;</div>
+            </a>
             <button type="submit" className="profile__button">
               註冊
             </button>

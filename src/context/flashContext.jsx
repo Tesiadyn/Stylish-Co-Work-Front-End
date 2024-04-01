@@ -25,7 +25,7 @@ export const FlashContextProvider = ({ children }) => {
   useEffect(() => {
     const fetchTime = async () => {
       try {
-        const response = await fetch('http://worldtimeapi.org/api/ip');
+        const response = await fetch('https://worldtimeapi.org/api/ip');
         if (!response.ok) {
           throw new Error('Failed to fetch time data');
         }
@@ -35,13 +35,13 @@ export const FlashContextProvider = ({ children }) => {
         console.log(error);
       }
     };
-  
+
     // 首次執行 fetchTime
     fetchTime();
-  
+
     // 設定定時器，每隔一秒重新取得時間
     const interval = setInterval(fetchTime, 1000);
-  
+
     // 在組件解除掛載時清除定時器
     return () => clearInterval(interval);
   }, []);

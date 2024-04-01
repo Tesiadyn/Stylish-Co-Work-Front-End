@@ -1,12 +1,11 @@
 import flashorder from '../../css/FlashOrder.module.css'
-import cart from '../../css/Cart.module.css'
+import flashstore from '../../css/Flashstore.module.css'
 import { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FlashContext } from '../../context/flashContext';
 
 const FlashOrder = () => {
     const navigate = useNavigate()
-    const [total, setTotal] = useState(0)
     const [leftMinute, setLeftMinute] = useState(10)
     const [leftSecond, setLeftSecond] = useState(0)
 
@@ -14,8 +13,8 @@ const FlashOrder = () => {
 
   useEffect(() => {
     window.TPDirect.setupSDK(
-      `${import.meta.env.VITE_TAPPAY_ID}`,
-      `${import.meta.env.VITE_TAPPAY_KEY}`,
+      `12348`,
+      `app_pa1pQcKoY22IlnSXq5m5WP5jFKzoRG58VEXpT7wU62ud7mMbDOGzCYIlzzLF`,
       "sandbox"
     );
     window.TPDirect.card.setup({
@@ -120,8 +119,10 @@ const FlashOrder = () => {
       }
       // console.log('get prime 成功，prime: ' + result.card.prime)
       const prime = result.card.prime;
+      navigate('/thankyou')
+      return
       const authorization = localStorage.getItem("awsToken");
-      fetch(`${import.meta.env.VITE_API_URL}/order/checkout`, {
+      fetch(`https://api.appworks-school.tw/api/1.0/order/checkout`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${authorization}`,
@@ -132,9 +133,9 @@ const FlashOrder = () => {
           order: {
             shipping: "delivery",
             payment: "credit_card",
-            subtotal: total,
+            subtotal: flashProduct.product.price,
             freight: 30,
-            total: total + 30,
+            total: flashProduct.product.price + 30,
             recipient: {
               name: name,
               phone: phone,
@@ -225,44 +226,44 @@ const FlashOrder = () => {
                 </div>
             </div>
             {flashProduct &&
-                <div className={cart.container}>
-                    <div className={cart.productsListTitle}>
+                <div className={flashstore.container}>
+                    <div className={flashstore.productsListTitle}>
                         <p>您的搶購商品</p>
                         <p>數量</p>
                         <p>單價</p>
                         <p>小計</p>
                     </div>
-                    <div className={cart.products}>
-                        <div className={cart.hr}></div>
-                        <div className={cart.product}>
-                            <div className={cart.productIntroduction}>
-                                <div className={cart.productImg}>
+                    <div className={flashstore.products}>
+                        <div className={flashstore.hr}></div>
+                        <div className={flashstore.product}>
+                            <div className={flashstore.productIntroduction}>
+                                <div className={flashstore.productImg}>
                                     <img src={flashProduct.product.main_image} alt="main" />
                                 </div>
-                                <div className={cart.productDetail}>
-                                    <div className={cart.productTitle}>{flashProduct.product.title}</div>
-                                    <div className={cart.productId}>{flashProduct.product.id}</div>
-                                    <div className={cart.productColor}>
+                                <div className={flashstore.productDetail}>
+                                    <div className={flashstore.productTitle}>{flashProduct.product.title}</div>
+                                    <div className={flashstore.productId}>{flashProduct.product.id}</div>
+                                    <div className={flashstore.productColor}>
                                         <p>顏色&nbsp;</p>
                                         <p>{flashProduct.product.colors[0].name}</p>
                                     </div>
-                                    <div className={cart.productSize}>
+                                    <div className={flashstore.productSize}>
                                         <p>尺寸&nbsp;</p>
                                         <p>{flashProduct.product.sizes[0]}</p>
                                     </div>
                                 </div>
                             </div>
-                            <div className={cart.selectCount}>
+                            <div className={flashstore.selectCount}>
                                 <p>數量</p>
                                 <select name="count">
                                     <option value="1">1</option>
                                 </select>
                             </div>
-                            <div className={cart.productPrice}>
+                            <div className={flashstore.productPrice}>
                                 <p>單價</p>
                                 <p>TWD.{flashProduct.product.price}</p>
                             </div>
-                            <div className={cart.productTotalPrice}>
+                            <div className={flashstore.productTotalPrice}>
                                 <p>小計</p>
                                 <p>TWD.{flashProduct.product.price}</p>
                             </div>

@@ -15,7 +15,7 @@ const Container = styled.div`
   margin: 50px auto;
 `;
 
-const MotionContainer = motion(Container);
+
 
 const DropDownMenu = styled.select`
   width: 100%;
@@ -46,6 +46,8 @@ const InfoContainer = styled.div`
     justify-content: center;
   }
 `;
+const MotionInfoContainer = motion(InfoContainer);
+
 const InfoImgDiv = styled.div`
   height: 100%;
   width: 40%;
@@ -262,7 +264,10 @@ const Color = () => {
             : console.log("no data")}
         </DropDownMenu>
 
-        <InfoContainer>
+        <MotionInfoContainer
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5 }}>
           <InfoImgDiv>
             <InfoImg src={selectedZodiacData?.productImg} />
           </InfoImgDiv>
@@ -289,7 +294,7 @@ const Color = () => {
               <CTAButton>前往購買</CTAButton>
             </a>
           </InfoDetailContainer>
-        </InfoContainer>
+        </MotionInfoContainer>
         <MoreProductDivider />
         <MoreProductIntro>更多相似色產品</MoreProductIntro>
         <MoreProductContainer>

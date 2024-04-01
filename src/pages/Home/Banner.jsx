@@ -6,17 +6,7 @@ import api from "../../utils/api";
 const Banner = () => {
   const { modal, closedModal } = styles;
   const [modalClassName, setModalClassName] = useState(modal);
-  useEffect(() => {
-    // (async function getUserData(){
-    //     const data=await newApi.getUserData()
-    //     // if chance >0 ==> setModalClassName(modal)
-    // })()
-    //////////////test
-    // (async function getCampaigns() {
-    //   const { data } = await api.getCampaigns();
-    //   if (data.length > 0) setModalClassName(modal);
-    // })();
-  }, []);
+
   return (
     <>
       {/* The Modal */}

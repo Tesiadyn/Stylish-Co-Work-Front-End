@@ -1,53 +1,20 @@
-function Profile() {
-  return (
-    <>
-      <div id="root">
-        <div className="profile">
-          <form className="profile__form">
-            <div className="profile__label">Name:</div>
-            <input
-              type="text"
-              name="name"
-              className="profile__input"
-              required=""
-            />
-            <div className="profile__label">Email:</div>
-            <input
-              type="email"
-              name="email"
-              className="profile__input"
-              required=""
-            />
-            <div className="profile__label">Password:</div>
-            <input
-              type="password"
-              name="password"
-              className="profile__input"
-              required=""
-            />
-            <div className="profile__hint">已有帳號？ 前往登入 -&gt;</div>
-            <button type="submit" className="profile__button">
-              註冊
-            </button>
-            <button
-              type="button"
-              className="profile__button"
-              style={{ backgroundColor: "rgb(66, 103, 178)" }}
-            >
-              使用 Facebook
-            </button>
-          </form>
-        </div>
-      </div>
-      <div id="fb-root" className=" fb_reset">
-        <div
-          style={{ position: "absolute", top: "-10000px", width: 0, height: 0 }}
-        >
-          <div />
-        </div>
-      </div>
-    </>
-  );
-}
+import React, { useEffect, useState } from "react";
+import newApi from "../../utils/newApi";
+import { useNavigate } from "react-router-dom";
+const Profile = () => {
+  const navigate = useNavigate();
+  const [isLogIn, setIsLogIn] = useState(false);
+  // useEffect(() => {
+  //     const token=localStorage.getItem('token')
+  //     (async function shouldBeMember(token){
+  //         const {status}=await newApi.shouldBeMember(token)
+  //         console.log(status);
+  //         // if(status)
+  //     })()
+  //   }, []);
+
+  if (isLogIn) return <div>Profile</div>;
+  if (!isLogIn) navigate("/signupPage");
+};
 
 export default Profile;

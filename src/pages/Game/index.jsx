@@ -6,35 +6,75 @@ const Game = () => {
   const { thecard, thecardHovered } = styles;
   const [cardClassName, setCardClassName] = useState(thecard);
   const [coupon, setcoupon] = useState({
-    coupon_title: "會員首購優惠",
-    description: "加入會員即享滿$1000現折100優惠",
-    discount_amt: 100,
-    min_expense: 1000,
-    expire_time: "2024/6/29",
+    coupon_title: "",
+    description: "",
+    discount_amt: "",
+    min_expense: "",
+    expire_time: "",
+    expire_days: "",
   });
-  const { coupon_title, description, discount_amt, min_expense, expire_time } =
+  const { coupon_title, description, discount_amt, min_expense, expire_days } =
     coupon;
   function handleCardFlip() {
     if (isPlayingGame === false) return;
     setCardClassName(thecardHovered);
   }
-  async function getUserData() {
-    //     const response= await fetch('xxxxxxxx')
-    // const data= await response.json()
-    // setcoupon(data)
+  async function getCoupons() {
+    const token = localStorage.getItem("token");
+    const response = await fetch(
+      "https://zackawesome.net/api/1.0/coupon/gamePage",
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const data = await response.json();
+    console.log("後來的優惠", data.coupon);
+    setcoupon(data.coupon);
   }
-  // useEffect(async function getData() {
-  //     const response= await fetch('xxxxxxxx')
-  // const data= await response.json()
-  // setcoupon(data)
-  // setchance()
-  // }, []);
+  async function getChances() {
+    const token = localStorage.getItem("token");
+    const response = await fetch(
+      "https://zackawesome.net/api/1.0/coupon/startGame",
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const { chances } = await response.json();
+    console.log("次數", chances);
+    setChance(chances);
+  }
+  useEffect(() => {
+    getCoupons();
+    // async function getFirstCoupon() {
+    //   const token = localStorage.getItem("token");
+    //   const response = await fetch(
+    //     "https://zackawesome.net/api/1.0/coupon/gamePage",
+    //     {
+    //       method: "GET",
+    //       headers: {
+    //         Authorization: `Bearer ${token}`,
+    //       },
+    //     }
+    //   );
+    //   const data = await response.json();
+    //   console.log("第一個優惠", data.coupon);
+    //   setcoupon(data.coupon);
+    // }
+
+    getChances();
+  }, []);
   function handleButtonClick() {
     setChance((c) => c - 1);
     setCardClassName(thecard);
     setisPlayingGame(true);
-    // request coupon data
-    getUserData();
+    getCoupons();
+    getChances();
   }
   return (
     <>
@@ -42,7 +82,7 @@ const Game = () => {
         <div className={cardClassName} onClick={handleCardFlip}>
           <div className={styles.thefront}>
             <h1></h1>
-            <p>點我抽優惠券</p>
+            <p>按START後點我領優惠券</p>
           </div>
           <div className={styles.theback}>
             <h1>恭喜獲得</h1>
@@ -50,7 +90,7 @@ const Game = () => {
             <p>{description}</p>
             <span>消費滿{min_expense}</span>
             <span>折扣{discount_amt}元</span>
-            <p>使用期限{expire_time}</p>
+            <p>效期{expire_days}天</p>
           </div>
         </div>
       </div>
@@ -61,7 +101,7 @@ const Game = () => {
           onClick={handleButtonClick}
           disabled={chance === 0 ? true : false}
         >
-          開始抽獎
+          START
         </button>
       </section>
     </>

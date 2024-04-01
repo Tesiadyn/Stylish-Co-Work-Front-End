@@ -417,59 +417,69 @@ function Checkout() {
 
   const discount = couponDatas[couponFormInput]?.discount_amt || 0;
 
-  async function getCoupons() {
-    try {
-      const token = localStorage.getItem("token");
-      const response = await fetch(
-        "https://zackawesome.net/api/1.0/coupon/profilePage",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      const data = await response.json();
-      console.log("所有的優惠", data?.coupons);
+  useEffect(() => {
+    async function getCoupons() {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await fetch(
+          "https://zackawesome.net/api/1.0/coupon/profilePage",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const data = await response.json();
+        console.log("所有的優惠", data?.coupons);
 
-      data?.coupons && setCouponDatas(data?.coupons);
-    } catch (error) {
-      console.log(error);
+        data?.coupons && setCouponDatas(data?.coupons);
+      } catch (error) {
+        console.log(error);
+      }
     }
-  }
+    getCoupons();
+  }, []);
 
   function handleCouponDisplay() {
-    getCoupons();
+    // getCoupons();
     setIsCouponOpen(true);
   }
 
   function handleCheckout(e) {
     async function newCheckout() {
-      const token = localStorage.getItem("token");
-      const order = {
-        shipping: "delivery",
-        payment: "credit_card",
-        subtotal: subtotal,
-        freight: freight,
-        user_coupon_id: couponFormInput + 1,
-        use_coupon: 1,
-        discount_amt: discount,
-        total: subtotal + freight - discount,
-        recipient: recipient,
-        list: cartItems,
-      };
-      const response = await newApi.newCheckout(
-        {
-          prime:
-            "db60ba9fb600fe179006d91cdc4912bd3a50ba7726c987f30eed26837150bce8",
-          order: order,
-        },
-        token
-      );
-      console.log(order);
-      console.log(response);
-      if (response.status === 200) {
-        setCartItems([]);
-        navigate("/thankyou");
+      try {
+        setLoading(true);
+        const token = localStorage.getItem("token");
+        const order = {
+          shipping: "delivery",
+          payment: "credit_card",
+          subtotal: subtotal,
+          freight: freight,
+          user_coupon_id: couponFormInput + 1,
+          use_coupon: 1,
+          discount_amt: discount,
+          total: subtotal + freight - discount,
+          recipient: recipient,
+          list: cartItems,
+        };
+        const response = await newApi.newCheckout(
+          {
+            prime:
+              "db60ba9fb600fe179006d91cdc4912bd3a50ba7726c987f30eed26837150bce8",
+            order: order,
+          },
+          token
+        );
+        console.log(order);
+        console.log(response);
+        if (response.status === 200) {
+          setCartItems([]);
+          navigate("/thankyou");
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
       }
     }
     newCheckout();

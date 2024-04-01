@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from "react";
+import Lottie from "lottie-react";
+import lotteryAnimation from "../../components/fireworks.json";
+import congratAnimation from "../../components/congrat.json";
 import styles from "./Game.module.css";
 import { useNavigate } from "react-router-dom";
 const Game = () => {
@@ -15,8 +18,7 @@ const Game = () => {
     expire_time: "",
     expire_days: "",
   });
-  const { coupon_title, description, discount_amt, min_expense, expire_days } =
-    coupon;
+
   function handleCardFlip() {
     if (isPlayingGame === false) return;
     getCoupons();
@@ -40,55 +42,36 @@ const Game = () => {
         }
       );
       const data = await response.json();
-      console.log("優惠", data.coupon);
-      setcoupon(data.coupon);
+      console.log("優惠", data?.coupon);
+      setcoupon(data?.coupon);
     } catch (error) {
       console.log(error);
     }
   }
-  // async function getChances() {
-  //   const token = localStorage.getItem("token");
-  //   const response = await fetch(
-  //     "https://zackawesome.net/api/1.0/coupon/startGame",
-  //     {
-  //       method: "GET",
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     }
-  //   );
-  //   const { chances } = await response.json();
-  //   console.log("次數", chances);
-  //   setChance(chances);
-  // }
-  // useEffect(() => {
-  //   getCoupons();
-  //   // getChances();
-  // }, []);
-  // function handleButtonClick() {
-  //   setChance((c) => c - 1);
-  //   setCardClassName(thecard);
-  //   setisPlayingGame(true);
-  //   // getCoupons();
-  //   // getChances();
-  // }
+
   return (
     <>
       <div className={styles.maincontainer}>
         <div className={cardClassName} onClick={handleCardFlip}>
           <div className={styles.thefront}>
             <h1>請翻牌</h1>
-            <p> </p>
             <p>*尚未登入者請先登入或註冊 </p>
+            <Lottie animationData={lotteryAnimation} loop={true}></Lottie>
           </div>
           <div className={styles.theback}>
             <h1>恭喜獲得</h1>
-            <h3>{coupon_title}</h3>
-            <p>{description}</p>
-            <span>消費滿{min_expense}</span>
-            <span>折扣{discount_amt}元</span>
-            <p>效期{expire_days}天</p>
+            <h3>{coupon?.coupon_title}</h3>
+            <p>{coupon?.description}</p>
+            <span>消費滿{coupon?.min_expense}</span>
+            <span>折扣{coupon?.discount_amt}元</span>
+            <p>效期{coupon?.expire_days}天</p>
           </div>
+          <Lottie
+            // style={{ display: "none" }}
+            style={{ display: cardClassName === thecard ? "none" : "block" }}
+            animationData={congratAnimation}
+            loop={true}
+          ></Lottie>
         </div>
       </div>
 

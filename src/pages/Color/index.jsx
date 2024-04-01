@@ -15,8 +15,6 @@ const Container = styled.div`
   margin: 50px auto;
 `;
 
-
-
 const DropDownMenu = styled.select`
   width: 100%;
   height: 35px;
@@ -111,9 +109,11 @@ const InfoDetailStarProductText = styled.p`
 const CTAButton = styled.button`
   margin-top: 30%;
   width: 80%;
-  height: 30px;
+  height: 35px;
   background-color: #948181;
-  color: #fff;
+  color: #f7f7f7;
+  font-size: 20px;
+  font-weight: 600;
   border-radius: 8px;
   box-shadow: 5px 5px 5px rgba(185, 183, 189, 0.4);
   @media screen and (max-width: 1279px) {
@@ -267,9 +267,10 @@ const Color = () => {
         </DropDownMenu>
 
         <MotionInfoContainer
-        initial={{ opacity: 0, scale: 0.5 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}>
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+        >
           <InfoImgDiv>
             <InfoImg src={selectedZodiacData?.productImg} />
           </InfoImgDiv>
@@ -294,9 +295,12 @@ const Color = () => {
             </InfoDetailStarProductText>
             <a href={`/products/${selectedZodiacData?.productId} `}>
               <MotionCtaButton
-              whileHover={{ scale: 1.2 }}
-              whileTap={{ scale: 0.9 }}
-              transition={{ type: "spring", stiffness: 400, damping: 17 }}>前往購買</MotionCtaButton>
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.9 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              >
+                前往購買
+              </MotionCtaButton>
             </a>
           </InfoDetailContainer>
         </MotionInfoContainer>

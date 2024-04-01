@@ -120,6 +120,8 @@ const CTAButton = styled.button`
     margin: 5% 0 10%;
   }
 `;
+const MotionCtaButton = motion(CTAButton);
+
 const MoreProductDivider = styled.div`
   height: 1px;
   background-color: #cfcfcf;
@@ -291,7 +293,10 @@ const Color = () => {
               {selectedZodiacData?.description}
             </InfoDetailStarProductText>
             <a href={`/products/${selectedZodiacData?.productId} `}>
-              <CTAButton>前往購買</CTAButton>
+              <MotionCtaButton
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.9 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}>前往購買</MotionCtaButton>
             </a>
           </InfoDetailContainer>
         </MotionInfoContainer>

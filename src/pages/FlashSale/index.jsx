@@ -1,22 +1,23 @@
 import flashsale from '../../css/FlashSale.module.css'
-import mainImage from './main.jpg'
 import { FlashContext } from '../../context/flashContext'
-import image0 from './0.jpg'
-import image1 from './1.jpg'
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const FlashSale = () => {
     const navigate = useNavigate()
 
-    // const colors = ['a', 'b', 'c']
-    // const sizes = ['S', 'M', 'L']
-    // const [activeColor, setActiveColor] = useState('')
-
-    const { colors, sizes, activeColor, setActiveColor } = useContext(FlashContext)
+    const { activeColor, setActiveColor, activeSize, setActiveSize, flashProduct, currentTime } = useContext(FlashContext)
+    const [flashTime, setFlashTime] = useState(false)
+    const [leftHours, setLeftHours] = useState(0)
+    const [leftMinute, setLeftMinute] = useState(0)
+    const [leftSecond, setLeftSecond] = useState(0)
 
     const handleColor = (color) => {
         setActiveColor(color)
+    }
+
+    const handleSize = (size) => {
+        setActiveSize(size)
     }
 
     const handleToBuy = () => {
@@ -25,93 +26,129 @@ const FlashSale = () => {
         navigate('/flashorder')
     }
 
+    useEffect(() => {
+        if (flashProduct && currentTime) {
+            const currentDate = new Date(currentTime)
+            currentDate.setMilliseconds(0)
+            const startDate = new Date(flashProduct.start_time)
+            const endDate = new Date(flashProduct.end_time)
+            startDate.setMilliseconds(0)
+            endDate.setMilliseconds(0)
+            let timeRemainingOfStart = (startDate - currentDate) / 1000
+            let timeRemainingOfEnd = (endDate - currentDate) / 1000
+            if (currentDate >= startDate && currentDate <= endDate) {
+                setFlashTime(true)
+                setLeftHours(Math.floor(timeRemainingOfEnd / 3600))
+                setLeftMinute(Math.floor(timeRemainingOfEnd / 60) % 60)
+                setLeftSecond(timeRemainingOfEnd % 60)
+            } else {
+                setFlashTime(false)
+                setLeftHours(Math.floor(timeRemainingOfStart / 3600))
+                setLeftMinute(Math.floor(timeRemainingOfStart / 60) % 60)
+                setLeftSecond(timeRemainingOfStart % 60)
+            }
+        }
+    }, [currentTime])
+
     return (
         <>
-            <div className={flashsale.countdown}>
-                <div className={flashsale.countdownLayout}>
-                    <h3>限時⚡特賣</h3>
-                    <p><i className="fa-regular fa-clock"></i>結束於</p>
-                    <div className={flashsale.countdownDisplay}>
-                        <div className={flashsale.hours}>
-                            <p>0</p>
-                            <p>0</p>
-                        </div>
-                        <div className={flashsale.minutes}>
-                            <p>0</p>
-                            <p>0</p>
-                        </div>
-                        <div className={flashsale.seconds}>
-                            <p>0</p>
-                            <p>0</p>
+            {currentTime &&
+                <div className={flashsale.countdown}>
+                    <div className={flashsale.countdownLayout}>
+                        <h3>限時⚡特賣</h3>
+                        <p><i className="fa-regular fa-clock"></i>{flashTime ? '結束於' : '開始於'}</p>
+                        <div className={flashsale.countdownDisplay}>
+                            <div className={flashsale.hours}>
+                                <p>{leftHours.toString().padStart(2, '0')}</p>
+                            </div>
+                            <div className={flashsale.minutes}>
+                                <p>{leftMinute.toString().padStart(2, '0')}</p>
+                            </div>
+                            <div className={flashsale.seconds}>
+                                <p>{leftSecond.toString().padStart(2, '0')}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className={flashsale.container}>
-                <div className={flashsale.mainImage}>
-                    <img src={mainImage} alt="main" />
-                </div>
-                <div className={flashsale.introduction}>
-                    <p className={flashsale.title}>前開衩扭結洋裝</p>
-                    <p className={flashsale.date}>201807201824</p>
-                    <p className={flashsale.price}>TWD.799</p>
-                    <div className={flashsale.hr}></div>
-                    <div className={flashsale.selectColors}>
-                        <p>顏色</p>
-                        <div className={flashsale.colors}>
-                            {colors.map(color => (
-                                <div onClick={() => handleColor(color)} key={color} className={color === activeColor ? flashsale.active : ''}><div></div></div>
-                            ))}
+            }
+            {flashProduct &&
+                <div className={flashsale.container}>
+                    <div className={flashsale.mainImage}>
+                        <img src={flashProduct.product.main_image} alt="main" />
+                    </div>
+                    <div className={flashsale.introduction}>
+                        <p className={flashsale.title}>{flashProduct.product.title}</p>
+                        <p className={flashsale.date}>{flashProduct.product.id}</p>
+                        <p className={flashsale.price}>TWD.{flashProduct.product.price}</p>
+                        <div className={flashsale.hr}></div>
+                        <div className={flashsale.selectColors}>
+                            <p>顏色</p>
+                            <div className={flashsale.colors}>
+                                {flashProduct.product.colors.map((color, index) => (
+                                    <div onClick={() => handleColor(color.code)}
+                                         key={color.code}
+                                         className={!activeColor && index === 0 ?
+                                                    flashsale.active : activeColor === color.code ?
+                                                    flashsale.active : ''}><div style={{ backgroundColor: `#${color.code}` }}></div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        <div className={flashsale.selectSize}>
+                            <p>尺寸</p>
+                            <div className={flashsale.size}>
+                                {flashProduct.product.sizes.map((size, index) => (
+                                    <div onClick={() => handleSize(size)}
+                                         key={size}
+                                         style={activeSize === size ? { backgroundColor: 'black', color: 'white' } : null}
+                                         className={!activeSize && index === 0 && flashProduct.stock ?
+                                                    flashsale.sizeSelected : flashProduct.stock ?
+                                                    flashsale.sizeAvailableNotSelected : flashsale.sizeOutOfStock}>{size}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        <div className={flashsale.selectCount}>
+                            <p>數量</p>
+                            <span className={flashsale.remindCount}>餘{flashProduct.stock}</span>
+                            <div className={flashsale.count}>
+                                <div>⚡</div>
+                                <div>限購1次</div>
+                                <div>⚡</div>
+                            </div>
+                        </div>
+                        <div onClick={handleToBuy} className={flashTime ? flashsale.buy : flashsale.message}>
+                            <p>{flashTime ? '立即購買' : `即將開放搶購(倒數${leftHours.toString().padStart(2, '0')}:${leftMinute.toString().padStart(2, '0')}:${leftSecond.toString().padStart(2, '0')})`}</p>
+                        </div>
+                        <div className={flashsale.detail}>
+                            <p>
+                                {flashProduct.product.note}<br />
+                                <br />
+                                {flashProduct.product.texture}<br />
+                                厚薄：薄<br />
+                                彈性：無<br />
+                                <br />
+                                清洗：{flashProduct.product.wash}<br />
+                                產地：{flashProduct.product.place}
+                            </p>
                         </div>
                     </div>
-                    <div className={flashsale.selectSize}>
-                        <p>尺寸</p>
-                        <div className={flashsale.size}>
-                            {sizes.map(size => (
-                                <div key={size}>{size}</div>
-                            ))}
+                    <div className={flashsale.story}>
+                        <div>
+                            <p>更多產品資訊</p>
+                            <div></div>
                         </div>
+                        <p>{flashProduct.product.story}</p>
                     </div>
-                    <div className={flashsale.selectCount}>
-                        <p>數量</p>
-                        <div className={flashsale.count}>
-                            <div>⚡</div>
-                            <div>限購1次</div>
-                            <div>⚡</div>
-                        </div>
-                    </div>
-                    <div onClick={handleToBuy} className={flashsale.buy}>
-                        <p>立即購買</p>
-                    </div>
-                    <div className={flashsale.detail}>
-                        <p>
-                            實品顏色依單品照為主<br />
-                            <br />
-                            棉 100%<br />
-                            厚薄：薄<br />
-                            彈性：無<br />
-                            <br />
-                            清洗：手洗，溫水<br />
-                            產地：中國
-                        </p>
+                    <div className={flashsale.images}>
+                        {flashProduct.product.images.map(image => (
+                            <div key={image}>
+                                <img src={image} alt="0" />
+                            </div>
+                        ))}
                     </div>
                 </div>
-                {/* <div className={flashsale.story}>
-                    <div>
-                        <p>更多產品資訊</p>
-                        <div></div>
-                    </div>
-                    <p>O.N.S is all about options, which is why we took our staple polo shirt and upgraded it with slubby linen jersey, making it even lighter for those who prefer their summer style extra.breezy.</p>
-                </div>
-                <div className={flashsale.images}>
-                    <div>
-                        <img src={image0} alt="0" />
-                    </div>
-                    <div>
-                        <img src={image1} alt="1" />
-                    </div>
-                </div> */}
-            </div>
+            }
         </>
     )
 }

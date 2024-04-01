@@ -6,7 +6,13 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "commit": "git-cz"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   },
   "dependencies": {
     "gsap": "^3.12.5",
@@ -14,17 +20,23 @@
     "react-dom": "^18.2.0",
     "react-loading": "^2.0.3",
     "react-router-dom": "^6.11.2",
+    "react-type-animation": "^3.2.0",
     "styled-components": "^6.0.0-rc.3",
-    "styled-reset": "^4.4.7"
+    "styled-reset": "^4.4.7",
+    "swiper": "^11.1.0",
+    "vite-plugin-babel-macros": "^1.0.6"
   },
   "devDependencies": {
     "@types/react": "^18.0.37",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^4.0.0",
+    "babel-plugin-styled-components": "^2.1.4",
+    "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.38.0",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.3.4",
-    "vite": "^4.3.9"
+    "vite": "^4.5.3"
   }
 }

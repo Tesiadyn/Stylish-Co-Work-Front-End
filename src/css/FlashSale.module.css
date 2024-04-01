@@ -232,6 +232,22 @@
     /* color: #8B572A; */
 }
 
+.message{
+    width: 100%;
+    height: 44px;
+    font-size: 16px;
+    line-height: 30px;
+    letter-spacing: 3.2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(195, 195, 195);
+    background-color: rgb(65, 65, 66);
+    margin-top: 10px;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
 .buy{
     width: 100%;
     height: 44px;
@@ -406,6 +422,14 @@
     /* .count div:nth-child(2){
         font-size: 16px;
     } */
+    .message{
+        width: 360px;
+        height: 64px;
+        font-size: 20px;
+        letter-spacing: 4px;
+        border: 1px solid #979797;
+        margin-top: 26px;
+    }
     .buy{
         width: 360px;
         height: 64px;

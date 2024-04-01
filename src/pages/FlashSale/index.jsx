@@ -104,8 +104,8 @@ const FlashSale = () => {
                                 <div>⚡</div>
                             </div>
                         </div>
-                        <div onClick={handleToBuy} className={flashsale.buy}>
-                            <p>立即購買</p>
+                        <div onClick={handleToBuy} className={flashTime ? flashsale.buy : flashsale.message}>
+                            <p>{flashTime ? '立即購買' : '即將開放搶購'}</p>
                         </div>
                         <div className={flashsale.detail}>
                             <p>

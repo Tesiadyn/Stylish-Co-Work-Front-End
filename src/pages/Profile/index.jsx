@@ -4,15 +4,19 @@ import { useNavigate } from "react-router-dom";
 const Profile = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setisLoggedIn] = useState();
+
   useEffect(() => {
     const token = localStorage.getItem("token");
+    console.log(token);
     async function shouldBeMember(token) {
       try {
         const data = await newApi.shouldBeMember(token);
         console.log(data);
+        console.log(data.status);
         if (data.status === 200) {
           console.log("成功");
           setisLoggedIn(true);
+          navigate("/profile");
         } else {
           navigate("/signup");
         }

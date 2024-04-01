@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function SigninPage() {
+  const navigate = useNavigate();
+
   const [formValue, setformValue] = useState({
     provider: "native",
     email: "",
@@ -23,7 +26,7 @@ function SigninPage() {
       options
     );
     const { data } = await res.json();
-    const token = data.access_token;
+    const token = data?.access_token;
     console.log("登入後", token);
     localStorage.setItem("token", token);
   }
@@ -31,6 +34,8 @@ function SigninPage() {
   function handleFormSubmit(e) {
     e.preventDefault();
     signIn();
+    alert("登入成功");
+    navigate("/");
   }
   return (
     <>

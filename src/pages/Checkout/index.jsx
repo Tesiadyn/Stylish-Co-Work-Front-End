@@ -5,6 +5,7 @@ import Button from "../../components/Button";
 import { AuthContext } from "../../context/authContext";
 import { CartContext } from "../../context/cartContext";
 import api from "../../utils/api";
+import newApi from "../../utils/newApi";
 import tappay from "../../utils/tappay";
 import Cart from "./Cart";
 import Coupon from "./Coupon";
@@ -298,7 +299,6 @@ const timeOptions = [
 ];
 
 function Checkout() {
-  // const [is, setis] = useState(second)
   const [recipient, setRecipient] = useState({
     name: "",
     email: "",
@@ -401,6 +401,7 @@ function Checkout() {
   }
 
   //-----------------coupon------------------------
+
   const [isCouponOpen, setIsCouponOpen] = useState(false);
 
   const [couponDatas, setCouponDatas] = useState([
@@ -440,7 +441,39 @@ function Checkout() {
     getCoupons();
     setIsCouponOpen(true);
   }
-  function handleCheckout() {}
+
+  function handleCheckout(e) {
+    async function newCheckout() {
+      const token = localStorage.getItem("token");
+      const order = {
+        shipping: "delivery",
+        payment: "credit_card",
+        subtotal: subtotal,
+        freight: freight,
+        user_coupon_id: null,
+        use_coupon: couponFormInput,
+        discount_amt: discount,
+        total: subtotal + freight - discount,
+        recipient: recipient,
+        list: cartItems,
+      };
+      const response = await newApi.newCheckout(
+        {
+          prime:
+            "db60ba9fb600fe179006d91cdc4912bd3a50ba7726c987f30eed26837150bce8",
+          order: order,
+        },
+        token
+      );
+      console.log(order);
+      console.log(response);
+      if (response.status === 200) {
+        setCartItems([]);
+        navigate("/thankyou");
+      }
+    }
+    newCheckout();
+  }
   return (
     <Wrapper>
       <Coupon
@@ -538,15 +571,13 @@ function Checkout() {
         <Currency>NT.</Currency>
         <PriceValue>{subtotal + freight - discount}</PriceValue>
       </TotalPrice>
-      <a href="/thankyou">
-        <Button
-          loading={loading}
-          onClick={handleCheckout}
-          // onClick={checkout}
-        >
-          確認付款
-        </Button>
-      </a>
+      <Button
+        loading={loading}
+        onClick={(e) => handleCheckout(e)}
+        // onClick={checkout}
+      >
+        確認付款
+      </Button>
     </Wrapper>
   );
 }

@@ -17,6 +17,7 @@ const FlashIcon = () => {
                 </div>
                 <a href="./flashsale"><img src={saleIcon} alt="icon" /></a>
                 {/* <p className={flashicon.timer}>00:00:00</p> */}
+                <div className={flashicon.spinning}></div>
             </div>
         </div>
     )

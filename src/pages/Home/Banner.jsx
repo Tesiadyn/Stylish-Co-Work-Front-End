@@ -27,7 +27,7 @@ const Banner = () => {
             </figure>
             <p>週年慶抽獎活動</p>
             <p>天天抽會員專屬優惠券</p>
-            <a href="/game">
+            <a href="/game" style={{ textDecoration: "none" }}>
               <button>立即領取</button>
             </a>
           </div>

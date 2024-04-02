@@ -261,6 +261,7 @@ const AnnounceDiv = styled(Link)`
   text-align: center;
   display: none;
   cursor: pointer;
+  text-decoration: none;
   z-index: 99;
   @media screen and (max-width: 1279px) {
     display: block;

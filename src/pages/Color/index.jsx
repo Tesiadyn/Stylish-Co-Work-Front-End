@@ -62,14 +62,16 @@ const InfoImgDiv = styled.div`
   border-radius: 8px;
   @media screen and (max-width: 1279px) {
     width: auto;
-    height: 180px;
+    overflow: visible;
+    height: 350px;
+    margin-top: 20px;
   }
 `;
 const InfoImg = styled.img`
   width: 100%;
   height: 100%;
   @media screen and (max-width: 1279px) {
-    height: 600px;
+    height: 100%;
   }
 `;
 const InfoDetailContainer = styled.div`
@@ -111,6 +113,9 @@ const InfoDetailStarColorStory = styled.p`
 const InfoDetailStarProductTitle = styled.h2`
   font-size: 36px;
   margin-top: 90px;
+  @media screen and (max-width: 1279px) {
+    margin-top: 40px;
+  }
 `;
 const InfoDetailStarProductText = styled.p`
   font-size: 14px;
@@ -343,9 +348,7 @@ const Color = () => {
             <InfoDetailStarProductTitle>
               {selectedZodiacData?.productTitle}
             </InfoDetailStarProductTitle>
-            <InfoDetailStarProductText>
-              {selectedZodiacData?.productStory}
-            </InfoDetailStarProductText>
+
             <a href={`/products/${selectedZodiacData?.productId} `}>
               <MotionCtaButton
                 whileHover={{ scale: 1.2 }}

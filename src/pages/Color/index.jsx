@@ -60,11 +60,12 @@ const InfoImgDiv = styled.div`
   overflow: hidden;
   background-color: beige;
   border-radius: 8px;
+  margin-top: 50px;
   @media screen and (max-width: 1279px) {
     width: auto;
     overflow: visible;
-    height: 350px;
-    margin-top: 20px;
+    height: 400px;
+    margin-top: 200px;
   }
 `;
 const InfoImg = styled.img`

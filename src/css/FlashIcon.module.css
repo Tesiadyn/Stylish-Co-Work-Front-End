@@ -6,6 +6,7 @@
     width: 80px;
     height: 80px;
     background-color: rgb(255, 245, 60);
+    background-image: conic-gradient(red, orange, yellow, orange, red);
     border-radius: 50%;
     color: white;
 }

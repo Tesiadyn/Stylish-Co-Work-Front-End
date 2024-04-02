@@ -51,6 +51,10 @@ const Profile = () => {
     }
     shouldBeMember(token);
   }, []);
+
+  function logout() {
+    localStorage.clear();
+  }
   if (isLoggedIn)
     return (
       <>
@@ -60,6 +64,9 @@ const Profile = () => {
             <ExitButton>前往購物</ExitButton>
           </ExitButtonDiv>
         </ExitAnchor>
+        <ExitButtonDiv>
+          <ExitButton onClick={logout}>登出</ExitButton>
+        </ExitButtonDiv>
       </>
     );
 };

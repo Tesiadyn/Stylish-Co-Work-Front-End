@@ -21,21 +21,27 @@ function SigninPage() {
   };
 
   async function signIn() {
-    const res = await fetch(
-      "https://zackawesome.net/api/1.0/user/signin",
-      options
-    );
-    const { data } = await res.json();
-    const token = data?.access_token;
-    console.log("登入後", token);
-    localStorage.setItem("token", token);
+    try {
+      const res = await fetch(
+        "https://zackawesome.net/api/1.0/user/signin",
+        options
+      );
+      const { data } = await res.json();
+      const token = data?.access_token;
+      if (token) {
+        localStorage.setItem("token", token);
+        alert("登入成功");
+        navigate("/");
+      } else alert("登入失敗");
+    } catch (error) {
+      console.log(error);
+      alert("登入失敗");
+    }
   }
   const { email, password } = formValue;
   function handleFormSubmit(e) {
     e.preventDefault();
     signIn();
-    alert("登入成功");
-    navigate("/");
   }
   return (
     <>

@@ -58,8 +58,8 @@
   border-radius: 10px;
   backface-visibility: hidden;
   overflow: hidden;
-  background: #fafafa;
-  color: #333;
+  background: #041558;
+  color: #ececec;
   text-align: center;
   transform: rotateY(180deg);
 }
@@ -73,8 +73,10 @@
   font-size: 24px;
   text-align: center;
 }
-
-.thefront p,
+.thefront p {
+  font-size: 12px;
+  text-align: center;
+}
 .theback p {
   padding: 30px;
   font-weight: normal;

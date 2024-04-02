@@ -55,12 +55,12 @@ const InfoContainer = styled.div`
 const MotionInfoContainer = motion(InfoContainer);
 
 const InfoImgDiv = styled.div`
-  height: 100%;
+  height: auto;
   width: 40%;
   overflow: hidden;
   background-color: beige;
   border-radius: 8px;
-  margin-top: 50px;
+  margin-top: 30px;
   @media screen and (max-width: 1279px) {
     width: auto;
     overflow: visible;
@@ -88,7 +88,7 @@ const InfoDetailContainer = styled.div`
 const InfoDetailStarTitle = styled.h2`
   font-size: 32px;
   margin: 10px 0;
-  @media screen and (max-width: 1279px){
+  @media screen and (max-width: 1279px) {
     margin-top: 0;
   }
 `;
@@ -147,7 +147,7 @@ const MoreProductDivider = styled.div`
   height: 1px;
   background-color: #cfcfcf;
   margin: 50px 0 15px;
-  @media screen and (max-width:1279px){
+  @media screen and (max-width: 1279px) {
     margin-top: 180px;
   }
 `;

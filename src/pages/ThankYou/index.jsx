@@ -22,6 +22,12 @@ const Content = styled.div`
 
 const BackButton = styled.button`
   margin-top: 24px;
+  font-size: 20px;
+  font-weight: 600;
+  background-color: #2c2c2c;
+  color: #f7f7f7;
+  padding: 4px 50px;
+  box-shadow: 3px 3px 3px rgba(63, 63, 63, 0.4);
 `;
 
 function ThankYou() {

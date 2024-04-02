@@ -213,8 +213,11 @@ const Color = () => {
       .then((data) => {
         setZodiacData(data);
         setIsLoading(false);
-        setSelectedZodiacId(data[0].zodiacId);
-        setBgColor(`#${data[0].colorHex}`);
+        const leoZodiac = data.find((zodiac) => zodiac.zodiacZh === "獅子座");
+        if (leoZodiac) {
+          setSelectedZodiacId(leoZodiac.zodiacId);
+          setBgColor(`#${leoZodiac.colorHex}`);
+        }
       })
       .catch((err) => {
         console.error("Error when fetching", err);
